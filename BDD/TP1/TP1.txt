@@ -1,0 +1,24 @@
+Partage réseau avec Biome :
+
+https://partages-reseaux.unilim.fr
+
+Connecter un lecteur réseau depuis Windows (possible avec le VPN depuis l'extérieur de l'université) : 
+
+Espace personnel :
+\\smb-05.unilim.fr\votre_login
+Login : AD\votre_login
+Mot de passe : votre_mot_de passe
+
+Espace public :
+\\ad.unilim.fr\pedagogie\pedago-iut\INFO
+Login : AD\votre_login
+Mot de passe : votre_mot_de passe
+
+Lancer JGraph :
+
+Exécuter les commandes suivantes dans un terminal :
+docker pull jgraph/drawio
+docker run -it --rm --name="draw" -p 8080:8080 -p 8443:8443 jgraph/drawio
+
+Puis, démarrer JGraph dans un navigateur :
+http://localhost:8080/?offline=1&https=0

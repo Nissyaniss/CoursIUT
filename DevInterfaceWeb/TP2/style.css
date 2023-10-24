@@ -1,0 +1,94 @@
+body {
+	margin: 0;
+}
+
+html {
+	background-color: #d1fffb;
+}
+
+#title {
+	text-align: center;
+	padding: 60px;
+	background-image: url("img/banner.jpg");
+	background-position: 1%;
+	background-size: cover;
+	color: black;
+}
+
+#page {
+	display: grid;
+	grid-template-columns: 25% 50% 25%;
+	background-color: #d1fffb;
+	height: 100%;
+}
+
+#nav {
+	background-color: white;
+	display: grid;
+	width: 100%;
+	height: 1.5%;
+	grid-template-columns: 25% 25% 25% 25%;
+	text-align: center;
+	grid-column: 2;
+}
+
+.Part {
+	display: inline-block;
+	background-color: white;
+	grid-column: 2;
+	padding: 2%;
+}
+
+.navContent{
+	border: 1px solid black;
+	padding: 3%;
+	background-color: white;
+}
+
+
+#LittleBox{
+	background-color: rgba(255, 255, 0, 0.347);
+	width: 25%;
+	height: auto;
+	padding: 5px;
+	float: right;
+	margin: 25px;
+}
+
+.no-margin {
+	margin: 0;
+}
+
+.divider {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 35%;
+}
+
+#quote {
+	text-align: center;
+}
+
+.quoteText {
+	font-size:x-large;
+}
+
+.quoteAuthor {
+	margin-left: 15%;
+}
+
+#table {
+	border-collapse: collapse;
+	width: 55%;
+	text-align: center;
+}
+
+.tableBorder {
+	border: 1px solid black;
+	padding: 0.5%;
+}
+
+.no-bold {
+	font-weight: normal;
+}

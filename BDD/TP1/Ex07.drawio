@@ -1,0 +1,143 @@
+<mxfile host="65bd71144e">
+    <diagram name="Page-1" id="hRkRVlNst7bXBQxGcBj7">
+        <mxGraphModel dx="1746" dy="604" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="ZKiBXH9npHO8oLUT0B8A-1" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;Catégorie&lt;/font&gt;" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fontFamily=FiraCode Nerd Font Propo;" parent="1" vertex="1">
+                    <mxGeometry x="285" y="430" width="140" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="ZKiBXH9npHO8oLUT0B8A-2" value="Numéro" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;fontFamily=FiraCode Nerd Font Propo;" parent="ZKiBXH9npHO8oLUT0B8A-1" vertex="1">
+                    <mxGeometry y="30" width="140" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="ZKiBXH9npHO8oLUT0B8A-3" value="Libellé" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;fontFamily=FiraCode Nerd Font Propo;" parent="ZKiBXH9npHO8oLUT0B8A-1" vertex="1">
+                    <mxGeometry y="60" width="140" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="ZKiBXH9npHO8oLUT0B8A-5" value="Livre" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fontFamily=FiraCode Nerd Font Propo;" parent="1" vertex="1">
+                    <mxGeometry x="-140" y="430" width="140" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="ZKiBXH9npHO8oLUT0B8A-6" value="&lt;u&gt;ISBN&lt;/u&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;fontFamily=FiraCode Nerd Font Propo;" parent="ZKiBXH9npHO8oLUT0B8A-5" vertex="1">
+                    <mxGeometry y="30" width="140" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="ZKiBXH9npHO8oLUT0B8A-7" value="Auteur" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;fontFamily=FiraCode Nerd Font Propo;" parent="ZKiBXH9npHO8oLUT0B8A-5" vertex="1">
+                    <mxGeometry y="60" width="140" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="ZKiBXH9npHO8oLUT0B8A-8" value="Item 3" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;fontFamily=FiraCode Nerd Font Propo;" parent="ZKiBXH9npHO8oLUT0B8A-5" vertex="1">
+                    <mxGeometry y="90" width="140" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="ZKiBXH9npHO8oLUT0B8A-9" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;Type&lt;/font&gt;" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fontFamily=FiraCode Nerd Font Propo;" parent="1" vertex="1">
+                    <mxGeometry x="285" y="265" width="140" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="ZKiBXH9npHO8oLUT0B8A-10" value="&lt;u&gt;Numéro&lt;/u&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;fontFamily=FiraCode Nerd Font Propo;" parent="ZKiBXH9npHO8oLUT0B8A-9" vertex="1">
+                    <mxGeometry y="30" width="140" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="ZKiBXH9npHO8oLUT0B8A-11" value="Libellé" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;fontFamily=FiraCode Nerd Font Propo;" parent="ZKiBXH9npHO8oLUT0B8A-9" vertex="1">
+                    <mxGeometry y="60" width="140" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="ZKiBXH9npHO8oLUT0B8A-13" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;Sociéte&lt;/font&gt;" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fontFamily=FiraCode Nerd Font Propo;" parent="1" vertex="1">
+                    <mxGeometry x="560" y="90" width="140" height="150" as="geometry"/>
+                </mxCell>
+                <mxCell id="ZKiBXH9npHO8oLUT0B8A-14" value="&lt;u&gt;Numéro&lt;/u&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;fontFamily=FiraCode Nerd Font Propo;" parent="ZKiBXH9npHO8oLUT0B8A-13" vertex="1">
+                    <mxGeometry y="30" width="140" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="ZKiBXH9npHO8oLUT0B8A-15" value="Nom" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;fontFamily=FiraCode Nerd Font Propo;" parent="ZKiBXH9npHO8oLUT0B8A-13" vertex="1">
+                    <mxGeometry y="60" width="140" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="ZKiBXH9npHO8oLUT0B8A-36" value="Adresse" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;fontFamily=FiraCode Nerd Font Propo;" parent="ZKiBXH9npHO8oLUT0B8A-13" vertex="1">
+                    <mxGeometry y="90" width="140" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="ZKiBXH9npHO8oLUT0B8A-35" value="Id" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;fontFamily=FiraCode Nerd Font Propo;" parent="ZKiBXH9npHO8oLUT0B8A-13" vertex="1">
+                    <mxGeometry y="120" width="140" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="ZKiBXH9npHO8oLUT0B8A-17" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;Lecteur&lt;/font&gt;" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fontFamily=FiraCode Nerd Font Propo;" parent="1" vertex="1">
+                    <mxGeometry x="-40" y="90" width="140" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="ZKiBXH9npHO8oLUT0B8A-18" value="&lt;u&gt;Numéro&lt;/u&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;fontFamily=FiraCode Nerd Font Propo;" parent="ZKiBXH9npHO8oLUT0B8A-17" vertex="1">
+                    <mxGeometry y="30" width="140" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="ZKiBXH9npHO8oLUT0B8A-19" value="Nom" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;fontFamily=FiraCode Nerd Font Propo;" parent="ZKiBXH9npHO8oLUT0B8A-17" vertex="1">
+                    <mxGeometry y="60" width="140" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="ZKiBXH9npHO8oLUT0B8A-20" value="Adresse" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;fontFamily=FiraCode Nerd Font Propo;" parent="ZKiBXH9npHO8oLUT0B8A-17" vertex="1">
+                    <mxGeometry y="90" width="140" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="ZKiBXH9npHO8oLUT0B8A-32" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;shape=link;fontFamily=FiraCode Nerd Font Propo;" parent="1" source="ZKiBXH9npHO8oLUT0B8A-21" target="ZKiBXH9npHO8oLUT0B8A-7" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="ZKiBXH9npHO8oLUT0B8A-48" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;1,1&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontFamily=FiraCode Nerd Font Propo;" parent="ZKiBXH9npHO8oLUT0B8A-32" vertex="1" connectable="0">
+                    <mxGeometry x="0.0679" y="-1" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="ZKiBXH9npHO8oLUT0B8A-21" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;Classé&lt;/font&gt;" style="ellipse;whiteSpace=wrap;html=1;fontFamily=FiraCode Nerd Font Propo;" parent="1" vertex="1">
+                    <mxGeometry x="80" y="465" width="120" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="ZKiBXH9npHO8oLUT0B8A-30" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;shape=link;fontFamily=FiraCode Nerd Font Propo;" parent="1" source="ZKiBXH9npHO8oLUT0B8A-22" target="ZKiBXH9npHO8oLUT0B8A-1" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="ZKiBXH9npHO8oLUT0B8A-45" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;1,N&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontFamily=FiraCode Nerd Font Propo;" parent="ZKiBXH9npHO8oLUT0B8A-30" vertex="1" connectable="0">
+                    <mxGeometry x="0.1471" y="-5" relative="1" as="geometry">
+                        <mxPoint x="-7" y="5" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="ZKiBXH9npHO8oLUT0B8A-22" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;Acceder&lt;/font&gt;" style="ellipse;whiteSpace=wrap;html=1;fontFamily=FiraCode Nerd Font Propo;" parent="1" vertex="1">
+                    <mxGeometry x="490" y="350" width="120" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="ZKiBXH9npHO8oLUT0B8A-28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;shape=link;fontFamily=FiraCode Nerd Font Propo;" parent="1" source="ZKiBXH9npHO8oLUT0B8A-23" target="ZKiBXH9npHO8oLUT0B8A-9" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="ZKiBXH9npHO8oLUT0B8A-43" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;0,N&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontFamily=FiraCode Nerd Font Propo;" parent="ZKiBXH9npHO8oLUT0B8A-28" vertex="1" connectable="0">
+                    <mxGeometry x="-0.1026" y="2" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="ZKiBXH9npHO8oLUT0B8A-23" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;Appartient&lt;/font&gt;" style="ellipse;whiteSpace=wrap;html=1;fontFamily=FiraCode Nerd Font Propo;" parent="1" vertex="1">
+                    <mxGeometry x="100" y="270" width="120" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="ZKiBXH9npHO8oLUT0B8A-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;shape=link;fontFamily=FiraCode Nerd Font Propo;" parent="1" source="ZKiBXH9npHO8oLUT0B8A-24" target="ZKiBXH9npHO8oLUT0B8A-13" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="ZKiBXH9npHO8oLUT0B8A-40" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;1,N&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontFamily=FiraCode Nerd Font Propo;" parent="ZKiBXH9npHO8oLUT0B8A-26" vertex="1" connectable="0">
+                    <mxGeometry x="-0.2667" y="-2" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="ZKiBXH9npHO8oLUT0B8A-24" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;Etre membre&lt;/font&gt;" style="ellipse;whiteSpace=wrap;html=1;fontFamily=FiraCode Nerd Font Propo;" parent="1" vertex="1">
+                    <mxGeometry x="260" y="125" width="120" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="ZKiBXH9npHO8oLUT0B8A-25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;shape=link;fontFamily=FiraCode Nerd Font Propo;" parent="1" source="ZKiBXH9npHO8oLUT0B8A-19" target="ZKiBXH9npHO8oLUT0B8A-24" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="ZKiBXH9npHO8oLUT0B8A-39" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;0,1&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontFamily=FiraCode Nerd Font Propo;" parent="ZKiBXH9npHO8oLUT0B8A-25" vertex="1" connectable="0">
+                    <mxGeometry x="0.475" y="-1" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="ZKiBXH9npHO8oLUT0B8A-27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;shape=link;fontFamily=FiraCode Nerd Font Propo;" parent="1" source="ZKiBXH9npHO8oLUT0B8A-19" target="ZKiBXH9npHO8oLUT0B8A-23" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="ZKiBXH9npHO8oLUT0B8A-41" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;1,1&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontFamily=FiraCode Nerd Font Propo;" parent="ZKiBXH9npHO8oLUT0B8A-27" vertex="1" connectable="0">
+                    <mxGeometry x="0.3091" y="1" relative="1" as="geometry">
+                        <mxPoint x="-1" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="ZKiBXH9npHO8oLUT0B8A-31" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;shape=link;fontFamily=FiraCode Nerd Font Propo;" parent="1" source="ZKiBXH9npHO8oLUT0B8A-3" target="ZKiBXH9npHO8oLUT0B8A-21" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="ZKiBXH9npHO8oLUT0B8A-47" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;0,N&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontFamily=FiraCode Nerd Font Propo;" parent="ZKiBXH9npHO8oLUT0B8A-31" vertex="1" connectable="0">
+                    <mxGeometry x="0.042" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="ZKiBXH9npHO8oLUT0B8A-38" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;shape=link;fontFamily=FiraCode Nerd Font Propo;" parent="1" source="ZKiBXH9npHO8oLUT0B8A-10" target="ZKiBXH9npHO8oLUT0B8A-22" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="ZKiBXH9npHO8oLUT0B8A-44" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;0,N&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontFamily=FiraCode Nerd Font Propo;" parent="ZKiBXH9npHO8oLUT0B8A-38" vertex="1" connectable="0">
+                    <mxGeometry x="-0.3232" y="-3" relative="1" as="geometry">
+                        <mxPoint x="9" y="-3" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

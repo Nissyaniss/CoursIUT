@@ -1,0 +1,117 @@
+html {
+	background-color: gold;
+}
+
+body {
+	background-color: white;
+	margin: 5%;
+	border: 2px solid black;
+}
+
+.logo {
+	height: 200px;
+	border: 10px solid transparent;
+	border-radius: 150px;
+}
+
+.right {
+	justify-self: end;
+	grid-column: 3;
+}
+
+.title {
+	border: 1px solid black;
+	display: grid;
+	grid-template-columns: 200px 1tr 200px;
+}
+
+.middle {
+	justify-self: center;
+	text-align: center;
+	padding-top: 65px;
+	grid-column: 2;
+	grid-row: 1;
+}
+
+h1 {
+	text-align: center;
+}
+
+nav {
+	display: grid;
+	grid-template-columns: 20% 20% 20% 20% 20%;
+	text-align: center;
+}
+
+nav a {
+	border: 1px solid black;
+	padding: 10px;
+}
+
+nav a:hover {
+	background-color: gold;
+}
+
+.honey {
+	height: 100px;
+	border: 2px solid black
+}
+
+.article {
+	padding: 50px;
+}
+
+.articleTitle {
+	display: grid;
+	grid-template-columns: 17% 90%;
+}
+
+.news {
+	display: grid;
+	grid-template-columns: 50% 50%;
+	border : 1px solid black
+}
+
+.lireLaSuite {
+	font-weight: bold;
+	text-align: end;
+}
+
+.articleName {
+	padding-top: 2.5%;
+}
+
+.eventList {
+	padding: 50px;
+	display: grid;
+	grid-template-columns: 33% 33% 33%;
+	border: 1px solid black;
+
+}
+
+.seeEvent {
+	text-align: center;
+	font-weight: bold;
+}
+
+.bigText {
+	padding: 25px;
+	border-top: 1px solid black;
+	border-right: 1px solid black;
+	border-left: 1px solid black;
+	display: inline-block;
+}
+
+.littleBox{
+	border: 1px solid black;
+	padding: 25px;
+	width: 15%;
+	float: right;
+	margin: 25px;
+}
+
+.inter-word {
+	text-align: justify;
+	text-justify: auto;
+}
+
