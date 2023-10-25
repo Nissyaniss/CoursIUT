@@ -1,0 +1,34 @@
+@media screen and (max-width: 750px){
+	body{
+		margin-left: 5px;
+		margin-right: 5px;
+		width: calc(100% - 10px);
+	}
+	
+	#default{
+		display: none;
+	}
+
+	#mobile{
+		display: revert;
+		width: calc(100% - 5px);
+	}
+
+	nav{
+		display: none;
+	}
+
+	#presentation {
+		width: calc(100% - 45px);
+	}
+	
+	#news {
+		background-color: #242424;
+		width: calc(100% - 25px);
+		padding: 10px;
+	}
+	
+	#box{
+		flex-direction: column-reverse;
+	}
+}

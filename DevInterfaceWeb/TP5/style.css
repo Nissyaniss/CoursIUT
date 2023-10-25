@@ -1,0 +1,47 @@
+body{
+	background-color: black;
+	color: white;
+	margin-left: 23%;
+	width: 1024px;
+}
+
+#default{
+	padding-bottom: 15px;
+}
+
+#mobile{
+	display: none;
+}
+
+nav{
+	display: grid;
+	grid-template-columns: 17% 17% 16% 16% 17% 17%;
+	text-align: center;
+	background-color: #242424;
+	padding: 15px;
+	margin-bottom: 15px;
+}
+
+#presentation{
+	background-color: #242424;
+	width: 65%;
+	padding: 20px;
+}
+
+#news {
+	background-color: #242424;
+	width: 30%;
+	padding: 10px;
+}
+
+#box{
+	display: flex;
+	align-items: flex-start;
+	gap: 20px
+}
+
+ul {
+	margin: 0px;
+	padding: 0px;
+	list-style: none;
+}
