@@ -1,5 +1,5 @@
 import json
-from termUtils import setTermCursor
+from termUtils import printAt
 from os import get_terminal_size
 
 def isPlayerExisting(player : str) -> bool:
@@ -70,7 +70,7 @@ def addPoint(player : str, game : int) -> None:
 	with open("players.json", "w") as outputFile:
 		json.dump(data, outputFile, sort_keys=True, indent='\t', separators=(',',': '))
 
-def printScoreboard() -> None:
+def printScoreboard(player1 : str, player2 : str) -> None:
 	"""
 	La fonction "printScoreboard" est utilisée pour imprimer un scoreboard de toute les parties
 	gagnées dans les different jeu.
@@ -86,13 +86,14 @@ def printScoreboard() -> None:
 	with open("players.json", "r") as jsonFile:
 		data = json.load(jsonFile)
 	
-	for key, value in data.items():
-		setTermCursor(6 + i , 5, f"{key} :")
-		setTermCursor(6 + i + 1, 6, f"Devinette = {value[0]}")
-		setTermCursor(6 + i + 2, 6, f"Allumette = {value[1]}")
-		setTermCursor(6 + i + 3, 6, f"Morpion = {value[2]}")
-		setTermCursor(6 + i + 4, 6, f"Puissance 4 = {value[3]}")
-		i = i + 6
-		if i + 6 >= maxHeight - 6:
-			setTermCursor(maxHeight - 2, 5, "...")
-			break
+	printAt(6, 5, f"{player1} :")
+	printAt(7, 6, f"Devinette = {data[player1][0]}")
+	printAt(8, 6, f"Allumette = {data[player1][1]}")
+	printAt(9, 6, f"Morpion = {data[player1][2]}")
+	printAt(10, 6, f"Puissance 4 = {data[player1][3]}")
+
+	printAt(12, 5, f"{player2} :")
+	printAt(13, 6, f"Devinette = {data[player2][0]}")
+	printAt(14, 6, f"Allumette = {data[player2][1]}")
+	printAt(15, 6, f"Morpion = {data[player2][2]}")
+	printAt(16, 6, f"Puissance 4 = {data[player2][3]}")

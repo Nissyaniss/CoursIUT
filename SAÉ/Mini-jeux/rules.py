@@ -1,6 +1,6 @@
 import sys
 from os import system, get_terminal_size
-from termUtils import setTermCursor, displayEmptySquare
+from termUtils import printAt, displayEmptySquare
 from colorama import Fore, Back
 from typing import Tuple
 
@@ -15,11 +15,11 @@ def DisplayMenu() -> None:
 
 	maxSize = displayEmptySquare()
 
-	setTermCursor(6, (maxSize[0] - 23) // 2, "┌─────────────────────────┐")
-	setTermCursor(7, (maxSize[0] - 23) // 2, "│         BONJOUR         │")
-	setTermCursor(8, (maxSize[0] - 23) // 2, "│    Liste des règles     │")
-	setTermCursor(9, (maxSize[0] - 23) // 2, "└─────────────────────────┘")
-	setTermCursor(maxSize[1] + 1, 3, "Appuyer sur \"q\" pour quitter")
+	printAt(6, (maxSize[0] - 23) // 2, "┌─────────────────────────┐")
+	printAt(7, (maxSize[0] - 23) // 2, "│         BONJOUR         │")
+	printAt(8, (maxSize[0] - 23) // 2, "│    Liste des règles     │")
+	printAt(9, (maxSize[0] - 23) // 2, "└─────────────────────────┘")
+	printAt(maxSize[1] + 1, 3, "Appuyer sur \"q\" pour quitter")
 	print()
 
 def DisplayGameSelected(currentSelectedGame : int) -> str:
@@ -37,23 +37,23 @@ def DisplayGameSelected(currentSelectedGame : int) -> str:
 
 	if currentSelectedGame == 1:
 		gameStr = "Devinette"
-		setTermCursor(12, (maxWidth - 9) // 2, "  Allumette")
-		setTermCursor(13, (maxWidth - 9) // 2, "  Morpion")
-		setTermCursor(14, (maxWidth - 9) // 2, "  Puissance 4")
+		printAt(12, (maxWidth - 9) // 2, "  Allumette")
+		printAt(13, (maxWidth - 9) // 2, "  Morpion")
+		printAt(14, (maxWidth - 9) // 2, "  Puissance 4")
 	elif currentSelectedGame == 2:
-		setTermCursor(11, (maxWidth - 9) // 2, "  Devinette")
+		printAt(11, (maxWidth - 9) // 2, "  Devinette")
 		gameStr = "Allumette"
-		setTermCursor(13, (maxWidth - 9) // 2, "  Morpion")
-		setTermCursor(14, (maxWidth - 9) // 2, "  Puissance 4")
+		printAt(13, (maxWidth - 9) // 2, "  Morpion")
+		printAt(14, (maxWidth - 9) // 2, "  Puissance 4")
 	elif currentSelectedGame == 3:
-		setTermCursor(11, (maxWidth - 9) // 2, "  Devinette")
-		setTermCursor(12, (maxWidth - 9) // 2, "  Allumette")
+		printAt(11, (maxWidth - 9) // 2, "  Devinette")
+		printAt(12, (maxWidth - 9) // 2, "  Allumette")
 		gameStr = "Morpion"
-		setTermCursor(14, (maxWidth - 9) // 2, "  Puissance 4")
+		printAt(14, (maxWidth - 9) // 2, "  Puissance 4")
 	elif currentSelectedGame == 4:
-		setTermCursor(11, (maxWidth - 9) // 2, "  Devinette")
-		setTermCursor(12, (maxWidth - 9) // 2, "  Allumette")
-		setTermCursor(13, (maxWidth - 9) // 2, "  Morpion")
+		printAt(11, (maxWidth - 9) // 2, "  Devinette")
+		printAt(12, (maxWidth - 9) // 2, "  Allumette")
+		printAt(13, (maxWidth - 9) // 2, "  Morpion")
 		gameStr = "Puissance 4" 
 	else :
 		gameStr = "ERROR"
@@ -72,12 +72,12 @@ def DisplayRulesTitle(maxWidth : int, maxHeight : int, gameStr : str) -> None:
 	"""
 
 	system("clear")
-	setTermCursor(2, (maxWidth - 10) // 2,  "┌" + len(gameStr) * "─" + "┐")
-	setTermCursor(3, (maxWidth - 10) // 2,  "│" + f"{gameStr}" +       "│")
-	setTermCursor(4, (maxWidth - 10) // 2,  "└" + len(gameStr) * "─" + "┘")
-	setTermCursor(maxHeight + 1, 3, "Appuyer sur \"q\" pour quitter")
+	printAt(2, (maxWidth - 10) // 2,  "┌" + len(gameStr) * "─" + "┐")
+	printAt(3, (maxWidth - 10) // 2,  "│" + f"{gameStr}" +       "│")
+	printAt(4, (maxWidth - 10) // 2,  "└" + len(gameStr) * "─" + "┘")
+	printAt(maxHeight + 1, 3, "Appuyer sur \"q\" pour quitter")
 
-def printRule(gameStr : str, ruleStr : str, currentSelectedGame : int, original : list[int], player1 : str, player2 : str) -> None:
+def printRule(gameStr : str, ruleStr : str, currentSelectedGame : int, player1 : str, player2 : str) -> None:
 	"""
 	La fonction prend en compte divers paramètres et imprime une règle pour un jeu basée sur la chaîne
 	de jeu et la chaîne de règles données.
@@ -97,14 +97,14 @@ def printRule(gameStr : str, ruleStr : str, currentSelectedGame : int, original 
 	maxWidth = get_terminal_size().columns - 3
 
 	DisplayRulesTitle(maxWidth, maxHeight, gameStr)
-	setTermCursor(8, (maxWidth - 77) // 2, ruleStr)
+	printAt(8, (maxWidth - 77) // 2, ruleStr)
 	print()
 	while True:
 		currChar = sys.stdin.read(1)
 		if currChar == 'q' or currChar == 'Q':
 			return
 
-def start(currentSelectedGame : int, player1 : str, player2 : str, original : list[int]) -> None:
+def start(currentSelectedGame : int, player1 : str, player2 : str) -> None:
 	"""
 	La fonction "start" prend en compte les paramètres du jeu actuellement sélectionné, les noms des
 	joueurs et une liste originale, et affiche le menu et enregistre les différent inputs du joueurs.
@@ -124,7 +124,7 @@ def start(currentSelectedGame : int, player1 : str, player2 : str, original : li
 	while True:
 		while True:
 			DisplayMenu()
-			setTermCursor(10 + currentSelectedGame, (maxWidth - 8) // 2, DisplayGameSelected(currentSelectedGame))
+			printAt(10 + currentSelectedGame, (maxWidth - 8) // 2, DisplayGameSelected(currentSelectedGame))
 			print()
 			currChar = sys.stdin.read(1)
 			if currChar == '\x1b':
@@ -132,11 +132,11 @@ def start(currentSelectedGame : int, player1 : str, player2 : str, original : li
 				currChar = sys.stdin.read(1)
 				if currChar == 'A' and currentSelectedGame != 1:
 					currentSelectedGame -= 1
-					setTermCursor(10 + currentSelectedGame, (maxWidth - 8) // 2, DisplayGameSelected(currentSelectedGame))
+					printAt(10 + currentSelectedGame, (maxWidth - 8) // 2, DisplayGameSelected(currentSelectedGame))
 					print()
 				if currChar == 'B' and currentSelectedGame != 4:
 					currentSelectedGame += 1
-					setTermCursor(10 + currentSelectedGame, (maxWidth - 8) // 2, DisplayGameSelected(currentSelectedGame))
+					printAt(10 + currentSelectedGame, (maxWidth - 8) // 2, DisplayGameSelected(currentSelectedGame))
 					print()
 			elif currChar == 'q' or currChar == 'Q':
 				return
@@ -144,10 +144,10 @@ def start(currentSelectedGame : int, player1 : str, player2 : str, original : li
 				system("clear")
 				break
 		if currentSelectedGame == 1:
-			printRule("DEVINETTE", "Le joueur 1 rentre un chiffre et le joueur 2 doit le deviner en moins de temps possible !", 1, original, player1, player2)
+			printRule("DEVINETTE", "Le joueur 1 rentre un chiffre et le joueur 2 doit le deviner en moins de temps possible !", 1, player1, player2)
 		elif currentSelectedGame == 2:
-			printRule("ALLUMETTES", "Chaque joueur retire 1 - 3 allumettes jusqu'a ce qui en ai plus ! Le perdant est celui qui prend la dernière.", 2, original, player1, player2)
+			printRule("ALLUMETTES", "Chaque joueur retire 1 - 3 allumettes jusqu'a ce qui en ai plus ! Le perdant est celui qui prend la dernière.", 2, player1, player2)
 		elif currentSelectedGame == 3:
-			printRule("MORPION", "Chacun son tour les joueurs place un pion le premier à en aligner 3 a gagné !", 3, original, player1, player2)
+			printRule("MORPION", "Chacun son tour les joueurs place un pion le premier à en aligner 3 a gagné !", 3, player1, player2)
 		elif currentSelectedGame == 4:
-			printRule("PUISSANCE 4", "Chacun son tour les joueurs place un pion le premier à en aligner 4 a gagné !", 4, original, player1, player2)
+			printRule("PUISSANCE 4", "Chacun son tour les joueurs place un pion le premier à en aligner 4 a gagné !", 4, player1, player2)

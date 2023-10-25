@@ -1,14 +1,14 @@
 from os import system, get_terminal_size
-from typing import Tuple
 from colorama import Fore, Back
 import sys
 from time import sleep
 
 import morpion
-from termUtils import setTermCursor, setup, restoreTerm, displayEmptySquare
+from termUtils import printAt, setup, restoreTerm, displayEmptySquare
 import allumettes
 from players import addPlayer, isPlayerExisting, printScoreboard
 import rules
+import devinette
 
 def DisplayMenu(currentSelectedGame : int) -> None:
 	"""
@@ -19,23 +19,23 @@ def DisplayMenu(currentSelectedGame : int) -> None:
 	actuellement sélectionné dans le menu.
 	"""
 
-	maxSize : Tuple[int, int]
+	maxSize : tuple[int, int]
 
 	maxSize = displayEmptySquare()
 
-	setTermCursor(2, 5, "┌────────────┐")
-	setTermCursor(3, 5, "│ SCOREBOARD │")
-	setTermCursor(4, 5, "└────────────┘")
-	printScoreboard()
-	setTermCursor(2, maxSize[0] - 11, "┌──────────┐")
-	setTermCursor(3, maxSize[0] - 11, "│  RÈGLES  │")
-	setTermCursor(4, maxSize[0] - 11, "└──────────┘")
-	setTermCursor(6, (maxSize[0] - 23) // 2, "┌─────────────────────────┐")
-	setTermCursor(7, (maxSize[0] - 23) // 2, "│         BONJOUR         │")
-	setTermCursor(8, (maxSize[0] - 23) // 2, "│   Liste des mini-jeux   │")
-	setTermCursor(9, (maxSize[0] - 23) // 2, "└─────────────────────────┘")
-	setTermCursor(10 + currentSelectedGame, (maxSize[0] - 7) // 2, DisplayGameSelected(currentSelectedGame))
-	setTermCursor(maxSize[1] + 1, 3, "Appuyer sur \"q\" pour quitter")
+	printAt(2, 5, "┌────────────┐")
+	printAt(3, 5, "│ SCOREBOARD │")
+	printAt(4, 5, "└────────────┘")
+	printScoreboard(player1, player2)
+	printAt(2, maxSize[0] - 11, "┌──────────┐")
+	printAt(3, maxSize[0] - 11, "│  RÈGLES  │")
+	printAt(4, maxSize[0] - 11, "└──────────┘")
+	printAt(6, (maxSize[0] - 23) // 2, "┌─────────────────────────┐")
+	printAt(7, (maxSize[0] - 23) // 2, "│         BONJOUR         │")
+	printAt(8, (maxSize[0] - 23) // 2, "│   Liste des mini-jeux   │")
+	printAt(9, (maxSize[0] - 23) // 2, "└─────────────────────────┘")
+	printAt(10 + currentSelectedGame, (maxSize[0] - 7) // 2, DisplayGameSelected(currentSelectedGame))
+	printAt(maxSize[1] + 1, 3, "Appuyer sur \"q\" pour quitter")
 	print()
 
 def DisplayGameSelected(currentSelectedGame : int) -> str:
@@ -53,33 +53,33 @@ def DisplayGameSelected(currentSelectedGame : int) -> str:
 
 	if currentSelectedGame == 1:
 		gameStr = "Devinette"
-		setTermCursor(12, (maxWidth - 7) // 2, "  Allumette")
-		setTermCursor(13, (maxWidth - 7) // 2, "  Morpion")
-		setTermCursor(14, (maxWidth - 7) // 2, "  Puissance 4")
-		setTermCursor(3, maxWidth - 9, " RÈGLES")
+		printAt(12, (maxWidth - 7) // 2, "  Allumette")
+		printAt(13, (maxWidth - 7) // 2, "  Morpion")
+		printAt(14, (maxWidth - 7) // 2, "  Puissance 4")
+		printAt(3, maxWidth - 9, " RÈGLES")
 	elif currentSelectedGame == 2:
-		setTermCursor(11, (maxWidth - 7) // 2, "  Devinette")
+		printAt(11, (maxWidth - 7) // 2, "  Devinette")
 		gameStr = "Allumette"
-		setTermCursor(13, (maxWidth - 7) // 2, "  Morpion")
-		setTermCursor(14, (maxWidth - 7) // 2, "  Puissance 4")
-		setTermCursor(3, maxWidth - 9, " RÈGLES")
+		printAt(13, (maxWidth - 7) // 2, "  Morpion")
+		printAt(14, (maxWidth - 7) // 2, "  Puissance 4")
+		printAt(3, maxWidth - 9, " RÈGLES")
 	elif currentSelectedGame == 3:
-		setTermCursor(11, (maxWidth - 7) // 2, "  Devinette")
-		setTermCursor(12, (maxWidth - 7) // 2, "  Allumette")
+		printAt(11, (maxWidth - 7) // 2, "  Devinette")
+		printAt(12, (maxWidth - 7) // 2, "  Allumette")
 		gameStr = "Morpion"
-		setTermCursor(14, (maxWidth - 7) // 2, "  Puissance 4")
-		setTermCursor(3, maxWidth - 9, " RÈGLES")
+		printAt(14, (maxWidth - 7) // 2, "  Puissance 4")
+		printAt(3, maxWidth - 9, " RÈGLES")
 	elif currentSelectedGame == 4:
-		setTermCursor(11, (maxWidth - 7) // 2, "  Devinette")
-		setTermCursor(12, (maxWidth - 7) // 2, "  Allumette")
-		setTermCursor(13, (maxWidth - 7) // 2, "  Morpion")
+		printAt(11, (maxWidth - 7) // 2, "  Devinette")
+		printAt(12, (maxWidth - 7) // 2, "  Allumette")
+		printAt(13, (maxWidth - 7) // 2, "  Morpion")
 		gameStr = "Puissance 4" 
-		setTermCursor(3, maxWidth - 9, " RÈGLES")
+		printAt(3, maxWidth - 9, " RÈGLES")
 	elif currentSelectedGame == -1:
-		setTermCursor(11, (maxWidth - 7) // 2, "  Devinette")
-		setTermCursor(12, (maxWidth - 7) // 2, "  Allumette")
-		setTermCursor(13, (maxWidth - 7) // 2, "  Morpion")
-		setTermCursor(14, (maxWidth - 7) // 2, "  Puissance 4")
+		printAt(11, (maxWidth - 7) // 2, "  Devinette")
+		printAt(12, (maxWidth - 7) // 2, "  Allumette")
+		printAt(13, (maxWidth - 7) // 2, "  Morpion")
+		printAt(14, (maxWidth - 7) // 2, "  Puissance 4")
 		gameStr = "RÈGLES"
 	else :
 		gameStr = "ERROR"
@@ -134,19 +134,19 @@ if __name__ == "__main__":
 				currChar = sys.stdin.read(1)
 				currChar = sys.stdin.read(1)
 				if currChar == 'A' and currentSelectedGame != 1 and isOnRules == False:
-					setTermCursor(10 + currentSelectedGame - 1, (maxWidth - 7) // 2, DisplayGameSelected(currentSelectedGame - 1))
+					printAt(10 + currentSelectedGame - 1, (maxWidth - 7) // 2, DisplayGameSelected(currentSelectedGame - 1))
 					print()
 					currentSelectedGame -= 1
 				if currChar == 'B' and currentSelectedGame != 4 and isOnRules == False:
-					setTermCursor(10 + currentSelectedGame + 1, (maxWidth - 7) // 2, DisplayGameSelected(currentSelectedGame + 1))
+					printAt(10 + currentSelectedGame + 1, (maxWidth - 7) // 2, DisplayGameSelected(currentSelectedGame + 1))
 					print()
 					currentSelectedGame += 1
 				if currChar == 'C' and isOnRules == False:
-					setTermCursor(3, maxWidth - 9, DisplayGameSelected(-1))
+					printAt(3, maxWidth - 9, DisplayGameSelected(-1))
 					print()
 					isOnRules = True
 				if currChar == 'D' and isOnRules:
-					setTermCursor(10 + currentSelectedGame, (maxWidth - 7) // 2, DisplayGameSelected(currentSelectedGame))
+					printAt(10 + currentSelectedGame, (maxWidth - 7) // 2, DisplayGameSelected(currentSelectedGame))
 					print()
 					isOnRules = False
 			elif currChar == 'q' or currChar == 'Q':
@@ -154,9 +154,11 @@ if __name__ == "__main__":
 			elif currChar == '\n':
 				break
 		if isOnRules:
-			rules.start(1, player1, player2, original)
+			rules.start(1, player1, player2)
 			isOnRules = False
+		elif currentSelectedGame == 1:
+			devinette.start(player1, player2)
 		elif currentSelectedGame == 2:
-			allumettes.start(player1, player2, original)
+			allumettes.start(player1, player2)
 		elif currentSelectedGame == 3:
-			morpion.start(player1, player2, original)
+			morpion.start(player1, player2)

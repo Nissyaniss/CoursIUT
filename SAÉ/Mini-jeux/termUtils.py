@@ -1,9 +1,9 @@
 import termios
 import tty
 from os import system, get_terminal_size
-from typing import Any, Tuple
+from typing import Any
 
-def setTermCursor(line : int, column : int, message : str) -> None:
+def printAt(line : int, column : int, message : str) -> None:
 	"""
 	La fonction `setTermCursor` définit la position du curseur dans le terminal sur une ligne et une
 	colonne spécifiées, et imprime un message à cette position.
@@ -16,7 +16,10 @@ def setTermCursor(line : int, column : int, message : str) -> None:
 	souhaitez afficher sur la ligne et la colonne spécifiées sur le terminal. C'est une chaîne.
 	"""
 
-	print(f"\x1b[{line};{column}f" + message, end='')
+	print(f"\x1b[{line};{column}f" + message, end='', flush=True)
+
+def setCursorPosition(line : int, column : int) -> None:
+	print(f"\x1b[{line};{column}f", end='', flush=True)
 
 def restoreTerm(original: list[Any]) -> None:
 	"""
@@ -58,7 +61,7 @@ def setup() -> list[Any]:
 
 	return original
 
-def displayEmptySquare() -> Tuple[int, int]:
+def displayEmptySquare() -> tuple[int, int]:
 	"""
 	La fonction `displayEmptySquare` affiche un carré vide de la taille du terminal.
 
@@ -73,7 +76,7 @@ def displayEmptySquare() -> Tuple[int, int]:
 	maxHeight = get_terminal_size().lines - 3
 
 	system("clear")
-	setTermCursor(1, 1, "╔" + "═" * maxWidth +"╗")
+	printAt(1, 1, "╔" + "═" * maxWidth +"╗")
 	print()
 	for i in range(0, maxHeight) :
 		print("║"+ " " * maxWidth + "║")
