@@ -16,7 +16,7 @@ def setTermCursor(line : int, column : int, message : str) -> None:
 	souhaitez afficher sur la ligne et la colonne spécifiées sur le terminal. C'est une chaîne.
 	"""
 
-	print(f"\x1b[{line};{column}f" + message)
+	print(f"\x1b[{line};{column}f" + message, end='')
 
 def restoreTerm(original: list[Any]) -> None:
 	"""
@@ -73,7 +73,8 @@ def displayEmptySquare() -> Tuple[int, int]:
 	maxHeight = get_terminal_size().lines - 3
 
 	system("clear")
-	print("╔" + "═" * maxWidth +"╗")
+	setTermCursor(1, 1, "╔" + "═" * maxWidth +"╗")
+	print()
 	for i in range(0, maxHeight) :
 		print("║"+ " " * maxWidth + "║")
 	print("╚" + "═" * maxWidth +"╝")

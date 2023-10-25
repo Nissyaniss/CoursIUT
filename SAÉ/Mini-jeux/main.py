@@ -36,6 +36,7 @@ def DisplayMenu(currentSelectedGame : int) -> None:
 	setTermCursor(9, (maxSize[0] - 23) // 2, "└─────────────────────────┘")
 	setTermCursor(10 + currentSelectedGame, (maxSize[0] - 7) // 2, DisplayGameSelected(currentSelectedGame))
 	setTermCursor(maxSize[1] + 1, 3, "Appuyer sur \"q\" pour quitter")
+	print()
 
 def DisplayGameSelected(currentSelectedGame : int) -> str:
 	"""
@@ -82,70 +83,25 @@ def DisplayGameSelected(currentSelectedGame : int) -> str:
 		gameStr = "RÈGLES"
 	else :
 		gameStr = "ERROR"
+	print()
 
 	return str(">" + Back.WHITE + Fore.BLACK + gameStr + Back.RESET + Fore.RESET + "  ")
 
-def start(currentSelectedGame : int, player1 : str, player2 : str, original : list[int]) -> None:
-	"""
-	La fonction "start" prend en compte les paramètres du jeu actuellement sélectionné, les noms des
-	joueurs et une liste, et effectue l'affichage premier du menu puis ensuite enregistre les différentes
-	touche pressée par l'utilisateur et réagis en fonction.
-	
-	@param currentSelectedGame Le paramètre currentSelectedGame est un entier qui représente l'index du
-	jeu actuellement sélectionné.
-	@param player1 Le paramètre "player1" est une chaîne qui représente le nom du premier joueur de la
-	partie.
-	@param player2 Le paramètre "player2" est une chaîne qui représente le nom du deuxième joueur de la
-	partie.
-	@param original Le paramètre « original » est une liste de paramètre du terminal a renvoyer.
-	"""
-
-	currChar : str
-	isOnRules : bool
-
-	isOnRules  = False
-	currChar = ""
-	maxWidth = get_terminal_size().columns - 3
-
-	DisplayMenu(currentSelectedGame)
-	while True:
-		currChar = sys.stdin.read(1)
-		if currChar == '\x1b':
-			currChar = sys.stdin.read(1)
-			currChar = sys.stdin.read(1)
-			if currChar == 'A' and currentSelectedGame != 1 and isOnRules == False:
-				setTermCursor(10 + currentSelectedGame - 1, (maxWidth - 7) // 2, DisplayGameSelected(currentSelectedGame - 1))
-				currentSelectedGame -= 1
-			if currChar == 'B' and currentSelectedGame != 4 and isOnRules == False:
-				setTermCursor(10 + currentSelectedGame + 1, (maxWidth - 7) // 2, DisplayGameSelected(currentSelectedGame + 1))
-				currentSelectedGame += 1
-			if currChar == 'C' and isOnRules == False:
-				setTermCursor(3, maxWidth - 9, DisplayGameSelected(-1))
-				isOnRules = True
-			if currChar == 'D' and isOnRules:
-				setTermCursor(10 + currentSelectedGame, (maxWidth - 7) // 2, DisplayGameSelected(currentSelectedGame))
-				isOnRules = False
-		elif currChar == 'q' or currChar == 'Q':
-			restoreTerm(original)
-		elif currChar == '\n':
-			break
-	if isOnRules:
-		rules.start(1, player1, player2, original)
-	elif currentSelectedGame == 2:
-		allumettes.start(player1, player2, original)
-	elif currentSelectedGame == 3:
-		morpion.start(player1, player2, original)
-
 if __name__ == "__main__":
-	"""
-	Fait la vérification des joueurs puis met en place le terminal pour ensuite démarrer.
-	"""
-
 	player1 : str
 	player2 : str
+	currChar : str
+	isOnRules : bool
+	maxWidth : int
+	original : list[int]
+	currentSelectedGame : int
 
 	player1 = ""
 	player2 = ""
+	isOnRules  = False
+	currChar = ""
+	maxWidth = get_terminal_size().columns - 3
+	currentSelectedGame = 1
 
 	system("clear")
 	while player1 == "":
@@ -168,7 +124,39 @@ if __name__ == "__main__":
 		else:
 			addPlayer(player2)
 
-	original : list[int]
 	original = setup()
 
-	start(1, player1, player2, original)
+	while True:
+		DisplayMenu(currentSelectedGame)
+		while True:
+			currChar = sys.stdin.read(1)
+			if currChar == '\x1b':
+				currChar = sys.stdin.read(1)
+				currChar = sys.stdin.read(1)
+				if currChar == 'A' and currentSelectedGame != 1 and isOnRules == False:
+					setTermCursor(10 + currentSelectedGame - 1, (maxWidth - 7) // 2, DisplayGameSelected(currentSelectedGame - 1))
+					print()
+					currentSelectedGame -= 1
+				if currChar == 'B' and currentSelectedGame != 4 and isOnRules == False:
+					setTermCursor(10 + currentSelectedGame + 1, (maxWidth - 7) // 2, DisplayGameSelected(currentSelectedGame + 1))
+					print()
+					currentSelectedGame += 1
+				if currChar == 'C' and isOnRules == False:
+					setTermCursor(3, maxWidth - 9, DisplayGameSelected(-1))
+					print()
+					isOnRules = True
+				if currChar == 'D' and isOnRules:
+					setTermCursor(10 + currentSelectedGame, (maxWidth - 7) // 2, DisplayGameSelected(currentSelectedGame))
+					print()
+					isOnRules = False
+			elif currChar == 'q' or currChar == 'Q':
+				restoreTerm(original)
+			elif currChar == '\n':
+				break
+		if isOnRules:
+			rules.start(1, player1, player2, original)
+			isOnRules = False
+		elif currentSelectedGame == 2:
+			allumettes.start(player1, player2, original)
+		elif currentSelectedGame == 3:
+			morpion.start(player1, player2, original)

@@ -61,6 +61,7 @@ def DisplayMenu():
 			setTermCursor(maxSize[1] // 2 - 10 + i, maxSize[0] // 2 + 21, "╣")
 	setTermCursor(maxSize[1] // 2 - 9 + i, maxSize[0] // 2 + 21, "╝")
 
+	print()
 	DisplaySelectedCase(1, 1)
 
 def DisplaySelectedCase(selectedCase: int, selectedCasePrevious : int):
@@ -128,6 +129,7 @@ def DisplaySelectedCase(selectedCase: int, selectedCasePrevious : int):
 			i = i + 1
 		if not (selectedCasePrevious == selectedCase):
 			RestorePreviousCase(selectedCasePrevious)
+	print()
 
 def RestorePreviousCase(selectedCase: int):
 	i : int
@@ -176,6 +178,7 @@ def RestorePreviousCase(selectedCase: int):
 		while i <= 4:
 			setTermCursor(maxHeight // 2 + 3 + i, maxWidth // 2 + 7, Fore.RESET + Back.RESET + " " * 14)
 			i = i + 1
+	print()
 
 def start(player1 : str, player2 : str, original : list[int]):
 	currChar : str
@@ -186,27 +189,27 @@ def start(player1 : str, player2 : str, original : list[int]):
 
 	DisplayMenu()
 	while True:
-		currChar = sys.stdin.read(1)
-		if currChar == '\x1b':
+		while True:
 			currChar = sys.stdin.read(1)
-			currChar = sys.stdin.read(1)
-			if currChar == 'A' and selectedCase > 3 :
-				selectedCase = selectedCase - 3
-				DisplaySelectedCase(selectedCase, selectedCase + 3)
-			elif currChar == 'B' and selectedCase <= 6:
-				selectedCase = selectedCase + 3
-				DisplaySelectedCase(selectedCase, selectedCase - 3)
-			elif currChar == 'C' and selectedCase != 9:
-				selectedCase = selectedCase + 1
-				DisplaySelectedCase(selectedCase, selectedCase - 1)
-			elif currChar == 'D' and selectedCase != 1:
-				selectedCase = selectedCase - 1
-				DisplaySelectedCase(selectedCase, selectedCase + 1)
-		elif currChar == '\n':
-			system("clear")
-			print(selectedCase)
-			exit()
-		elif currChar == 'q' or currChar == 'Q':
-			print(Fore.RESET + Back.RESET)
-			main.start(3, player1, player2, original)
-			continue
+			if currChar == '\x1b':
+				currChar = sys.stdin.read(1)
+				currChar = sys.stdin.read(1)
+				if currChar == 'A' and selectedCase > 3 :
+					selectedCase = selectedCase - 3
+					DisplaySelectedCase(selectedCase, selectedCase + 3)
+				elif currChar == 'B' and selectedCase <= 6:
+					selectedCase = selectedCase + 3
+					DisplaySelectedCase(selectedCase, selectedCase - 3)
+				elif currChar == 'C' and selectedCase != 9:
+					selectedCase = selectedCase + 1
+					DisplaySelectedCase(selectedCase, selectedCase - 1)
+				elif currChar == 'D' and selectedCase != 1:
+					selectedCase = selectedCase - 1
+					DisplaySelectedCase(selectedCase, selectedCase + 1)
+			elif currChar == '\n':
+				system("clear")
+				print(selectedCase)
+				exit()
+			elif currChar == 'q' or currChar == 'Q':
+				print(Fore.RESET + Back.RESET)
+				return
