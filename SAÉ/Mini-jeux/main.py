@@ -158,6 +158,7 @@ if __name__ == "__main__":
 			isOnRules = False
 		elif currentSelectedGame == 1:
 			devinette.start(player1, player2)
+			print("\x1b[?25l", end='', flush=True)
 		elif currentSelectedGame == 2:
 			allumettes.start(player1, player2)
 		elif currentSelectedGame == 3:
