@@ -4,85 +4,67 @@ import sys
 from time import sleep
 
 import morpion
-from termUtils import printAt, setup, restoreTerm, displayEmptySquare
+from termUtils import printAt, setup, restoreTerm, displayEmptySquare, centerTextAtLine
 import allumettes
 from players import addPlayer, isPlayerExisting, printScoreboard
 import rules
 import devinette
 
 def DisplayMenu(currentSelectedGame : int) -> None:
-	"""
-	La fonction `DisplayMenu` affiche un menu avec un scoreboard, des règles et une liste de
-	mini-jeux, avec le jeu actuellement sélectionné en surbrillance.
+	maxWidth : int
 	
-	@param currentSelectedGame Le paramètre `currentSelectedGame` est un entier qui représente le jeu
-	actuellement sélectionné dans le menu.
-	"""
-
-	maxSize : tuple[int, int]
-
-	maxSize = displayEmptySquare()
-
+	maxWidth = get_terminal_size().columns - 3
+	
+	displayEmptySquare()
 	printAt(2, 5, "┌────────────┐")
 	printAt(3, 5, "│ SCOREBOARD │")
 	printAt(4, 5, "└────────────┘")
 	printScoreboard(player1, player2)
-	printAt(2, maxSize[0] - 11, "┌──────────┐")
-	printAt(3, maxSize[0] - 11, "│  RÈGLES  │")
-	printAt(4, maxSize[0] - 11, "└──────────┘")
-	printAt(6, (maxSize[0] - 23) // 2, "┌─────────────────────────┐")
-	printAt(7, (maxSize[0] - 23) // 2, "│         BONJOUR         │")
-	printAt(8, (maxSize[0] - 23) // 2, "│   Liste des mini-jeux   │")
-	printAt(9, (maxSize[0] - 23) // 2, "└─────────────────────────┘")
-	printAt(10 + currentSelectedGame, (maxSize[0] - 7) // 2, DisplayGameSelected(currentSelectedGame))
-	print()
+	printAt(2, maxWidth - 11, "┌──────────┐")
+	printAt(3, maxWidth - 11, "│  RÈGLES  │")
+	printAt(4, maxWidth - 11, "└──────────┘")
+	centerTextAtLine(6, "┌─────────────────────────┐")
+	centerTextAtLine(7, "│         BONJOUR         │")
+	centerTextAtLine(8, "│   Liste des mini-jeux   │")
+	centerTextAtLine(9, "└─────────────────────────┘")
+	printAt(10 + currentSelectedGame, (maxWidth - 11) // 2, DisplayGameSelected(currentSelectedGame))
 
 def DisplayGameSelected(currentSelectedGame : int) -> str:
-	"""
-	La fonction prend un paramètre entier représentant le jeu actuellement sélectionné et renvoie une
-	chaîne qui sera le jeu en surbrillance.
-	
-	@param currentSelectedGame Un nombre entier représentant le jeu actuellement sélectionné.
-
-	@return La chaîne correctement formater pour être sélectionner.
-	"""
-
 	gameStr: str
 	maxWidth = get_terminal_size().columns - 3
 
 	if currentSelectedGame == 1:
 		gameStr = "Devinette"
-		printAt(12, (maxWidth - 7) // 2, "  Allumette")
-		printAt(13, (maxWidth - 7) // 2, "  Morpion")
-		printAt(14, (maxWidth - 7) // 2, "  Puissance 4")
+		printAt(12, (maxWidth - 11) // 2, "  Allumette")
+		printAt(13, (maxWidth - 11) // 2, "  Morpion")
+		printAt(14, (maxWidth - 11) // 2, "  Puissance 4")
 		printAt(3, maxWidth - 9, " RÈGLES")
 	elif currentSelectedGame == 2:
-		printAt(11, (maxWidth - 7) // 2, "  Devinette")
+		printAt(11, (maxWidth - 11) // 2, "  Devinette")
 		gameStr = "Allumette"
-		printAt(13, (maxWidth - 7) // 2, "  Morpion")
-		printAt(14, (maxWidth - 7) // 2, "  Puissance 4")
+		printAt(13, (maxWidth - 11) // 2, "  Morpion")
+		printAt(14, (maxWidth - 11) // 2, "  Puissance 4")
 		printAt(3, maxWidth - 9, " RÈGLES")
 	elif currentSelectedGame == 3:
-		printAt(11, (maxWidth - 7) // 2, "  Devinette")
-		printAt(12, (maxWidth - 7) // 2, "  Allumette")
+		printAt(11, (maxWidth - 11) // 2, "  Devinette")
+		printAt(12, (maxWidth - 11) // 2, "  Allumette")
 		gameStr = "Morpion"
-		printAt(14, (maxWidth - 7) // 2, "  Puissance 4")
+		printAt(14, (maxWidth - 11) // 2, "  Puissance 4")
 		printAt(3, maxWidth - 9, " RÈGLES")
 	elif currentSelectedGame == 4:
-		printAt(11, (maxWidth - 7) // 2, "  Devinette")
-		printAt(12, (maxWidth - 7) // 2, "  Allumette")
-		printAt(13, (maxWidth - 7) // 2, "  Morpion")
+		printAt(11, (maxWidth - 11) // 2, "  Devinette")
+		printAt(12, (maxWidth - 11) // 2, "  Allumette")
+		printAt(13, (maxWidth - 11) // 2, "  Morpion")
 		gameStr = "Puissance 4" 
 		printAt(3, maxWidth - 9, " RÈGLES")
 	elif currentSelectedGame == -1:
-		printAt(11, (maxWidth - 7) // 2, "  Devinette")
-		printAt(12, (maxWidth - 7) // 2, "  Allumette")
-		printAt(13, (maxWidth - 7) // 2, "  Morpion")
-		printAt(14, (maxWidth - 7) // 2, "  Puissance 4")
+		printAt(11, (maxWidth - 11) // 2, "  Devinette")
+		printAt(12, (maxWidth - 11) // 2, "  Allumette")
+		printAt(13, (maxWidth - 11) // 2, "  Morpion")
+		printAt(14, (maxWidth - 11) // 2, "  Puissance 4")
 		gameStr = "RÈGLES"
 	else :
 		gameStr = "ERROR"
-	print()
 
 	return str(">" + Back.WHITE + Fore.BLACK + gameStr + Back.RESET + Fore.RESET + "  ")
 
@@ -133,20 +115,16 @@ if __name__ == "__main__":
 				currChar = sys.stdin.read(1)
 				currChar = sys.stdin.read(1)
 				if currChar == 'A' and currentSelectedGame != 1 and isOnRules == False:
-					printAt(10 + currentSelectedGame - 1, (maxWidth - 7) // 2, DisplayGameSelected(currentSelectedGame - 1))
-					print()
 					currentSelectedGame -= 1
+					printAt(10 + currentSelectedGame, (maxWidth - 11) // 2, DisplayGameSelected(currentSelectedGame))
 				if currChar == 'B' and currentSelectedGame != 4 and isOnRules == False:
-					printAt(10 + currentSelectedGame + 1, (maxWidth - 7) // 2, DisplayGameSelected(currentSelectedGame + 1))
-					print()
 					currentSelectedGame += 1
+					printAt(10 + currentSelectedGame, (maxWidth - 11) // 2, DisplayGameSelected(currentSelectedGame))
 				if currChar == 'C' and isOnRules == False:
 					printAt(3, maxWidth - 9, DisplayGameSelected(-1))
-					print()
 					isOnRules = True
 				if currChar == 'D' and isOnRules:
-					printAt(10 + currentSelectedGame, (maxWidth - 7) // 2, DisplayGameSelected(currentSelectedGame))
-					print()
+					printAt(10 + currentSelectedGame, (maxWidth - 11) // 2, DisplayGameSelected(currentSelectedGame))
 					isOnRules = False
 			elif currChar == 'q' or currChar == 'Q':
 				restoreTerm(original)
