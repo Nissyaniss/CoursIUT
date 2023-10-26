@@ -19,7 +19,7 @@ def DisplayMenu() -> None:
 	printAt(7, (maxSize[0] - 23) // 2, "│         BONJOUR         │")
 	printAt(8, (maxSize[0] - 23) // 2, "│    Liste des règles     │")
 	printAt(9, (maxSize[0] - 23) // 2, "└─────────────────────────┘")
-	printAt(maxSize[1] + 1, 3, "Appuyer sur \"q\" pour quitter")
+	printAt(maxSize[1] + 1, 3, "Appuyer sur \"q\" ter")
 	print()
 
 def DisplayGameSelected(currentSelectedGame : int) -> str:
@@ -75,7 +75,6 @@ def DisplayRulesTitle(maxWidth : int, maxHeight : int, gameStr : str) -> None:
 	printAt(2, (maxWidth - 10) // 2,  "┌" + len(gameStr) * "─" + "┐")
 	printAt(3, (maxWidth - 10) // 2,  "│" + f"{gameStr}" +       "│")
 	printAt(4, (maxWidth - 10) // 2,  "└" + len(gameStr) * "─" + "┘")
-	printAt(maxHeight + 1, 3, "Appuyer sur \"q\" pour quitter")
 
 def printRule(gameStr : str, ruleStr : str, currentSelectedGame : int, player1 : str, player2 : str) -> None:
 	"""

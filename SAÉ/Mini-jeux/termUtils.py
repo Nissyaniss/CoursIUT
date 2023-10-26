@@ -81,5 +81,40 @@ def displayEmptySquare() -> tuple[int, int]:
 	for i in range(0, maxHeight) :
 		print("║"+ " " * maxWidth + "║")
 	print("╚" + "═" * maxWidth +"╝")
+	printAt(maxHeight + 1, 3, "Appuyer sur \"q\" pour quitter")
 
 	return (maxWidth, maxHeight)
+
+def centerTextAtLine(line : int, text : str) -> None:
+	width : int
+	lenText : int
+
+	width = get_terminal_size().columns - 3
+	lenText = len(text)
+
+	printAt(line, (width) // 2, text)
+
+def centerTextAtColumn(column : int, text : str) -> None:
+	height : int
+
+	height = get_terminal_size().lines - 3
+
+	printAt(height // 2, column, text)
+
+def centerText(text : str) -> None:
+	width : int
+	lenText : int
+	height : int
+
+	width = get_terminal_size().columns - 3
+	height = get_terminal_size().lines - 3
+	lenText = len(text)
+
+	printAt(height // 2, (width - lenText) // 2, text)
+
+def setCursorPositionCenterAtColumn(column : int) -> None:
+	height : int
+
+	height = get_terminal_size().lines - 3
+
+	setCursorPosition(height // 2, column)

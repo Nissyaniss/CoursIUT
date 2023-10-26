@@ -35,7 +35,6 @@ def DisplayMenu(currentSelectedGame : int) -> None:
 	printAt(8, (maxSize[0] - 23) // 2, "│   Liste des mini-jeux   │")
 	printAt(9, (maxSize[0] - 23) // 2, "└─────────────────────────┘")
 	printAt(10 + currentSelectedGame, (maxSize[0] - 7) // 2, DisplayGameSelected(currentSelectedGame))
-	printAt(maxSize[1] + 1, 3, "Appuyer sur \"q\" pour quitter")
 	print()
 
 def DisplayGameSelected(currentSelectedGame : int) -> str:
