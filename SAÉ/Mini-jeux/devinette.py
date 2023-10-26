@@ -8,7 +8,7 @@ from time import sleep
 def DisplayMenuMaster() -> None:
 	displayEmptySquare()
 	centerTextAtLine(6, "┌──────────────────────────────┐")
-	centerTextAtLine(7, "│   Quelle est la réponse ?    │")
+	centerTextAtLine(7, "│    Comment est sa réponse    │")
 	centerTextAtLine(8, "└──────────────────────────────┘")
 
 def DisplaySelectedOption(currentSelectedOption : int) -> str:
@@ -16,26 +16,26 @@ def DisplaySelectedOption(currentSelectedOption : int) -> str:
 
 	if currentSelectedOption == 1:
 		optionStr = "Plus Grand"
-		centerTextAtLine(12, "  Plus Petit")
+		centerTextAtLine(12, "  Plus Petit ")
 		centerTextAtLine(13, "  C'est Bon !")
 	elif currentSelectedOption == 2:
-		centerTextAtLine(11, "  Plus Grand")
+		centerTextAtLine(11, "  Plus Grand ")
 		optionStr = "Plus Petit"
 		centerTextAtLine(13, "  C'est Bon !")
 	elif currentSelectedOption == 3:
-		centerTextAtLine(11, "  Plus Grand")
-		centerTextAtLine(12, "  Plus Petit")
+		centerTextAtLine(11, "  Plus Grand ")
+		centerTextAtLine(12, "  Plus Petit ")
 		optionStr = "C'est Bon !"
 	else :
 		optionStr = "ERROR"
 	print()
 
-	return str(">" + Back.WHITE + Fore.BLACK + optionStr + Back.RESET + Fore.RESET + "  ")
+	return ">" + Back.WHITE + Fore.BLACK + optionStr + Back.RESET + Fore.RESET + "  "
 
 def DisplayMenuPlayer() -> None:
 	displayEmptySquare()
 	centerTextAtLine(6, "┌─────────────────────────────────┐")
-	centerTextAtLine(7, "│   Qui fera deviner a l'autre    │")
+	centerTextAtLine(7, "│   Qui fera deviner à l'autre    │")
 	centerTextAtLine(8, "└─────────────────────────────────┘")
 
 def DisplaySelectedPlayer(currentSelectedPlayer : int, player1 : str, player2 : str) -> str:
@@ -89,11 +89,11 @@ def start(player1 : str, player2 : str) -> None:
 			currChar = sys.stdin.read(1)
 			currChar = sys.stdin.read(1)
 			if currChar == 'A' and currentSelectedPlayer != 1:
-				centerTextAtLine(10 + currentSelectedPlayer - 1, DisplaySelectedPlayer(currentSelectedPlayer - 1, player1, player2))
 				currentSelectedPlayer -= 1
+				centerTextAtLine(10 + currentSelectedPlayer, DisplaySelectedPlayer(currentSelectedPlayer, player1, player2))
 			if currChar == 'B' and currentSelectedPlayer != 2:
-				centerTextAtLine(10 + currentSelectedPlayer + 1, DisplaySelectedPlayer(currentSelectedPlayer + 1, player1, player2))
 				currentSelectedPlayer += 1
+				centerTextAtLine(10 + currentSelectedPlayer, DisplaySelectedPlayer(currentSelectedPlayer, player1, player2))
 		if currChar == '\n':
 			break
 		elif currChar == 'q' or currChar == 'Q':
@@ -111,8 +111,8 @@ def start(player1 : str, player2 : str) -> None:
 	while True:
 		currChar = sys.stdin.read(1)
 		if currChar.isdigit() and count < 3:
-			printAt(maxHeight // 2, (maxWidth // 2) - 1 + count, currChar)
-			setCursorPosition(maxHeight // 2, (maxWidth // 2) + count)
+			printAt(maxHeight // 2, (maxWidth // 2 + 4) + count, currChar)
+			setCursorPosition(maxHeight // 2, (maxWidth // 2 + 5) + count)
 			solution += currChar
 			count += 1
 		elif currChar == '\n':
@@ -121,21 +121,21 @@ def start(player1 : str, player2 : str) -> None:
 			return
 		elif currChar == '\x7f':
 			if count != 0:
-				centerTextAtColumn(11 + count, " ")
+				printAt(maxHeight // 2, (maxWidth // 2 + 2) - 1 + count, " ")
 				count -= 1
-				setCursorPositionCenterAtColumn(12 + count)
+				setCursorPosition(maxHeight // 2, (maxWidth // 2 + 2) + count)
 				solution = solution[:-1]
 	while guess != solution:
 		displayEmptySquare()
 		centerText("Devinez : " + count * " ")
-		setCursorPositionCenterAtColumn(14)
 		count = 0
+		setCursorPosition(maxHeight // 2, (maxWidth // 2 + 4))
 		while True:
 			currChar = sys.stdin.read(1)
 			if currChar.isdigit():
-				printAt(maxHeight // 2, (maxWidth // 2) - 1 + count, currChar)
-				setCursorPosition(maxHeight // 2, (maxWidth // 2) + count)
-				guess = guess + currChar
+				printAt(maxHeight // 2, (maxWidth // 2 + 5) - 1 + count, currChar)
+				setCursorPosition(maxHeight // 2, (maxWidth // 2 + 5) + count)
+				guess += currChar
 				count += 1
 			elif currChar == '\n' and count > 0:
 				break
@@ -143,9 +143,9 @@ def start(player1 : str, player2 : str) -> None:
 				return
 			elif currChar == '\x7f':
 				if count != 0:
-					centerTextAtColumn(12 + count, " ")
+					printAt(maxHeight // 2, (maxWidth // 2 + 4) - 1 + count, " ")
 					count = count - 1
-					setCursorPositionCenterAtColumn(13 + count)
+					setCursorPosition(maxHeight // 2, (maxWidth // 2 + 4) + count)
 					solution = solution[:-1]
 		DisplayMenuMaster()
 		centerTextAtLine(10 + currentSelectedOption, DisplaySelectedOption(currentSelectedOption))
@@ -167,24 +167,31 @@ def start(player1 : str, player2 : str) -> None:
 				print("\x1b[?25h", end='', flush=True)
 				break
 		tries = tries + 1
-		if currentSelectedOption == 1 and guess < solution:
+		if currentSelectedOption == 1 and int(guess) < int(solution):
 			strikes += 1
-		elif currentSelectedOption == 2 and guess > solution:
+		elif currentSelectedOption == 2 and int(guess) > int(solution):
 			strikes =+ 1
 		elif (currentSelectedOption == 1 or currentSelectedOption == 2) and guess == solution:
 			strikes = 3
 		if strikes == 3:
 			print("\x1b[?25l", end='', flush=True)
-			centerText(f"{guesser} a gagné")
+			displayEmptySquare()
+			centerText(f"{guesser} a gagné car {master} a triché")
 			addPoint(guesser, 1)
 			sleep(1)
 			return
-		if tries == maxTries:
+		elif tries == maxTries:
 			print("\x1b[?25l", end='', flush=True)
-			centerText(f"{master} a gagné")
+			displayEmptySquare()
+			centerText(f"{master} a gagné car {guesser} n'a pas trouvé en {maxTries} essais")
 			sleep(1)
 			addPoint(master, 1)
 			return
+		elif currentSelectedOption == 3:
+			print("\x1b[?25l", end='', flush=True)
+			displayEmptySquare()
+			centerText(f"{guesser} a gagné car il a trouvé en {tries}/{maxTries} essais")
+			sleep(1)
+			addPoint(guesser, 1)
+			return
 	print("\x1b[?25l", end='', flush=True)
-
-

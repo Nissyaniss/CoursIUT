@@ -59,7 +59,7 @@ def DisplayGameSelected(currentSelectedGame : int) -> str:
 		gameStr = "ERROR"
 
 	print()
-	return str(">" + Back.WHITE + Fore.BLACK + gameStr + Back.RESET + Fore.RESET + " ")
+	return ">" + Back.WHITE + Fore.BLACK + gameStr + Back.RESET + Fore.RESET + " "
 
 def DisplayRulesTitle(maxWidth : int, maxHeight : int, gameStr : str) -> None:
 	"""

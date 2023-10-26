@@ -90,9 +90,9 @@ def centerTextAtLine(line : int, text : str) -> None:
 	lenText : int
 
 	width = get_terminal_size().columns - 3
-	lenText = len(text)
+	lenText = len(stripANSIColors(text))
 
-	printAt(line, (width) // 2, text)
+	printAt(line, (width - lenText) // 2, text)
 
 def centerTextAtColumn(column : int, text : str) -> None:
 	height : int
@@ -108,7 +108,7 @@ def centerText(text : str) -> None:
 
 	width = get_terminal_size().columns - 3
 	height = get_terminal_size().lines - 3
-	lenText = len(text)
+	lenText = len(stripANSIColors(text))
 
 	printAt(height // 2, (width - lenText) // 2, text)
 
@@ -118,3 +118,23 @@ def setCursorPositionCenterAtColumn(column : int) -> None:
 	height = get_terminal_size().lines - 3
 
 	setCursorPosition(height // 2, column)
+
+def stripANSIColors(string):
+	result : str
+	i : int
+	j : int
+
+	result = ""
+	i = 0
+	j = 0
+
+	while i < len(string):
+		if string[i] == '\x1B':
+			j = i
+			while string[j] != 'm':
+				j += 1
+			i = j + 1
+		else:
+			result += string[i]
+			i += 1
+	return result
