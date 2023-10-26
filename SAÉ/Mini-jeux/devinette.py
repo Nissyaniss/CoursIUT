@@ -1,9 +1,10 @@
 from colorama import Fore, Back
-from os import system, get_terminal_size
-from termUtils import setCursorPosition, displayEmptySquare, printAt, centerTextAtLine, centerText, centerTextAtColumn, setCursorPositionCenterAtColumn
+from os import get_terminal_size
 import sys
-from players import addPoint
 from time import sleep
+
+from players import addPoint
+from termUtils import setCursorPosition, displayEmptySquare, printAt, centerTextAtLine, centerText
 
 def DisplayMenuMaster() -> None:
 	displayEmptySquare()
@@ -56,7 +57,6 @@ def start(player1 : str, player2 : str) -> None:
 	solution : str
 	guess : str
 	currChar : str
-	count : int
 	currentSelectedOption : int
 	maxWidth : int
 	maxHeight : int
@@ -75,12 +75,10 @@ def start(player1 : str, player2 : str) -> None:
 	solution = ''
 	guess = ''
 	currChar = ""
-	count = 0
 	strikes = 0
 	maxTries = 15
 	tries = 0
 
-	system("clear")
 	displayEmptySquare()
 	DisplayMenuPlayer()
 	while True:
@@ -91,10 +89,8 @@ def start(player1 : str, player2 : str) -> None:
 			currChar = sys.stdin.read(1)
 			if currChar == 'A' and currentSelectedPlayer != 1:
 				currentSelectedPlayer -= 1
-				centerTextAtLine(10 + currentSelectedPlayer, DisplaySelectedPlayer(currentSelectedPlayer, player1, player2))
 			if currChar == 'B' and currentSelectedPlayer != 2:
 				currentSelectedPlayer += 1
-				centerTextAtLine(10 + currentSelectedPlayer, DisplaySelectedPlayer(currentSelectedPlayer, player1, player2))
 		if currChar == '\n':
 			break
 		elif currChar == 'q' or currChar == 'Q':
@@ -107,60 +103,46 @@ def start(player1 : str, player2 : str) -> None:
 		guesser = player1
 	print("\x1b[?25h", end='')
 	displayEmptySquare()
-	centerText("Nombre : " + Back.BLACK)
-	print(Back.RESET ,end='', flush=True)
+	centerText("Nombre : ")
 	while True:
 		currChar = sys.stdin.read(1)
-		if currChar.isdigit() and count < 3:
-			printAt(maxHeight // 2, (maxWidth // 2 + 4) + count, currChar)
-			setCursorPosition(maxHeight // 2, (maxWidth // 2 + 5) + count)
+		if currChar.isdigit() and len(solution) < 3:
 			solution += currChar
-			count += 1
 		elif currChar == '\n':
 			break
 		elif currChar == 'q' or currChar == 'Q':
 			return
 		elif currChar == '\x7f':
-			if count != 0:
-				printAt(maxHeight // 2, (maxWidth // 2 + 2) - 1 + count, " ")
-				count -= 1
-				setCursorPosition(maxHeight // 2, (maxWidth // 2 + 2) + count)
+			if len(solution) != 0:
 				solution = solution[:-1]
-	while guess != solution:
+	while True:
 		displayEmptySquare()
-		centerText("Devinez : " + count * " ")
-		count = 0
-		setCursorPosition(maxHeight // 2, (maxWidth // 2 + 4))
+		centerText("Devinez : " + len(solution) * " ")
 		while True:
+			setCursorPosition(maxHeight // 2, (maxWidth // 2 + 4) + len(guess))
 			currChar = sys.stdin.read(1)
 			if currChar.isdigit():
-				printAt(maxHeight // 2, (maxWidth // 2 + 5) - 1 + count, currChar)
-				setCursorPosition(maxHeight // 2, (maxWidth // 2 + 5) + count)
+				printAt(maxHeight // 2, (maxWidth // 2 + 5) - 1 + len(guess), currChar)
 				guess += currChar
-				count += 1
-			elif currChar == '\n' and count > 0:
+			elif currChar == '\n' and len(guess) > 0:
 				break
 			elif currChar == 'q' or currChar == 'Q':
 				return
 			elif currChar == '\x7f':
-				if count != 0:
-					printAt(maxHeight // 2, (maxWidth // 2 + 4) - 1 + count, " ")
-					count = count - 1
-					setCursorPosition(maxHeight // 2, (maxWidth // 2 + 4) + count)
-					solution = solution[:-1]
+				if len(guess) != 0:
+					printAt(maxHeight // 2, (maxWidth // 2 + 4) - 1 + len(guess), " ")
+					guess = guess[:-1]
 		DisplayMenuMaster()
-		centerTextAtLine(10 + currentSelectedOption, DisplaySelectedOption(currentSelectedOption))
 		print("\x1b[?25l", end='', flush=True)
 		while True:
+			centerTextAtLine(10 + currentSelectedOption, DisplaySelectedOption(currentSelectedOption))
 			currChar = sys.stdin.read(1)
 			if currChar == '\x1b':
 				currChar = sys.stdin.read(1)
 				currChar = sys.stdin.read(1)
 				if currChar == 'A' and currentSelectedOption != 1:
-					centerTextAtLine(10 + currentSelectedOption - 1, DisplaySelectedOption(currentSelectedOption - 1))
 					currentSelectedOption -= 1
 				if currChar == 'B' and currentSelectedOption != 3:
-					centerTextAtLine(10 + currentSelectedOption + 1, DisplaySelectedOption(currentSelectedOption + 1))
 					currentSelectedOption += 1
 			elif currChar == 'q' or currChar == 'Q':
 				return
@@ -195,4 +177,3 @@ def start(player1 : str, player2 : str) -> None:
 			sleep(1)
 			addPoint(guesser, 1)
 			return
-	print("\x1b[?25l", end='', flush=True)
