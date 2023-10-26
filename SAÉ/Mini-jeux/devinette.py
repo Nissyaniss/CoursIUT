@@ -59,6 +59,7 @@ def start(player1 : str, player2 : str) -> None:
 	count : int
 	currentSelectedOption : int
 	maxWidth : int
+	maxHeight : int
 	strikes : int
 	currentSelectedPlayer : int
 	master : str
