@@ -41,12 +41,15 @@ def DisplayMenuPlayer() -> None:
 
 def DisplaySelectedPlayer(currentSelectedPlayer : int, player1 : str, player2 : str) -> str:
 	playerStr: str
+	maxWidth : int
 
+	maxWidth = get_terminal_size().columns - 3
+	
 	if currentSelectedPlayer == 1:
 		playerStr = player1
-		centerTextAtLine(12, "  " + player2)
+		printAt(12, maxWidth // 2 - len(player1) + 3, "  " + player2)
 	elif currentSelectedPlayer == 2:
-		centerTextAtLine(11, "  " + player1)
+		printAt(11, maxWidth // 2 - len(player1) + 3, "  " + player1)
 		playerStr = player2
 	else :
 		playerStr = "ERROR"
@@ -82,7 +85,7 @@ def start(player1 : str, player2 : str) -> None:
 	displayEmptySquare()
 	DisplayMenuPlayer()
 	while True:
-		centerTextAtLine(10 + currentSelectedPlayer, DisplaySelectedPlayer(currentSelectedPlayer, player1, player2))
+		printAt(10 + currentSelectedPlayer, maxWidth // 2 - len(player1) + 3, DisplaySelectedPlayer(currentSelectedPlayer, player1, player2))
 		currChar = sys.stdin.read(1)
 		if currChar == '\x1b':
 			currChar = sys.stdin.read(1)
