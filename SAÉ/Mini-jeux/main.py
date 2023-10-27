@@ -3,12 +3,12 @@ from colorama import Fore, Back
 import sys
 from time import sleep
 
-import morpion
+from morpion import start as morpion
+from allumettes import start as allumettes
+from rules import start as rules
+from devinette import start as devinette
 from termUtils import printAt, setup, restoreTerm, displayEmptySquare, centerTextAtLine
-import allumettes
 from players import addPlayer, isPlayerExisting, printScoreboard
-import rules
-import devinette
 
 def DisplayMenu(currentSelectedGame : int) -> None:
 	maxWidth : int
@@ -131,12 +131,12 @@ if __name__ == "__main__":
 			elif currChar == '\n':
 				break
 		if isOnRules:
-			rules.start(1, player1, player2)
+			rules(1, player1, player2)
 			isOnRules = False
 		elif currentSelectedGame == 1:
-			devinette.start(player1, player2)
+			devinette(player1, player2)
 			print("\x1b[?25l", end='', flush=True)
 		elif currentSelectedGame == 2:
-			allumettes.start(player1, player2)
+			allumettes(player1, player2)
 		elif currentSelectedGame == 3:
-			morpion.start(player1, player2)
+			morpion(player1, player2)

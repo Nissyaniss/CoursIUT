@@ -1,215 +1,69 @@
-from colorama import Fore, Back
 import sys
-from os import system, get_terminal_size
-import main
-from typing import Tuple
+from colorama import Fore, Back
 
-from termUtils import printAt, displayEmptySquare
+from termUtils import displayEmptySquare, centerTextAtLine
 
-def DisplayMenu():
-	i : int
-	maxSize : Tuple[int, int]
+def DisplayGrid(grid : list[list[str]], currentSelectedCase : int):
+	displayEmptySquare()
+	centerTextAtLine(15, f" {grid[0][0]} │ {grid[0][1]} │ {grid[0][2]} ")
+	centerTextAtLine(16, "───┼───┼───")
+	centerTextAtLine(17, f" {grid[1][0]} │ {grid[1][1]} │ {grid[1][2]}")
+	centerTextAtLine(18, "───┼───┼───")
+	centerTextAtLine(19, f" {grid[2][0]} │ {grid[2][1]} │ {grid[2][2]}")
 
-	i = 1
-	maxSize = displayEmptySquare()
+	if currentSelectedCase == 1:
+		centerTextAtLine(15, " " + Fore.BLACK + Back.WHITE + f"{grid[0][0]}" + Fore.RESET + Back.RESET + f" │ {grid[0][1]} │ {grid[0][2]} ")
+	elif currentSelectedCase == 2:
+		centerTextAtLine(15, f" {grid[0][0]} │ " + Fore.BLACK + Back.WHITE +  f"{grid[0][1]}" + Fore.RESET + Back.RESET +f" │ {grid[0][2]} ")
+	elif currentSelectedCase == 3:
+		centerTextAtLine(15, f" {grid[0][0]} │ {grid[0][1]} │ "+ Fore.BLACK + Back.WHITE + f"{grid[0][2]}" + Fore.RESET + Back.RESET + " ")
 
-	# ═══════════════╦═══════════════╦═══════════════
-	for i in range(1, 45):
-		printAt(maxSize[1] // 2 - 10, maxSize[0] // 2 - 24 + i, "═")
-		if i == 15 or i == 30:
-			printAt(maxSize[1] // 2 - 10, maxSize[0] // 2 - 24 + i, "╦")
+	elif currentSelectedCase == 4:
+		centerTextAtLine(17, " " + Fore.BLACK + Back.WHITE + f"{grid[1][0]}" + Fore.RESET + Back.RESET + f" │ {grid[1][1]} │ {grid[1][2]} ")
+	elif currentSelectedCase == 5:
+		centerTextAtLine(17, f" {grid[1][0]} │ " + Fore.BLACK + Back.WHITE +  f"{grid[1][1]}" + Fore.RESET + Back.RESET +f" │ {grid[1][2]} ")
+	elif currentSelectedCase == 6:
+		centerTextAtLine(17, f" {grid[1][0]} │ {grid[1][1]} │ "+ Fore.BLACK + Back.WHITE + f"{grid[1][2]}" + Fore.RESET + Back.RESET + " ")
+	
+	elif currentSelectedCase == 7:
+		centerTextAtLine(19, " " + Fore.BLACK + Back.WHITE + f"{grid[2][0]}" + Fore.RESET + Back.RESET + f" │ {grid[2][1]} │ {grid[2][2]} ")
+	elif currentSelectedCase == 8:
+		centerTextAtLine(19, f" {grid[2][0]} │ " + Fore.BLACK + Back.WHITE +  f"{grid[2][1]}" + Fore.RESET + Back.RESET +f" │ {grid[2][2]} ")
+	elif currentSelectedCase == 9:
+		centerTextAtLine(19, f" {grid[2][0]} │ {grid[2][1]} │ "+ Fore.BLACK + Back.WHITE + f"{grid[2][2]}" + Fore.RESET + Back.RESET + " ")
 
-	# ═══════════════════════════════════════════════
-	for i in range(1, 45):
-		printAt(maxSize[1] // 2 - 4, maxSize[0] // 2 - 24 + i, "═")
 
-	# ═══════════════════════════════════════════════
-	for i in range(1, 45):
-		printAt(maxSize[1] // 2 + 2, maxSize[0] // 2 - 24 + i, "═")
-
-	# ═══════════════╩═══════════════╩═══════════════
-	for i in range(1, 45):
-		printAt(maxSize[1] // 2 + 8, maxSize[0] // 2 - 24 + i, "═")
-		if i == 15 or i == 30:
-			printAt(maxSize[1] // 2 + 8, maxSize[0] // 2 - 24 + i, "╩")
-
-	# first bar
-	printAt(maxSize[1] // 2 - 10, maxSize[0] // 2 - 24, "╔")
-	for i in range(1, 18):
-		printAt(maxSize[1] // 2 - 10 + i, maxSize[0] // 2 - 24, "║")
-		if i == 6 or i == 12:
-			printAt(maxSize[1] // 2 - 10 + i, maxSize[0] // 2 - 24, "╠")
-	printAt(maxSize[1] // 2 - 9 + i, maxSize[0] // 2 - 24, "╚")
-
-	# second column
-	for i in range(1, 18):
-		printAt(maxSize[1] // 2 - 10 + i, maxSize[0] // 2 - 9, "║")
-		if i == 6 or i == 12:
-			printAt(maxSize[1] // 2 - 10 + i, maxSize[0] // 2 - 9, "╬")
-
-	# third column
-	for i in range(1, 18):
-		printAt(maxSize[1] // 2 - 10 + i, maxSize[0] // 2 + 6, "║")
-		if i == 6 or i == 12:
-			printAt(maxSize[1] // 2 - 10 + i, maxSize[0] // 2 + 6, "╬")
-
-	# final bar
-	printAt(maxSize[1] // 2 - 10, maxSize[0] // 2 + 21, "╗")
-	for i in range(1, 18):
-		printAt(maxSize[1] // 2 - 10 + i, maxSize[0] // 2 + 21, "║")
-		if i == 6 or i == 12:
-			printAt(maxSize[1] // 2 - 10 + i, maxSize[0] // 2 + 21, "╣")
-	printAt(maxSize[1] // 2 - 9 + i, maxSize[0] // 2 + 21, "╝")
-
-	print()
-	DisplaySelectedCase(1, 1)
-
-def DisplaySelectedCase(selectedCase: int, selectedCasePrevious : int):
-	i : int
-	maxWidth : int
-	maxHeight : int
-
-	i = 0
-	maxWidth = get_terminal_size().columns - 3
-	maxHeight = get_terminal_size().lines - 3
-
-	if selectedCase == 1:
-		while i <= 4:
-			printAt(maxHeight // 2 - 9 + i, maxWidth // 2 - 23, Fore.BLACK + Back.WHITE + " " * 14)
-			i = i + 1
-		if not (selectedCasePrevious == selectedCase):
-			RestorePreviousCase(selectedCasePrevious)
-	elif selectedCase == 2:
-		while i <= 4:
-			printAt(maxHeight // 2 - 9 + i, maxWidth // 2 - 8, Fore.BLACK + Back.WHITE + " " * 14)
-			i = i + 1
-		if not (selectedCasePrevious == selectedCase):
-			RestorePreviousCase(selectedCasePrevious)
-	elif selectedCase == 3:
-		while i <= 4:
-			printAt(maxHeight // 2 - 9 + i, maxWidth // 2 + 7, Fore.BLACK + Back.WHITE + " " * 14)
-			i = i + 1
-		if not (selectedCasePrevious == selectedCase):
-			RestorePreviousCase(selectedCasePrevious)
-
-	elif selectedCase == 4:
-		while i <= 4:
-			printAt(maxHeight // 2 - 3 + i, maxWidth // 2 - 23, Fore.BLACK + Back.WHITE + " " * 14)
-			i = i + 1
-		if not (selectedCasePrevious == selectedCase):
-			RestorePreviousCase(selectedCasePrevious)
-	elif selectedCase == 5:
-		while i <= 4:
-			printAt(maxHeight // 2 - 3 + i, maxWidth // 2 - 8, Fore.BLACK + Back.WHITE + " " * 14)
-			i = i + 1
-		if not (selectedCasePrevious == selectedCase):
-			RestorePreviousCase(selectedCasePrevious)
-	elif selectedCase == 6:
-		while i <= 4:
-			printAt(maxHeight // 2 - 3 + i, maxWidth // 2 + 7, Fore.BLACK + Back.WHITE + " " * 14)
-			i = i + 1
-		if not (selectedCasePrevious == selectedCase):
-			RestorePreviousCase(selectedCasePrevious)
-
-	elif selectedCase == 7:
-		while i <= 4:
-			printAt(maxHeight // 2 + 3 + i, maxWidth // 2 - 23, Fore.BLACK + Back.WHITE + " " * 14)
-			i = i + 1
-		if not (selectedCasePrevious == selectedCase):
-			RestorePreviousCase(selectedCasePrevious)
-	elif selectedCase == 8:
-		while i <= 4:
-			printAt(maxHeight // 2 + 3 + i, maxWidth // 2 - 8, Fore.BLACK + Back.WHITE + " " * 14)
-			i = i + 1
-		if not (selectedCasePrevious == selectedCase):
-			RestorePreviousCase(selectedCasePrevious)
-	elif selectedCase == 9:
-		while i <= 4:
-			printAt(maxHeight // 2 + 3 + i, maxWidth // 2 + 7, Fore.BLACK + Back.WHITE + " " * 14)
-			i = i + 1
-		if not (selectedCasePrevious == selectedCase):
-			RestorePreviousCase(selectedCasePrevious)
-	print()
-
-def RestorePreviousCase(selectedCase: int):
-	i : int
-	maxWidth : int
-	maxHeight : int
-
-	i = 0
-	maxWidth = get_terminal_size().columns - 3
-	maxHeight = get_terminal_size().lines - 3
-
-	if selectedCase == 1:
-		while i <= 4:
-			printAt(maxHeight // 2 - 9 + i, maxWidth // 2 - 23, Fore.RESET + Back.RESET + " " * 14)
-			i = i + 1
-	elif selectedCase == 2:
-		while i <= 4:
-			printAt(maxHeight // 2 - 9 + i,maxWidth // 2 - 8, Fore.RESET + Back.RESET + " " * 14)
-			i = i + 1
-	elif selectedCase == 3:
-		while i <= 4:
-			printAt(maxHeight // 2 - 9 + i,maxWidth // 2 + 7, Fore.RESET + Back.RESET + " " * 14)
-			i = i + 1
-
-	elif selectedCase == 4:
-		while i <= 4:
-			printAt(maxHeight // 2 - 3 + i, maxWidth // 2 - 23, Fore.RESET + Back.RESET + " " * 14)
-			i = i + 1
-	elif selectedCase == 5:
-		while i <= 4:
-			printAt(maxHeight // 2 - 3 + i, maxWidth // 2 - 8, Fore.RESET + Back.RESET + " " * 14)
-			i = i + 1
-	elif selectedCase == 6:
-		while i <= 4:
-			printAt(maxHeight // 2 - 3 + i, maxWidth // 2 + 7, Fore.RESET + Back.RESET + " " * 14)
-			i = i + 1
-
-	elif selectedCase == 7:
-		while i <= 4:
-			printAt(maxHeight // 2 + 3 + i, maxWidth // 2 - 23, Fore.RESET + Back.RESET + " " * 14)
-			i = i + 1
-	elif selectedCase == 8:
-		while i <= 4:
-			printAt(maxHeight // 2 + 3 + i, maxWidth // 2 - 8, Fore.RESET + Back.RESET + " " * 14)
-			i = i + 1
-	elif selectedCase == 9:
-		while i <= 4:
-			printAt(maxHeight // 2 + 3 + i, maxWidth // 2 + 7, Fore.RESET + Back.RESET + " " * 14)
-			i = i + 1
-	print()
-
-def start(player1 : str, player2 : str):
+def start(player1 : str, player2: str):
+	grid : list[list[str]]
+	currentSelectedCase : int
 	currChar : str
-	selectedCase : int
 
-	currChar = ""
-	selectedCase = 1
+	grid = [[' ', ' ', ' '], [' ', ' ', ' '], [' ', ' ', ' ']]
+	currentSelectedCase = 1
+	currChar = ''
 
-	DisplayMenu()
 	while True:
 		while True:
+			DisplayGrid(grid, currentSelectedCase)
 			currChar = sys.stdin.read(1)
 			if currChar == '\x1b':
 				currChar = sys.stdin.read(1)
 				currChar = sys.stdin.read(1)
-				if currChar == 'A' and selectedCase > 3 :
-					selectedCase = selectedCase - 3
-					DisplaySelectedCase(selectedCase, selectedCase + 3)
-				elif currChar == 'B' and selectedCase <= 6:
-					selectedCase = selectedCase + 3
-					DisplaySelectedCase(selectedCase, selectedCase - 3)
-				elif currChar == 'C' and selectedCase != 9:
-					selectedCase = selectedCase + 1
-					DisplaySelectedCase(selectedCase, selectedCase - 1)
-				elif currChar == 'D' and selectedCase != 1:
-					selectedCase = selectedCase - 1
-					DisplaySelectedCase(selectedCase, selectedCase + 1)
+				if currChar == 'A':
+					if currentSelectedCase > 3:
+						currentSelectedCase -= 3
+				if currChar == 'B':
+					if currentSelectedCase < 7:
+						currentSelectedCase += 3
+				if currChar == 'C':
+					if currentSelectedCase != 9:
+						currentSelectedCase += 1
+				if currChar == 'D':
+					if currentSelectedCase != 1:
+						currentSelectedCase -= 1
 			elif currChar == '\n':
-				system("clear")
-				print(selectedCase)
-				exit()
+				grid[(currentSelectedCase - 1) // 3][(currentSelectedCase - 1) % 3] = '×'
 			elif currChar == 'q' or currChar == 'Q':
-				print(Fore.RESET + Back.RESET)
 				return
+			
+# ×○

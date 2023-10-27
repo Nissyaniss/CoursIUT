@@ -1,10 +1,9 @@
 import sys
 from os import system, get_terminal_size
-from termUtils import printAt, displayEmptySquare, centerTextAtLine
 from colorama import Fore, Back
 from typing import Tuple
 
-import main
+from termUtils import printAt, displayEmptySquare, centerTextAtLine
 
 def DisplayMenu() -> None:
 	displayEmptySquare()
