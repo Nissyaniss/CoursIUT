@@ -1,12 +1,17 @@
 import sys
 from colorama import Fore, Back
 from time import sleep
+from os import get_terminal_size
 
-from termUtils import displayEmptySquare, centerTextAtLine, centerText
+from termUtils import displayEmptySquare, centerTextAtLine, centerText, printAt
 from players import addPoint
 
-def DisplayGrid(grid : list[list[str]], currentSelectedCase : int):
+def DisplayGrid(grid : list[list[str]], currentSelectedCase : int, currentPlayer : int, player1 : str, player2: str):
 	displayEmptySquare()
+	if currentPlayer == 1:
+		centerTextAtLine(13, f"C'est actuellement au tour de : {player1}   ")
+	elif currentPlayer == 2:
+		centerTextAtLine(13, f"C'est actuellement au tour de : {player2}   ")
 	centerTextAtLine(15, f" {grid[0][0]} │ {grid[0][1]} │ {grid[0][2]} ")
 	centerTextAtLine(16, "───┼───┼───")
 	centerTextAtLine(17, f" {grid[1][0]} │ {grid[1][1]} │ {grid[1][2]}")
@@ -54,43 +59,88 @@ def checkWin(grid : list[list[str]]) -> bool:
 	else:
 		return False
 
+def DisplaySelectedPlayer(currentPlayer : int, player1 : str, player2: str) -> str:
+	maxWidth : int
+	maxHeight : int
+
+	maxWidth = get_terminal_size().columns - 3
+	maxHeight = get_terminal_size().lines - 3
+	
+	displayEmptySquare()
+	if currentPlayer == 1:
+		printAt(maxHeight // 2 - 2, maxWidth // 2 - len(player1) + 3, "  " + player2)
+		return str(Fore.BLACK + Back.WHITE + player1 + Fore.RESET + Back.RESET + len(player2) * " ")
+	elif currentPlayer == 2:
+		printAt(maxHeight // 2 - 1, maxWidth // 2 - len(player1) + 3, "  " + player1)
+		return str(Fore.BLACK + Back.WHITE + player2 + Fore.RESET + Back.RESET + len(player1) * " ")
+
+def selectPlayer(player1 : str, player2 : str) -> int:
+	currentPlayer : int
+	maxWidth : int
+	maxHeight : int
+
+	maxWidth = get_terminal_size().columns - 3
+	maxHeight = get_terminal_size().lines - 3
+	currentPlayer = 1
+	
+	while True:
+		printAt((maxHeight // 2) - currentPlayer, maxWidth // 2 - len(player1) + 3, DisplaySelectedPlayer(currentPlayer, player1, player2))
+		currChar = sys.stdin.read(1)
+		if currChar == '\x1b':
+			currChar = sys.stdin.read(1)
+			currChar = sys.stdin.read(1)
+			if currChar == 'A' and currentPlayer != 1:
+				currentPlayer -= 1
+			if currChar == 'B' and currentPlayer != 2:
+				currentPlayer += 1
+		if currChar == '\n':
+			break
+		elif currChar == 'q' or currChar == 'Q':
+			return 0
+	if currentPlayer == 1:
+		return 1
+	else:
+		return 2
+
 
 def start(player1 : str, player2: str):
 	grid : list[list[str]]
-	currentSelectedCase : int
+	currentCase : int
 	currChar : str
 	currentPlayer : int
 
 	grid = [[' ', ' ', ' '], [' ', ' ', ' '], [' ', ' ', ' ']]
-	currentSelectedCase = 1
+	currentCase = 1
 	currChar = ''
-	currentPlayer = 1
+	currentPlayer = selectPlayer(player1, player2)
 
+	if currentPlayer == 0:
+		return
 	while True:
 		while True:
-			DisplayGrid(grid, currentSelectedCase)
+			DisplayGrid(grid, currentCase, currentPlayer, player1, player2)
 			currChar = sys.stdin.read(1)
 			if currChar == '\x1b':
 				currChar = sys.stdin.read(1)
 				currChar = sys.stdin.read(1)
 				if currChar == 'A':
-					if currentSelectedCase > 3:
-						currentSelectedCase -= 3
+					if currentCase > 3:
+						currentCase -= 3
 				if currChar == 'B':
-					if currentSelectedCase < 7:
-						currentSelectedCase += 3
+					if currentCase < 7:
+						currentCase += 3
 				if currChar == 'C':
-					if currentSelectedCase != 9:
-						currentSelectedCase += 1
+					if currentCase != 9:
+						currentCase += 1
 				if currChar == 'D':
-					if currentSelectedCase != 1:
-						currentSelectedCase -= 1
-			elif currChar == '\n' and grid[(currentSelectedCase - 1) // 3][(currentSelectedCase - 1) % 3] == ' ': 
+					if currentCase != 1:
+						currentCase -= 1
+			elif currChar == '\n' and grid[(currentCase - 1) // 3][(currentCase - 1) % 3] == ' ': 
 				if currentPlayer == 1:
-					grid[(currentSelectedCase - 1) // 3][(currentSelectedCase - 1) % 3] = '×'
+					grid[(currentCase - 1) // 3][(currentCase - 1) % 3] = '×'
 					currentPlayer = 2
 				elif currentPlayer == 2:
-					grid[(currentSelectedCase - 1) // 3][(currentSelectedCase - 1) % 3] = '○'
+					grid[(currentCase - 1) // 3][(currentCase - 1) % 3] = '○'
 					currentPlayer = 1
 				if checkWin(grid) == True:
 					if currentPlayer == 1:
