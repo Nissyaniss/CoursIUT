@@ -9,9 +9,9 @@ from players import addPoint
 def DisplayGrid(grid : list[list[str]], currentSelectedCase : int, currentPlayer : int, player1 : str, player2: str):
 	displayEmptySquare()
 	if currentPlayer == 1:
-		centerTextAtLine(13, f"C'est actuellement au tour de : {player1}   ")
+		centerTextAtLine(13, f"C'est actuellement au tour de : {player1}" + len(player2) * " ")
 	elif currentPlayer == 2:
-		centerTextAtLine(13, f"C'est actuellement au tour de : {player2}   ")
+		centerTextAtLine(13, f"C'est actuellement au tour de : {player2}" + len(player1) * " ")
 	centerTextAtLine(15, f" {grid[0][0]} │ {grid[0][1]} │ {grid[0][2]} ")
 	centerTextAtLine(16, "───┼───┼───")
 	centerTextAtLine(17, f" {grid[1][0]} │ {grid[1][1]} │ {grid[1][2]}")
@@ -66,13 +66,15 @@ def DisplaySelectedPlayer(currentPlayer : int, player1 : str, player2: str) -> s
 	maxWidth = get_terminal_size().columns - 3
 	maxHeight = get_terminal_size().lines - 3
 	
-	displayEmptySquare()
+	
 	if currentPlayer == 1:
-		printAt(maxHeight // 2 - 2, maxWidth // 2 - len(player1) + 3, "  " + player2)
-		return str(Fore.BLACK + Back.WHITE + player1 + Fore.RESET + Back.RESET + len(player2) * " ")
+		printAt(maxHeight // 2 - 1, maxWidth // 2 - len(player1) * 2 + 1, " " * len(player2) + player2)
+		return str(">" + Fore.BLACK + Back.WHITE + player1 + Fore.RESET + Back.RESET + len(player1) * " ")
 	elif currentPlayer == 2:
-		printAt(maxHeight // 2 - 1, maxWidth // 2 - len(player1) + 3, "  " + player1)
-		return str(Fore.BLACK + Back.WHITE + player2 + Fore.RESET + Back.RESET + len(player1) * " ")
+		printAt(maxHeight // 2 - 2, maxWidth // 2 - len(player1) * 2 + 1, " " * len(player1) + player1)
+		return str(">" + Fore.BLACK + Back.WHITE + player2 + Fore.RESET + Back.RESET + len(player2) * " ")
+	else :
+		return "ERROR"
 
 def selectPlayer(player1 : str, player2 : str) -> int:
 	currentPlayer : int
@@ -83,8 +85,12 @@ def selectPlayer(player1 : str, player2 : str) -> int:
 	maxHeight = get_terminal_size().lines - 3
 	currentPlayer = 1
 	
+	displayEmptySquare()
 	while True:
-		printAt((maxHeight // 2) - currentPlayer, maxWidth // 2 - len(player1) + 3, DisplaySelectedPlayer(currentPlayer, player1, player2))
+		centerTextAtLine(12, "┌────────────────┐")
+		centerTextAtLine(13, "| Qui commence ? |")
+		centerTextAtLine(14, "└────────────────┘")
+		printAt((maxHeight // 2) + currentPlayer - 3, maxWidth // 2 - len(player1) - 1, DisplaySelectedPlayer(currentPlayer, player1, player2))
 		currChar = sys.stdin.read(1)
 		if currChar == '\x1b':
 			currChar = sys.stdin.read(1)
@@ -154,6 +160,11 @@ def start(player1 : str, player2: str):
 						centerText(f"{player1} a gagné")
 						addPoint(player1, 3)
 						sleep(1)
+						return
+				elif grid[0][0] != ' ' and grid[0][1] != ' ' and grid[0][2] != ' ' and grid[1][0] != ' ' and grid[1][1] != ' ' and grid[1][2] != ' ' and grid[2][0] != ' ' and grid[2][1] != ' ' and grid[2][2] != ' ':
+					displayEmptySquare()
+					centerText("Égalité")
+					sleep(1)
 					return
 			elif currChar == 'q' or currChar == 'Q':
 				return

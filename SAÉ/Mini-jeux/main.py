@@ -50,7 +50,7 @@ def DisplayGameSelected(currentSelectedGame : int) -> str:
 		printAt(12, (maxWidth - 11) // 2, "  Allumette")
 		gameStr = "Morpion"
 		printAt(14, (maxWidth - 11) // 2, "  Puissance 4")
-		printAt(3, maxWidth - 9, " RÈGLES" + Fore.RED)
+		printAt(3, maxWidth - 9, " RÈGLES")
 	elif currentSelectedGame == 4:
 		printAt(11, (maxWidth - 11) // 2, "  Devinette")
 		printAt(12, (maxWidth - 11) // 2, "  Allumette")
