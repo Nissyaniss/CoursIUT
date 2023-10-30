@@ -140,3 +140,5 @@ if __name__ == "__main__":
 			allumettes(player1, player2)
 		elif currentSelectedGame == 3:
 			morpion(player1, player2)
+		#elif currentSelectedGame == 4:
+		#	puissance4(player1, player2)
