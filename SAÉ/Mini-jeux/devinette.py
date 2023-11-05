@@ -111,7 +111,7 @@ def start(player1 : str, player2 : str) -> None:
 		currChar = sys.stdin.read(1)
 		if currChar.isdigit() and len(solution) < 3:
 			solution += currChar
-		elif currChar == '\n':
+		elif currChar == '\n' and len(solution) > 0:
 			break
 		elif currChar == 'q' or currChar == 'Q':
 			return
@@ -159,6 +159,7 @@ def start(player1 : str, player2 : str) -> None:
 			strikes =+ 1
 		elif (currentSelectedOption == 1 or currentSelectedOption == 2) and guess == solution:
 			strikes = 3
+		guess = ""
 		if strikes == 3:
 			print("\x1b[?25l", end='', flush=True)
 			displayEmptySquare()

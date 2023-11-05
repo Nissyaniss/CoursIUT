@@ -6,6 +6,7 @@ from time import sleep
 from morpion import start as morpion
 from allumettes import start as allumettes
 from rules import start as rules
+from puissance4 import start as puissance4
 from devinette import start as devinette
 from termUtils import printAt, setup, restoreTerm, displayEmptySquare, centerTextAtLine
 from players import addPlayer, isPlayerExisting, printScoreboard
@@ -140,5 +141,5 @@ if __name__ == "__main__":
 			allumettes(player1, player2)
 		elif currentSelectedGame == 3:
 			morpion(player1, player2)
-		#elif currentSelectedGame == 4:
-		#	puissance4(player1, player2)
+		elif currentSelectedGame == 4:
+			puissance4(player1, player2)
