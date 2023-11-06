@@ -113,7 +113,7 @@ def selectPlayer(player1 : str, player2 : str) -> int:
 	else:
 		return 2
 
-def displayGrid(grid : list[list[str]], currentCase : int):
+def displayGrid(grid : list[list[str]], currentCase : int, currentPlayer : int):
 	maxWidth : int
 	maxHeight : int
 	i : int
@@ -123,12 +123,13 @@ def displayGrid(grid : list[list[str]], currentCase : int):
 	maxHeight = get_terminal_size().lines - 3
 	i = 0
 	j = 0
+
 	while i < 7:
 		while j < 8:
 			if currentCase == j and i <= 0:
-				printAt(maxHeight // 2 - 3 + i, maxWidth // 2 - 3 + j * 2,"│" + Back.WHITE + Fore.BLACK + grid[i][j] + Back.RESET + Fore.RESET + "│")
+				printAt(maxHeight // 2 - 3 + i, maxWidth // 2 + j * 2 - 8,"│" + Back.WHITE + Fore.BLACK + grid[i][j] + Back.RESET + Fore.RESET + "│")
 			else:
-				printAt(maxHeight // 2 - 3 + i, maxWidth // 2 - 3 + j * 2, "│" + grid[i][j] + "│")
+				printAt(maxHeight // 2 - 3 + i, maxWidth // 2 + j * 2 - 8,"│" + grid[i][j] + "│")
 			j += 1
 		j = 0
 		i += 1
@@ -147,7 +148,11 @@ def start(player1 : str, player2 : str):
 	displayEmptySquare()
 	while True:
 		while True:
-			displayGrid(grid, currentCase)
+			if currentPlayer == 1:
+				centerTextAtLine(10, f"C'est le tour de : {player1}")
+			elif currentPlayer == 2:
+				centerTextAtLine(10, f"C'est le tour de : {player2}")
+			displayGrid(grid, currentCase, currentPlayer)
 			currChar = sys.stdin.read(1)
 			if currChar == '\x1b':
 				currChar = sys.stdin.read(1)
