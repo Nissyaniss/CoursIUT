@@ -64,7 +64,7 @@ def addPoint(player : str, game : int) -> None:
 	elif game == 3:
 		playerData = (playerData[0], playerData[1], playerData[2] + 1, playerData[3])
 	else:
-		playerData = (playerData[0], playerData[1], playerData[2] + 1, playerData[3])
+		playerData = (playerData[0], playerData[1], playerData[2], playerData[3] + 1)
 
 	data[player] = playerData
 	with open("players.json", "w") as outputFile:

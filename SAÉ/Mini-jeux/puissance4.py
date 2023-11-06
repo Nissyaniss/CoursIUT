@@ -4,6 +4,7 @@ from colorama import Fore, Back
 from time import sleep
 
 from termUtils import displayEmptySquare, centerTextAtLine, printAt, centerText
+from players import addPoint
 
 def checker(grid : list[list[str]],  posY : int, posX : int) -> bool:
 	count : int
@@ -45,21 +46,19 @@ def checker(grid : list[list[str]],  posY : int, posX : int) -> bool:
 	if count < 3:
 		count = 0
 	i = 1
-	while ((posY - i) >= 0 and (posX - i) >= 0) and count < 3:
-		if grid[posY - i][posX - i] != grid[posY][posX]:
-			printAt(17, 13, str(i))
+	while ((posY + i) <= 6 and (posX - i) >= 0) and count < 3:
+		if grid[posY + i][posX - i] != grid[posY][posX]:
 			break
 		else:
 			i += 1
 			count += 1
 	i = 1
-	while ((posY + i) <= 6 and (posX + i) <= 7) and count < 3:
-		if grid[posY + i][posX + i] != grid[posY][posX]:
+	while ((posY - i) >= 0 and (posX + i) <= 7) and count < 3:
+		if grid[posY - i][posX + i] != grid[posY][posX]:
 			break
 		else:
 			i += 1
 			count += 1
-	printAt(14, 13, str(count))
 
 	if count >= 3:
 		return True
@@ -72,7 +71,6 @@ def DisplaySelectedPlayer(currentPlayer : int, player1 : str, player2: str) -> s
 
 	maxWidth = get_terminal_size().columns - 3
 	maxHeight = get_terminal_size().lines - 3
-	
 	
 	if currentPlayer == 1:
 		printAt(maxHeight // 2 - 1, maxWidth // 2 - len(player1) * 2 + 1, " " * len(player2) + player2)
@@ -162,7 +160,7 @@ def start(player1 : str, player2 : str):
 				break
 			elif currChar == 'q' or currChar == 'Q':
 				return
-		if currentPlayer == 1 and grid[0][currentCase] != ' ':
+		if currentPlayer == 1 and grid[0][currentCase] == ' ':
 			i = 6
 			while i >= 0:
 				if grid[i][currentCase] == ' ':
@@ -172,10 +170,11 @@ def start(player1 : str, player2 : str):
 			if checker(grid, i, currentCase):
 				displayEmptySquare()
 				centerText(f"{player1} a gagné !")
+				addPoint(player1, 4)
 				sleep(1)
 				return
 			currentPlayer = 2
-		elif currentPlayer == 2:
+		elif currentPlayer == 2 and grid[0][currentCase] == ' ':
 			i = 6
 			while i >= 0:
 				if grid[i][currentCase] == ' ':
@@ -185,6 +184,7 @@ def start(player1 : str, player2 : str):
 			if checker(grid, i, currentCase):
 				displayEmptySquare()
 				centerText(f"{player2} a gagné !")
+				addPoint(player2, 4)
 				sleep(1)
 				return
 			currentPlayer = 1
