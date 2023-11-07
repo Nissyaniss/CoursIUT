@@ -8,7 +8,7 @@ from allumettes import start as allumettes
 from rules import start as rules
 from puissance4 import start as puissance4
 from devinette import start as devinette
-from termUtils import printAt, setup, restoreTerm, displayEmptySquare, centerTextAtLine
+from termUtils import printAt, setup, restoreTerm, displayEmptySquare, centerTextAtLine, setCursorPosition
 from players import addPlayer, isPlayerExisting, printScoreboard
 
 def DisplayMenu(currentSelectedGame : int) -> None:
@@ -69,12 +69,23 @@ def DisplayGameSelected(currentSelectedGame : int) -> str:
 
 	return str(">" + Back.WHITE + Fore.BLACK + gameStr + Back.RESET + Fore.RESET + "  ")
 
+def DisplayMenuPlayer() -> None:
+	system("clear")
+	displayEmptySquare()
+	printAt(maxHeight + 1, 3, "Appuyer sur une touche non alpahnumérique pour quitter")
+	centerTextAtLine(6, "┌─────────────────────────┐")
+	centerTextAtLine(7, "│         BONJOUR         │")
+	centerTextAtLine(8, "│   Entrez votre pseudo   │")
+	centerTextAtLine(9, "└─────────────────────────┘")
+	centerTextAtLine(11, "Votre pseudo :")
+
 if __name__ == "__main__":
 	player1 : str
 	player2 : str
 	currChar : str
 	isOnRules : bool
 	maxWidth : int
+	maxHeight : int
 	original : list[int]
 	currentSelectedGame : int
 
@@ -83,30 +94,44 @@ if __name__ == "__main__":
 	isOnRules  = False
 	currChar = ""
 	maxWidth = get_terminal_size().columns - 3
+	maxHeight = get_terminal_size().lines - 3
 	currentSelectedGame = 1
-
-	system("clear")
-	while player1 == "":
-		player1 = input("Joueur 1 : ")
-		if isPlayerExisting(player1):
-			print(f"{player1} bon retour parmi nous !")
-		elif player1 == "":
-			system("clear")
-			print("Votre pseudo ne peut pas être rien !")
-		else:
-			addPlayer(player1)
-	while player2 == "":
-		player2 = input("\nJoueur 2 : ")
-		if isPlayerExisting(player2):
-			print(f"{player2} bon retour parmi nous !")
-			sleep(1)
-		elif player2 == "":
-			system("clear")
-			print("Votre pseudo ne peut pas être rien !")
-		else:
-			addPlayer(player2)
-
 	original = setup()
+
+	pseudo = "> "
+
+	DisplayMenuPlayer()
+	centerTextAtLine(13, pseudo)
+	while True:
+		setCursorPosition(12, maxWidth // 2 + 4)
+		currChar = sys.stdin.read(1)
+		if currChar.isalnum():
+			pseudo += currChar
+			centerTextAtLine(13, pseudo)
+		elif currChar == '\n' and len(pseudo) > 0:
+			break
+		else:
+			restoreTerm(original)
+	player1 = pseudo[2:]
+	if not isPlayerExisting(player1):
+		addPlayer(player1)
+	pseudo = "> "
+
+	centerTextAtLine(13, pseudo)
+	DisplayMenuPlayer()
+	while True:
+		setCursorPosition(12, maxWidth // 2 + 4)
+		currChar = sys.stdin.read(1)
+		if currChar.isalnum():
+			pseudo += currChar
+			centerTextAtLine(13, pseudo)
+		elif currChar == '\n' and len(pseudo) > 0:
+			break
+		else:
+			restoreTerm(original)
+	player2 = pseudo[2:]
+	if not isPlayerExisting(player2):
+		addPlayer(player2)
 
 	while True:
 		DisplayMenu(currentSelectedGame)

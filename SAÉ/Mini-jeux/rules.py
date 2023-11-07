@@ -66,7 +66,7 @@ def start(currentSelectedGame : int, player1 : str, player2 : str) -> None:
 	while True:
 		while True:
 			DisplayMenu()
-			printAt(10 + currentSelectedGame, (maxWidth - 13) // 2, DisplayGameSelected(currentSelectedGame))
+			printAt(10 + currentSelectedGame, (maxWidth - 12) // 2, DisplayGameSelected(currentSelectedGame))
 			currChar = sys.stdin.read(1)
 			if currChar == '\x1b':
 				currChar = sys.stdin.read(1)

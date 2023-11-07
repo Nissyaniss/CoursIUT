@@ -119,6 +119,13 @@ def setCursorPositionCenterAtColumn(column : int) -> None:
 
 	setCursorPosition(height // 2, column)
 
+def setCursorPositionCenterAtLine(line : int) -> None:
+	width : int
+
+	width = get_terminal_size().columns - 3
+
+	setCursorPosition(line, width // 2)
+
 def stripANSIColors(string):
 	result : str
 	i : int
