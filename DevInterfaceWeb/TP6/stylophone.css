@@ -1,0 +1,26 @@
+@media screen and (max-width: 1100px) {
+	#bigNumbers {
+		display: flex;
+		flex-wrap: wrap;
+	}
+
+	#bigNumbers div {
+		width: 50%;
+	}
+
+	#MachinQuiFlotteADroite
+	{
+		width: 100%;
+		float: none;
+		margin: 0;
+		margin-bottom: 15px;
+	}
+
+	.article {
+		flex-wrap: wrap;
+	}
+	
+	.article p {
+		width: 48%;
+	}
+}
