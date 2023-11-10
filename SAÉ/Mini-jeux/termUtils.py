@@ -2,6 +2,7 @@ import termios
 import tty
 from os import system, get_terminal_size
 from typing import Any
+import sys
 
 def printAt(line : int, column : int, message : str) -> None:
 	"""
@@ -81,7 +82,7 @@ def displayEmptySquare() -> tuple[int, int]:
 	for i in range(0, maxHeight) :
 		print("║"+ " " * maxWidth + "║")
 	print("╚" + "═" * maxWidth +"╝")
-	printAt(maxHeight + 1, 3, "Appuyer sur \"q\" pour quitter")
+	printAt(maxHeight + 1, 3, "Appuyer sur \"TAB\" pour quitter")
 
 	return (maxWidth, maxHeight)
 
@@ -126,7 +127,7 @@ def setCursorPositionCenterAtLine(line : int) -> None:
 
 	setCursorPosition(line, width // 2)
 
-def stripANSIColors(string):
+def stripANSIColors(string : str) -> str:
 	result : str
 	i : int
 	j : int
@@ -144,4 +145,36 @@ def stripANSIColors(string):
 		else:
 			result += string[i]
 			i += 1
+	return result
+
+def getKey() -> str:
+
+	char : str
+	result : str
+
+	char = sys.stdin.read(1)
+	result = ""
+
+	if char == '\x1b':
+		char = sys.stdin.read(1)
+		char = sys.stdin.read(1)
+		if char == 'A':
+			result = "UP"
+		elif char == 'B':
+			result = "DOWN"
+		elif char == 'C':
+			result = "RIGHT"
+		elif char == 'D':
+			result = "LEFT"
+		else :
+			result = "NONE"
+	elif char == '\n':
+		result = "ENTER"
+	elif char == '\x7f':
+		result = "BACKSPACE"
+	elif char == '\t':
+		result = "TAB"
+	else:
+		result = char
+
 	return result

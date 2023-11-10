@@ -3,7 +3,7 @@ import sys
 from colorama import Fore, Back
 from time import sleep
 
-from termUtils import displayEmptySquare, centerTextAtLine, printAt, centerText
+from termUtils import displayEmptySquare, centerTextAtLine, printAt, centerText, getKey
 from players import addPoint
 
 def checker(grid : list[list[str]],  posY : int, posX : int) -> bool:
@@ -89,24 +89,21 @@ def selectPlayer(player1 : str, player2 : str) -> int:
 	maxWidth = get_terminal_size().columns - 3
 	maxHeight = get_terminal_size().lines - 3
 	currentPlayer = 1
-	
+
 	displayEmptySquare()
 	while True:
 		centerTextAtLine(12, "┌────────────────┐")
 		centerTextAtLine(13, "│ Qui commence ? │")
 		centerTextAtLine(14, "└────────────────┘")
 		printAt((maxHeight // 2) + currentPlayer - 3, maxWidth // 2 - len(player1) - 1, DisplaySelectedPlayer(currentPlayer, player1, player2))
-		currChar = sys.stdin.read(1)
-		if currChar == '\x1b':
-			currChar = sys.stdin.read(1)
-			currChar = sys.stdin.read(1)
-			if currChar == 'A' and currentPlayer != 1:
-				currentPlayer -= 1
-			if currChar == 'B' and currentPlayer != 2:
-				currentPlayer += 1
-		if currChar == '\n':
+		currChar = getKey()
+		if currChar == "UP" and currentPlayer != 1:
+			currentPlayer -= 1
+		if currChar == "DOWN" and currentPlayer != 2:
+			currentPlayer += 1
+		if currChar == "ENTER":
 			break
-		elif currChar == 'q' or currChar == 'Q':
+		elif currChar == "TAB":
 			return 0
 	if currentPlayer == 1:
 		return 1
@@ -153,17 +150,14 @@ def start(player1 : str, player2 : str):
 			elif currentPlayer == 2:
 				centerTextAtLine(10, f"C'est le tour de : {player2}")
 			displayGrid(grid, currentCase, currentPlayer)
-			currChar = sys.stdin.read(1)
-			if currChar == '\x1b':
-				currChar = sys.stdin.read(1)
-				currChar = sys.stdin.read(1)
-				if currChar == 'C' and currentCase < 7:
-					currentCase += 1
-				if currChar == 'D' and currentCase > 0:
-					currentCase -= 1
-			if currChar == '\n':
+			currChar = getKey()
+			if currChar == "RIGHT" and currentCase < 7:
+				currentCase += 1
+			if currChar == "LEFT" and currentCase > 0:
+				currentCase -= 1
+			if currChar == "ENTER":
 				break
-			elif currChar == 'q' or currChar == 'Q':
+			elif currChar == "TAB":
 				return
 		if currentPlayer == 1 and grid[0][currentCase] == ' ':
 			i = 6

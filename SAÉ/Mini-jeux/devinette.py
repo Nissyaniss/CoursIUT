@@ -4,7 +4,7 @@ import sys
 from time import sleep
 
 from players import addPoint
-from termUtils import setCursorPosition, displayEmptySquare, printAt, centerTextAtLine, centerText
+from termUtils import setCursorPosition, displayEmptySquare, printAt, centerTextAtLine, centerText, getKey
 
 def DisplayMenuMaster() -> None:
 	displayEmptySquare()
@@ -86,17 +86,14 @@ def start(player1 : str, player2 : str) -> None:
 	DisplayMenuPlayer()
 	while True:
 		printAt(10 + currentSelectedPlayer, maxWidth // 2 - len(player1) + 3, DisplaySelectedPlayer(currentSelectedPlayer, player1, player2))
-		currChar = sys.stdin.read(1)
-		if currChar == '\x1b':
-			currChar = sys.stdin.read(1)
-			currChar = sys.stdin.read(1)
-			if currChar == 'A' and currentSelectedPlayer != 1:
-				currentSelectedPlayer -= 1
-			if currChar == 'B' and currentSelectedPlayer != 2:
-				currentSelectedPlayer += 1
-		if currChar == '\n':
+		currChar = getKey()
+		if currChar == "UP" and currentSelectedPlayer != 1:
+			currentSelectedPlayer -= 1
+		elif currChar == "DOWN" and currentSelectedPlayer != 2:
+			currentSelectedPlayer += 1
+		if currChar == "ENTER":
 			break
-		elif currChar == 'q' or currChar == 'Q':
+		elif currChar == "TAB":
 			return
 	if currentSelectedPlayer == 1:
 		master = player1
@@ -108,14 +105,14 @@ def start(player1 : str, player2 : str) -> None:
 	displayEmptySquare()
 	centerText("Nombre : ")
 	while True:
-		currChar = sys.stdin.read(1)
+		currChar = getKey()
 		if currChar.isdigit() and len(solution) < 3:
 			solution += currChar
-		elif currChar == '\n' and len(solution) > 0:
+		elif currChar == "ENTER" and len(solution) > 0:
 			break
-		elif currChar == 'q' or currChar == 'Q':
+		elif currChar == "TAB":
 			return
-		elif currChar == '\x7f':
+		elif currChar == "BACKSPACE":
 			if len(solution) != 0:
 				solution = solution[:-1]
 	while True:
@@ -123,15 +120,15 @@ def start(player1 : str, player2 : str) -> None:
 		centerText("Devinez : " + len(solution) * " ")
 		while True:
 			setCursorPosition(maxHeight // 2, (maxWidth // 2 + 4) + len(guess))
-			currChar = sys.stdin.read(1)
+			currChar = getKey()
 			if currChar.isdigit():
 				printAt(maxHeight // 2, (maxWidth // 2 + 5) - 1 + len(guess), currChar)
 				guess += currChar
-			elif currChar == '\n' and len(guess) > 0:
+			elif currChar == "ENTER" and len(guess) > 0:
 				break
-			elif currChar == 'q' or currChar == 'Q':
+			elif currChar == "TAB":
 				return
-			elif currChar == '\x7f':
+			elif currChar == "BACKSPACE":
 				if len(guess) != 0:
 					printAt(maxHeight // 2, (maxWidth // 2 + 4) - 1 + len(guess), " ")
 					guess = guess[:-1]
@@ -139,17 +136,15 @@ def start(player1 : str, player2 : str) -> None:
 		print("\x1b[?25l", end='', flush=True)
 		while True:
 			centerTextAtLine(10 + currentSelectedOption, DisplaySelectedOption(currentSelectedOption))
-			currChar = sys.stdin.read(1)
+			currChar = getKey()
 			if currChar == '\x1b':
-				currChar = sys.stdin.read(1)
-				currChar = sys.stdin.read(1)
-				if currChar == 'A' and currentSelectedOption != 1:
+				if currChar == "UP" and currentSelectedOption != 1:
 					currentSelectedOption -= 1
-				if currChar == 'B' and currentSelectedOption != 3:
+				if currChar == "DOWN" and currentSelectedOption != 3:
 					currentSelectedOption += 1
-			elif currChar == 'q' or currChar == 'Q':
+			elif currChar == "TAB":
 				return
-			elif currChar == '\n':
+			elif currChar == "ENTER":
 				print("\x1b[?25h", end='', flush=True)
 				break
 		tries = tries + 1

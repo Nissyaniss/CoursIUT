@@ -1,14 +1,13 @@
 from os import system, get_terminal_size
 from colorama import Fore, Back
 import sys
-from time import sleep
 
 from morpion import start as morpion
 from allumettes import start as allumettes
 from rules import start as rules
 from puissance4 import start as puissance4
 from devinette import start as devinette
-from termUtils import printAt, setup, restoreTerm, displayEmptySquare, centerTextAtLine, setCursorPosition
+from termUtils import printAt, setup, restoreTerm, displayEmptySquare, centerTextAtLine, setCursorPosition, getKey
 from players import addPlayer, isPlayerExisting, printScoreboard
 
 def DisplayMenu(currentSelectedGame : int) -> None:
@@ -69,14 +68,14 @@ def DisplayGameSelected(currentSelectedGame : int) -> str:
 
 	return str(">" + Back.WHITE + Fore.BLACK + gameStr + Back.RESET + Fore.RESET + "  ")
 
-def DisplayMenuPlayer() -> None:
+def DisplayMenuPlayer(player : int) -> None:
 	system("clear")
 	displayEmptySquare()
-	printAt(maxHeight + 1, 3, "Appuyer sur une touche non alpahnumérique pour quitter")
-	centerTextAtLine(6, "┌─────────────────────────┐")
-	centerTextAtLine(7, "│         BONJOUR         │")
-	centerTextAtLine(8, "│   Entrez votre pseudo   │")
-	centerTextAtLine(9, "└─────────────────────────┘")
+	printAt(maxHeight + 1, 3, "Appuyer sur \"TAB\" pour quitter")
+	centerTextAtLine(6, "┌──────────────────────────────────┐")
+	centerTextAtLine(7, "│              BONJOUR             │")
+	centerTextAtLine(8, f"│   Entrez votre pseudo joueur {player}   │")
+	centerTextAtLine(9, "└──────────────────────────────────┘")
 	centerTextAtLine(11, "Votre pseudo :")
 
 if __name__ == "__main__":
@@ -100,33 +99,48 @@ if __name__ == "__main__":
 
 	pseudo = "> "
 
-	DisplayMenuPlayer()
+	DisplayMenuPlayer(1)
 	centerTextAtLine(13, pseudo)
 	while True:
 		setCursorPosition(12, maxWidth // 2 + 4)
-		currChar = sys.stdin.read(1)
-		if currChar.isalnum():
+		currChar = getKey()
+		if len(currChar) == 1 and currChar.isprintable():
 			pseudo += currChar
 			centerTextAtLine(13, pseudo)
-		elif currChar == '\n' and len(pseudo) > 0:
+		elif currChar == "ENTER" and len(pseudo) > 2:
 			break
-		else:
+		elif currChar == "BACKSPACE" and len(pseudo) > 2:
+			centerTextAtLine(13, " " * len(pseudo))
+			pseudo = pseudo[:-1]
+			centerTextAtLine(13, pseudo)
+		elif currChar == "TAB":
 			restoreTerm(original)
+		else:
+			continue
 	player1 = pseudo[2:]
 	if not isPlayerExisting(player1):
 		addPlayer(player1)
 	pseudo = "> "
+	player2 = player1
 
+	DisplayMenuPlayer(2)
 	centerTextAtLine(13, pseudo)
-	DisplayMenuPlayer()
-	while True:
+	while player2 == player1:
 		setCursorPosition(12, maxWidth // 2 + 4)
-		currChar = sys.stdin.read(1)
-		if currChar.isalnum():
+		currChar = getKey()
+		if len(currChar) == 1 and currChar.isprintable():
 			pseudo += currChar
 			centerTextAtLine(13, pseudo)
-		elif currChar == '\n' and len(pseudo) > 0:
+		elif currChar == "ENTER" and len(pseudo) > 0:
 			break
+		elif currChar == "BACKSPACE" and len(pseudo) > 2:
+			centerTextAtLine(13, " " * len(pseudo))
+			pseudo = pseudo[:-1]
+			centerTextAtLine(13, pseudo)
+		elif currChar == "TAB":
+			restoreTerm(original)
+		elif len(currChar) > 1:
+			continue
 		else:
 			restoreTerm(original)
 	player2 = pseudo[2:]
@@ -136,26 +150,25 @@ if __name__ == "__main__":
 	while True:
 		DisplayMenu(currentSelectedGame)
 		while True:
-			currChar = sys.stdin.read(1)
-			if currChar == '\x1b':
-				currChar = sys.stdin.read(1)
-				currChar = sys.stdin.read(1)
-				if currChar == 'A' and currentSelectedGame != 1 and isOnRules == False:
-					currentSelectedGame -= 1
-					printAt(10 + currentSelectedGame, (maxWidth - 11) // 2, DisplayGameSelected(currentSelectedGame))
-				if currChar == 'B' and currentSelectedGame != 4 and isOnRules == False:
-					currentSelectedGame += 1
-					printAt(10 + currentSelectedGame, (maxWidth - 11) // 2, DisplayGameSelected(currentSelectedGame))
-				if currChar == 'C' and isOnRules == False:
-					printAt(3, maxWidth - 9, DisplayGameSelected(-1))
-					isOnRules = True
-				if currChar == 'D' and isOnRules:
-					printAt(10 + currentSelectedGame, (maxWidth - 11) // 2, DisplayGameSelected(currentSelectedGame))
-					isOnRules = False
-			elif currChar == 'q' or currChar == 'Q':
+			currChar = getKey()
+			if currChar == "UP" and currentSelectedGame != 1 and isOnRules == False:
+				currentSelectedGame -= 1
+				printAt(10 + currentSelectedGame, (maxWidth - 11) // 2, DisplayGameSelected(currentSelectedGame))
+			if currChar == "DOWN" and currentSelectedGame != 4 and isOnRules == False:
+				currentSelectedGame += 1
+				printAt(10 + currentSelectedGame, (maxWidth - 11) // 2, DisplayGameSelected(currentSelectedGame))
+			if currChar == "RIGHT" and isOnRules == False:
+				printAt(3, maxWidth - 9, DisplayGameSelected(-1))
+				isOnRules = True
+			if currChar == "LEFT" and isOnRules:
+				printAt(10 + currentSelectedGame, (maxWidth - 11) // 2, DisplayGameSelected(currentSelectedGame))
+				isOnRules = False
+			elif currChar == "TAB":
 				restoreTerm(original)
-			elif currChar == '\n':
+			elif currChar == "ENTER":
 				break
+			else:
+				continue
 		if isOnRules:
 			rules(1, player1, player2)
 			isOnRules = False

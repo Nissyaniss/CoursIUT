@@ -85,24 +85,27 @@ def printScoreboard(player1: str, player2: str) -> None:
 	La fonction "printScoreboard" est utilisée pour imprimer un scoreboard de toute les parties
 	gagnées dans les different jeu.
 	"""
-	i: int
-	maxHeight: int
-
-	i = 0
-	maxHeight = get_terminal_size().lines - 3
-
 	data: dict[str, tuple[int, int, int, int]]
+	playerFormat : str
 
 	with open("players.json", "r") as jsonFile:
 		data = json.load(jsonFile)
 
-	printAt(6, 5, f"{player1} :")
+	if len(player1) > 10:
+		playerFormat = player1[:10] + "..."
+	else:
+		playerFormat = player1
+	printAt(6, 5, f"{playerFormat} :")
 	printAt(7, 6, f"Devinette   = {data[player1][0]}")
 	printAt(8, 6, f"Allumette   = {data[player1][1]}")
 	printAt(9, 6, f"Morpion     = {data[player1][2]}")
 	printAt(10, 6, f"Puissance 4 = {data[player1][3]}")
 
-	printAt(12, 5, f"{player2} :")
+	if len(player2) > 10:
+		playerFormat = player2[:10] + "..."
+	else:
+		playerFormat = player2
+	printAt(12, 5, f"{playerFormat} :")
 	printAt(13, 6, f"Devinette   = {data[player2][0]}")
 	printAt(14, 6, f"Allumette   = {data[player2][1]}")
 	printAt(15, 6, f"Morpion     = {data[player2][2]}")

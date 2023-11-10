@@ -3,7 +3,7 @@ from os import system, get_terminal_size
 from colorama import Fore, Back
 from typing import Tuple
 
-from termUtils import printAt, displayEmptySquare, centerTextAtLine
+from termUtils import printAt, displayEmptySquare, centerTextAtLine, getKey
 
 def DisplayMenu() -> None:
 	displayEmptySquare()
@@ -54,8 +54,8 @@ def printRule(gameStr : str, ruleStr : str, currentSelectedGame : int, player1 :
 	centerTextAtLine(4, "└" + len(gameStr) * "─" + "┘")
 	centerTextAtLine(8, ruleStr)
 	while True:
-		currChar = sys.stdin.read(1)
-		if currChar == 'q' or currChar == 'Q':
+		currChar = getKey()
+		if currChar == "TAB":
 			return
 
 def start(currentSelectedGame : int, player1 : str, player2 : str) -> None:
@@ -67,17 +67,14 @@ def start(currentSelectedGame : int, player1 : str, player2 : str) -> None:
 		while True:
 			DisplayMenu()
 			printAt(10 + currentSelectedGame, (maxWidth - 12) // 2, DisplayGameSelected(currentSelectedGame))
-			currChar = sys.stdin.read(1)
-			if currChar == '\x1b':
-				currChar = sys.stdin.read(1)
-				currChar = sys.stdin.read(1)
-				if currChar == 'A' and currentSelectedGame != 1:
-					currentSelectedGame -= 1
-				if currChar == 'B' and currentSelectedGame != 4:
-					currentSelectedGame += 1
-			elif currChar == 'q' or currChar == 'Q':
+			currChar = getKey()
+			if currChar == "UP" and currentSelectedGame != 1:
+				currentSelectedGame -= 1
+			if currChar == "DOWN" and currentSelectedGame != 4:
+				currentSelectedGame += 1
+			elif currChar == "TAB":
 				return
-			elif currChar == '\n':
+			elif currChar == "ENTER":
 				system("clear")
 				break
 		if currentSelectedGame == 1:

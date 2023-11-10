@@ -3,7 +3,7 @@ from colorama import Fore, Back
 from time import sleep
 from os import get_terminal_size
 
-from termUtils import displayEmptySquare, centerTextAtLine, centerText, printAt
+from termUtils import displayEmptySquare, centerTextAtLine, centerText, printAt, getKey
 from players import addPoint
 
 def DisplayGrid(grid : list[list[str]], currentSelectedCase : int, currentPlayer : int, player1 : str, player2: str):
@@ -91,17 +91,14 @@ def selectPlayer(player1 : str, player2 : str) -> int:
 		centerTextAtLine(13, "| Qui commence ? |")
 		centerTextAtLine(14, "└────────────────┘")
 		printAt((maxHeight // 2) + currentPlayer - 3, maxWidth // 2 - len(player1) - 1, DisplaySelectedPlayer(currentPlayer, player1, player2))
-		currChar = sys.stdin.read(1)
-		if currChar == '\x1b':
-			currChar = sys.stdin.read(1)
-			currChar = sys.stdin.read(1)
-			if currChar == 'A' and currentPlayer != 1:
-				currentPlayer -= 1
-			if currChar == 'B' and currentPlayer != 2:
-				currentPlayer += 1
-		if currChar == '\n':
+		currChar = getKey()
+		if currChar == "UP" and currentPlayer != 1:
+			currentPlayer -= 1
+		if currChar == "DOWN" and currentPlayer != 2:
+			currentPlayer += 1
+		if currChar == "ENTER":
 			break
-		elif currChar == 'q' or currChar == 'Q':
+		elif currChar == "TAB":
 			return 0
 	if currentPlayer == 1:
 		return 1
@@ -125,23 +122,20 @@ def start(player1 : str, player2: str):
 	while True:
 		while True:
 			DisplayGrid(grid, currentCase, currentPlayer, player1, player2)
-			currChar = sys.stdin.read(1)
-			if currChar == '\x1b':
-				currChar = sys.stdin.read(1)
-				currChar = sys.stdin.read(1)
-				if currChar == 'A':
-					if currentCase > 3:
-						currentCase -= 3
-				if currChar == 'B':
-					if currentCase < 7:
-						currentCase += 3
-				if currChar == 'C':
-					if currentCase != 9:
-						currentCase += 1
-				if currChar == 'D':
-					if currentCase != 1:
-						currentCase -= 1
-			elif currChar == '\n' and grid[(currentCase - 1) // 3][(currentCase - 1) % 3] == ' ': 
+			currChar = getKey()
+			if currChar == "UP":
+				if currentCase > 3:
+					currentCase -= 3
+			if currChar == "DOWN":
+				if currentCase < 7:
+					currentCase += 3
+			if currChar == "RIGHT":
+				if currentCase != 9:
+					currentCase += 1
+			if currChar == "LEFT":
+				if currentCase != 1:
+					currentCase -= 1
+			elif currChar == "ENTER" and grid[(currentCase - 1) // 3][(currentCase - 1) % 3] == ' ': 
 				if currentPlayer == 1:
 					grid[(currentCase - 1) // 3][(currentCase - 1) % 3] = '×'
 					currentPlayer = 2
@@ -166,5 +160,5 @@ def start(player1 : str, player2: str):
 					centerText("Égalité")
 					sleep(1)
 					return
-			elif currChar == 'q' or currChar == 'Q':
+			elif currChar == "TAB":
 				return

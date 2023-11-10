@@ -4,7 +4,7 @@ from time import sleep
 from os import get_terminal_size
 
 from players import addPoint
-from termUtils import displayEmptySquare, centerTextAtLine, centerText, printAt
+from termUtils import displayEmptySquare, centerTextAtLine, centerText, printAt, getKey
 
 def DisplayMenu(currentSelectedNb : int, player : str, matchs : int) -> str:
 	maxHeight : int
@@ -53,20 +53,17 @@ def selectPlayer(player1 : str, player2 : str) -> int:
 	displayEmptySquare()
 	while True:
 		centerTextAtLine(12, "┌────────────────┐")
-		centerTextAtLine(13, "| Qui commence ? |")
+		centerTextAtLine(13, "│ Qui commence ? │")
 		centerTextAtLine(14, "└────────────────┘")
 		printAt((maxHeight // 2) + currentPlayer - 3, maxWidth // 2 - len(player1) - 1, DisplaySelectedPlayer(currentPlayer, player1, player2))
-		currChar = sys.stdin.read(1)
-		if currChar == '\x1b':
-			currChar = sys.stdin.read(1)
-			currChar = sys.stdin.read(1)
-			if currChar == 'A' and currentPlayer != 1:
-				currentPlayer -= 1
-			if currChar == 'B' and currentPlayer != 2:
-				currentPlayer += 1
-		if currChar == '\n':
+		currChar = getKey()
+		if currChar == "UP" and currentPlayer != 1:
+			currentPlayer -= 1
+		if currChar == "DOWN" and currentPlayer != 2:
+			currentPlayer += 1
+		if currChar == "ENTER":
 			break
-		elif currChar == 'q' or currChar == 'Q':
+		elif currChar == "TAB":
 			return 0
 	if currentPlayer == 1:
 		return 1
@@ -96,17 +93,14 @@ def start(player1 : str, player2 : str) -> None:
 				centerTextAtLine(maxHeight // 2 + 2 + currentSelectedNb, DisplayMenu(currentSelectedNb, player1, matchs))
 			else:
 				centerTextAtLine(maxHeight // 2 + 2 + currentSelectedNb, DisplayMenu(currentSelectedNb, player2, matchs))
-			currChar = sys.stdin.read(1)
-			if currChar == '\x1b':
-				currChar = sys.stdin.read(1)
-				currChar = sys.stdin.read(1)
-				if currChar == 'A' and currentSelectedNb != 1:
-					currentSelectedNb -= 1
-				if currChar == 'B' and currentSelectedNb != 3:
-					currentSelectedNb += 1
-			elif currChar == 'q' or currChar == 'Q':
+			currChar = getKey()
+			if currChar == "UP" and currentSelectedNb != 1:
+				currentSelectedNb -= 1
+			if currChar == "UP" and currentSelectedNb != 3:
+				currentSelectedNb += 1
+			elif currChar == "TAB":
 				return
-			elif currChar == '\n':
+			elif currChar == "ENTER":
 				matchs = matchs - currentSelectedNb
 				if matchs == 0:
 					displayEmptySquare()
