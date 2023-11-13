@@ -65,7 +65,7 @@ def checker(grid : list[list[str]],  posY : int, posX : int) -> bool:
 	else:
 		return False
 
-def DisplaySelectedPlayer(currentPlayer : int, player1 : str, player2: str) -> str:
+def displaySelectedPlayer(currentPlayer : int, player1 : str, player2: str) -> str:
 	maxWidth : int
 	maxHeight : int
 
@@ -95,7 +95,7 @@ def selectPlayer(player1 : str, player2 : str) -> int:
 		centerTextAtLine(12, "┌────────────────┐")
 		centerTextAtLine(13, "│ Qui commence ? │")
 		centerTextAtLine(14, "└────────────────┘")
-		printAt((maxHeight // 2) + currentPlayer - 3, maxWidth // 2 - len(player1) - 1, DisplaySelectedPlayer(currentPlayer, player1, player2))
+		printAt((maxHeight // 2) + currentPlayer - 3, maxWidth // 2 - len(player1) - 1, displaySelectedPlayer(currentPlayer, player1, player2))
 		currChar = getKey()
 		if currChar == "UP" and currentPlayer != 1:
 			currentPlayer -= 1

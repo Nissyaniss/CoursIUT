@@ -6,7 +6,7 @@ from os import get_terminal_size
 from players import addPoint
 from termUtils import displayEmptySquare, centerTextAtLine, centerText, printAt, getKey
 
-def DisplayMenu(currentSelectedNb : int, player : str, matchs : int) -> str:
+def displayMenu(currentSelectedNb : int, player : str, matchs : int) -> str:
 	maxHeight : int
 
 	maxHeight = get_terminal_size().lines - 3
@@ -25,7 +25,7 @@ def DisplayMenu(currentSelectedNb : int, player : str, matchs : int) -> str:
 
 	return str(">" + Back.WHITE + Fore.BLACK + f'{currentSelectedNb}' + Back.RESET + Fore.RESET)
 
-def DisplaySelectedPlayer(currentPlayer : int, player1 : str, player2: str) -> str:
+def displaySelectedPlayer(currentPlayer : int, player1 : str, player2: str) -> str:
 	maxWidth : int
 	maxHeight : int
 
@@ -55,7 +55,7 @@ def selectPlayer(player1 : str, player2 : str) -> int:
 		centerTextAtLine(12, "┌────────────────┐")
 		centerTextAtLine(13, "│ Qui commence ? │")
 		centerTextAtLine(14, "└────────────────┘")
-		printAt((maxHeight // 2) + currentPlayer - 3, maxWidth // 2 - len(player1) - 1, DisplaySelectedPlayer(currentPlayer, player1, player2))
+		printAt((maxHeight // 2) + currentPlayer - 3, maxWidth // 2 - len(player1) - 1, displaySelectedPlayer(currentPlayer, player1, player2))
 		currChar = getKey()
 		if currChar == "UP" and currentPlayer != 1:
 			currentPlayer -= 1
@@ -90,9 +90,9 @@ def start(player1 : str, player2 : str) -> None:
 	while True:
 		while True:
 			if currentPlayer == 1:
-				centerTextAtLine(maxHeight // 2 + 2 + currentSelectedNb, DisplayMenu(currentSelectedNb, player1, matchs))
+				centerTextAtLine(maxHeight // 2 + 2 + currentSelectedNb, displayMenu(currentSelectedNb, player1, matchs))
 			else:
-				centerTextAtLine(maxHeight // 2 + 2 + currentSelectedNb, DisplayMenu(currentSelectedNb, player2, matchs))
+				centerTextAtLine(maxHeight // 2 + 2 + currentSelectedNb, displayMenu(currentSelectedNb, player2, matchs))
 			currChar = getKey()
 			if currChar == "UP" and currentSelectedNb != 1:
 				currentSelectedNb -= 1

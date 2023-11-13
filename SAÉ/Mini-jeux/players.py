@@ -2,18 +2,7 @@ import json
 from termUtils import printAt
 from os import get_terminal_size
 
-
 def isPlayerExisting(player: str) -> bool:
-	"""
-		La fonction `isPlayerExisting` vérifie si un joueur existe dans le fichier JSON contenant les
-		données des joueurs.
-
-		@param player Le paramètre "player" est une chaîne qui représente le nom du joueur.
-
-		@return La fonction isPlayerExisting renvoie une valeur booléenne. Elle renvoie True si le joueur
-		existe dans le dictionnaire de données, et False sinon.
-	"""
-
 	data: dict[str, tuple[int, int, int, int]]
 
 	with open("players.json", "r") as jsonFile:
@@ -26,14 +15,6 @@ def isPlayerExisting(player: str) -> bool:
 
 
 def addPlayer(player: str) -> None:
-	"""
-	La fonction `addPlayer` ajoute un nouveau joueur au fichier JSON contenant les données des
-	joueur.
-
-	@param player Le paramètre "player" est une chaîne qui représente le nom du joueur que vous
-	souhaitez ajouter aux données.
-	"""
-
 	data: dict[str, tuple[int, int, int, int]]
 
 	with open("players.json", "r") as jsonFile:
@@ -47,14 +28,6 @@ def addPlayer(player: str) -> None:
 
 
 def addPoint(player: str, game: int) -> None:
-	"""
-	La fonction "addPoint" prend en paramètres le nom d'un joueur et un numéro de jeu pour rajouter
-	1 point a jeu en question, au joueur en question.
-
-	@param player Une chaîne représentant le nom du joueur qui a marqué un point dans le jeu.
-	@param game Un nombre entier représentant le jeux ou le point a été gagné.
-	"""
-
 	data: dict[str, tuple[int, int, int, int]]
 
 	with open("players.json", "r") as jsonFile:
@@ -81,10 +54,6 @@ def addPoint(player: str, game: int) -> None:
 
 
 def printScoreboard(player1: str, player2: str) -> None:
-	"""
-	La fonction "printScoreboard" est utilisée pour imprimer un scoreboard de toute les parties
-	gagnées dans les different jeu.
-	"""
 	data: dict[str, tuple[int, int, int, int]]
 	playerFormat : str
 

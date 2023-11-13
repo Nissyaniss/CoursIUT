@@ -6,7 +6,7 @@ from os import get_terminal_size
 from termUtils import displayEmptySquare, centerTextAtLine, centerText, printAt, getKey
 from players import addPoint
 
-def DisplayGrid(grid : list[list[str]], currentSelectedCase : int, currentPlayer : int, player1 : str, player2: str):
+def displayGrid(grid : list[list[str]], currentSelectedCase : int, currentPlayer : int, player1 : str, player2: str):
 	displayEmptySquare()
 	if currentPlayer == 1:
 		centerTextAtLine(13, f"C'est actuellement au tour de : {player1}" + len(player2) * " ")
@@ -59,7 +59,7 @@ def checkWin(grid : list[list[str]]) -> bool:
 	else:
 		return False
 
-def DisplaySelectedPlayer(currentPlayer : int, player1 : str, player2: str) -> str:
+def displaySelectedPlayer(currentPlayer : int, player1 : str, player2: str) -> str:
 	maxWidth : int
 	maxHeight : int
 
@@ -90,7 +90,7 @@ def selectPlayer(player1 : str, player2 : str) -> int:
 		centerTextAtLine(12, "┌────────────────┐")
 		centerTextAtLine(13, "| Qui commence ? |")
 		centerTextAtLine(14, "└────────────────┘")
-		printAt((maxHeight // 2) + currentPlayer - 3, maxWidth // 2 - len(player1) - 1, DisplaySelectedPlayer(currentPlayer, player1, player2))
+		printAt((maxHeight // 2) + currentPlayer - 3, maxWidth // 2 - len(player1) - 1, displaySelectedPlayer(currentPlayer, player1, player2))
 		currChar = getKey()
 		if currChar == "UP" and currentPlayer != 1:
 			currentPlayer -= 1
@@ -121,7 +121,7 @@ def start(player1 : str, player2: str):
 		return
 	while True:
 		while True:
-			DisplayGrid(grid, currentCase, currentPlayer, player1, player2)
+			displayGrid(grid, currentCase, currentPlayer, player1, player2)
 			currChar = getKey()
 			if currChar == "UP":
 				if currentCase > 3:

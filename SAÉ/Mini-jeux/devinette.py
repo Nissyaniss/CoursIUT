@@ -6,13 +6,13 @@ from time import sleep
 from players import addPoint
 from termUtils import setCursorPosition, displayEmptySquare, printAt, centerTextAtLine, centerText, getKey
 
-def DisplayMenuMaster() -> None:
+def displayMenuMaster() -> None:
 	displayEmptySquare()
 	centerTextAtLine(6, "┌──────────────────────────────┐")
 	centerTextAtLine(7, "│    Comment est sa réponse    │")
 	centerTextAtLine(8, "└──────────────────────────────┘")
 
-def DisplaySelectedOption(currentSelectedOption : int) -> str:
+def displaySelectedOption(currentSelectedOption : int) -> str:
 	optionStr: str
 
 	if currentSelectedOption == 1:
@@ -33,7 +33,7 @@ def DisplaySelectedOption(currentSelectedOption : int) -> str:
 
 	return ">" + Back.WHITE + Fore.BLACK + optionStr + Back.RESET + Fore.RESET + "  "
 
-def DisplayMenuPlayer() -> None:
+def displayMenuPlayer() -> None:
 	displayEmptySquare()
 	centerTextAtLine(6, "┌─────────────────────────────────┐")
 	centerTextAtLine(7, "│   Qui fera deviner à l'autre    │")
@@ -83,7 +83,7 @@ def start(player1 : str, player2 : str) -> None:
 	tries = 0
 
 	displayEmptySquare()
-	DisplayMenuPlayer()
+	displayMenuPlayer()
 	while True:
 		printAt(10 + currentSelectedPlayer, maxWidth // 2 - len(player1) + 3, DisplaySelectedPlayer(currentSelectedPlayer, player1, player2))
 		currChar = getKey()
@@ -132,10 +132,10 @@ def start(player1 : str, player2 : str) -> None:
 				if len(guess) != 0:
 					printAt(maxHeight // 2, (maxWidth // 2 + 4) - 1 + len(guess), " ")
 					guess = guess[:-1]
-		DisplayMenuMaster()
+		displayMenuMaster()
 		print("\x1b[?25l", end='', flush=True)
 		while True:
-			centerTextAtLine(10 + currentSelectedOption, DisplaySelectedOption(currentSelectedOption))
+			centerTextAtLine(10 + currentSelectedOption, displaySelectedOption(currentSelectedOption))
 			currChar = getKey()
 			if currChar == '\x1b':
 				if currChar == "UP" and currentSelectedOption != 1:

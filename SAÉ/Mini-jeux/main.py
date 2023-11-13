@@ -10,7 +10,7 @@ from devinette import start as devinette
 from termUtils import printAt, setup, restoreTerm, displayEmptySquare, centerTextAtLine, setCursorPosition, getKey
 from players import addPlayer, isPlayerExisting, printScoreboard
 
-def DisplayMenu(currentSelectedGame : int) -> None:
+def displayMenu(currentSelectedGame : int) -> None:
 	maxWidth : int
 	
 	maxWidth = get_terminal_size().columns - 3 # Défini la taille maximal du terminal
@@ -27,9 +27,9 @@ def DisplayMenu(currentSelectedGame : int) -> None:
 	centerTextAtLine(7, "│         BONJOUR         │") # Affiche un carré avec le titre écrit dedans centré
 	centerTextAtLine(8, "│   Liste des mini-jeux   │")
 	centerTextAtLine(9, "└─────────────────────────┘")
-	printAt(10 + currentSelectedGame, (maxWidth - 11) // 2, DisplayGameSelected(currentSelectedGame)) # Affiche le jeux sélectionner
+	printAt(10 + currentSelectedGame, (maxWidth - 11) // 2, displayGameSelected(currentSelectedGame)) # Affiche le jeux sélectionner
 
-def DisplayGameSelected(currentSelectedGame : int) -> str:
+def displayGameSelected(currentSelectedGame : int) -> str:
 	gameStr: str
 	maxWidth = get_terminal_size().columns - 3
 
@@ -68,7 +68,7 @@ def DisplayGameSelected(currentSelectedGame : int) -> str:
 
 	return str(">" + Back.WHITE + Fore.BLACK + gameStr + Back.RESET + Fore.RESET + "  ")
 
-def DisplayMenuPlayer(player : int) -> None:
+def displayMenuPlayer(player : int) -> None:
 	system("clear")
 	displayEmptySquare()
 	printAt(maxHeight + 1, 3, "Appuyer sur \"TAB\" pour quitter")
@@ -99,7 +99,7 @@ if __name__ == "__main__":
 
 	pseudo = "> "
 
-	DisplayMenuPlayer(1)
+	displayMenuPlayer(1)
 	centerTextAtLine(13, pseudo)
 	while True:
 		setCursorPosition(12, maxWidth // 2 + 4)
@@ -123,7 +123,7 @@ if __name__ == "__main__":
 	pseudo = "> "
 	player2 = player1
 
-	DisplayMenuPlayer(2)
+	displayMenuPlayer(2)
 	centerTextAtLine(13, pseudo)
 	while player2 == player1:
 		setCursorPosition(12, maxWidth // 2 + 4)
@@ -148,20 +148,20 @@ if __name__ == "__main__":
 		addPlayer(player2)
 
 	while True:
-		DisplayMenu(currentSelectedGame) # Affiche le menu avec le premier jeu de sélectionner
+		displayMenu(currentSelectedGame) # Affiche le menu avec le premier jeu de sélectionner
 		while True:
 			currChar = getKey()
 			if currChar == "UP" and currentSelectedGame != 1 and isOnRules == False: # Vérifie is la touche pressée est la flèche du haut
 				currentSelectedGame -= 1 # Change le jeu
-				printAt(10 + currentSelectedGame, (maxWidth - 11) // 2, DisplayGameSelected(currentSelectedGame)) # Affiche le jeu sélectionner
+				printAt(10 + currentSelectedGame, (maxWidth - 11) // 2, displayGameSelected(currentSelectedGame)) # Affiche le jeu sélectionner
 			if currChar == "DOWN" and currentSelectedGame != 4 and isOnRules == False: # Vérifie is la touche pressée est la flèche du bas
 				currentSelectedGame += 1 # Change le jeu
-				printAt(10 + currentSelectedGame, (maxWidth - 11) // 2, DisplayGameSelected(currentSelectedGame)) # Affiche le jeu sélectionner
+				printAt(10 + currentSelectedGame, (maxWidth - 11) // 2, displayGameSelected(currentSelectedGame)) # Affiche le jeu sélectionner
 			if currChar == "RIGHT" and isOnRules == False: # Vérifie is la touche pressée est la flèche de droite
-				printAt(3, maxWidth - 9, DisplayGameSelected(-1)) # Affiche les règles qui sont sélectionner
+				printAt(3, maxWidth - 9, displayGameSelected(-1)) # Affiche les règles qui sont sélectionner
 				isOnRules = True
 			if currChar == "LEFT" and isOnRules: # Vérifie is la touche pressée est la flèche de gauche
-				printAt(10 + currentSelectedGame, (maxWidth - 11) // 2, DisplayGameSelected(currentSelectedGame)) # Affiche le jeu sélectionner
+				printAt(10 + currentSelectedGame, (maxWidth - 11) // 2, displayGameSelected(currentSelectedGame)) # Affiche le jeu sélectionner
 				isOnRules = False
 			elif currChar == "TAB": # Vérifie is la touche pressée est Tab
 				restoreTerm(original) # Restore le terminal de base

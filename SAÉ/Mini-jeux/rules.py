@@ -5,7 +5,7 @@ from typing import Tuple
 
 from termUtils import printAt, displayEmptySquare, centerTextAtLine, getKey
 
-def DisplayMenu() -> None:
+def displayMenu() -> None:
 	displayEmptySquare()
 
 	centerTextAtLine(6, "┌─────────────────────────┐")
@@ -13,7 +13,7 @@ def DisplayMenu() -> None:
 	centerTextAtLine(8, "│    Liste des règles     │")
 	centerTextAtLine(9, "└─────────────────────────┘")
 
-def DisplayGameSelected(currentSelectedGame : int) -> str:
+def displayGameSelected(currentSelectedGame : int) -> str:
 	gameStr: str
 	maxWidth = get_terminal_size().columns - 1
 
@@ -65,8 +65,8 @@ def start(currentSelectedGame : int, player1 : str, player2 : str) -> None:
 
 	while True:
 		while True:
-			DisplayMenu()
-			printAt(10 + currentSelectedGame, (maxWidth - 12) // 2, DisplayGameSelected(currentSelectedGame))
+			displayMenu()
+			printAt(10 + currentSelectedGame, (maxWidth - 12) // 2, displayGameSelected(currentSelectedGame))
 			currChar = getKey()
 			if currChar == "UP" and currentSelectedGame != 1:
 				currentSelectedGame -= 1
