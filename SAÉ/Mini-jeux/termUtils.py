@@ -1,6 +1,6 @@
 import termios
 import tty
-from os import system, get_terminal_size
+from os import system, get_terminal_size, path
 from typing import Any
 import sys
 
@@ -52,6 +52,11 @@ def setup() -> list[Any]:
 	"""
 	original: list[Any]
 	new: list[Any]
+	if not path.exists("players.json"): # Si le fichier n'existe pas
+		f = open("players.json", "x+") # Crée le fichier
+		f = open("players.json", 'w')
+		f.write("{\n}")
+		f.close()
 
 	original = termios.tcgetattr(1) # Récupère les paramètres du terminal
 	new = original[:] # Copie les paramètres du terminal

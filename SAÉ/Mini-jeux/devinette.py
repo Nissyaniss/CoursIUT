@@ -28,7 +28,6 @@ def displaySelectedOption(currentSelectedOption : int) -> str:
 		optionStr = "C'est Bon !"
 	else :
 		optionStr = "ERROR"
-	print()
 
 	return ">" + Back.WHITE + Fore.BLACK + optionStr + Back.RESET + Fore.RESET + "  "
 
@@ -136,11 +135,10 @@ def start(player1 : str, player2 : str) -> None:
 		while True:
 			centerTextAtLine(10 + currentSelectedOption, displaySelectedOption(currentSelectedOption))
 			currChar = getKey()
-			if currChar == '\x1b':
-				if currChar == "UP" and currentSelectedOption != 1:
-					currentSelectedOption -= 1
-				if currChar == "DOWN" and currentSelectedOption != 3:
-					currentSelectedOption += 1
+			if currChar == "UP" and currentSelectedOption != 1:
+				currentSelectedOption -= 1
+			elif currChar == "DOWN" and currentSelectedOption != 3:
+				currentSelectedOption += 1
 			elif currChar == "TAB":
 				return
 			elif currChar == "ENTER":
