@@ -5,19 +5,37 @@ from os import get_terminal_size
 from termUtils import displayEmptySquare, centerTextAtLine, centerText, printAt, getKey
 from players import addPoint
 
-def displayGrid(grid : list[list[str]], currentSelectedCase : int, currentPlayer : int, player1 : str, player2: str):
+def displayGrid(grid : list[list[str]], currentSelectedCase : int, currentPlayer : int, player1 : str, player2: str) -> None:
+	"""
+	Affiche la grille du morpion
+
+	Entrée : grid : list[list[str]]
+	grid symbolise la grille du morpion
+
+	Entrée : currentSelectedCase : int
+	currentSelectedCase symbolise la case sélectionner
+
+	Entrée : currentPlayer : int
+	currentPlayer symbolise le joueur actuel
+
+	Entrée : player1 : str
+	player1 symbolise le nom du joueur 1
+
+	Entrée : player2 : str
+	player2 symbolise le nom du joueur 2
+	"""
 	displayEmptySquare()
-	if currentPlayer == 1:
+	if currentPlayer == 1: # Affiche le joueur actuel
 		centerTextAtLine(13, f"C'est actuellement au tour de : {player1}" + len(player2) * " ")
 	elif currentPlayer == 2:
 		centerTextAtLine(13, f"C'est actuellement au tour de : {player2}" + len(player1) * " ")
-	centerTextAtLine(15, f" {grid[0][0]} │ {grid[0][1]} │ {grid[0][2]} ")
+	centerTextAtLine(15, f" {grid[0][0]} │ {grid[0][1]} │ {grid[0][2]} ") # Affiche la grille
 	centerTextAtLine(16, "───┼───┼───")
 	centerTextAtLine(17, f" {grid[1][0]} │ {grid[1][1]} │ {grid[1][2]}")
 	centerTextAtLine(18, "───┼───┼───")
 	centerTextAtLine(19, f" {grid[2][0]} │ {grid[2][1]} │ {grid[2][2]}")
 
-	if currentSelectedCase == 1:
+	if currentSelectedCase == 1: # Affiche la case sélectionner
 		centerTextAtLine(15, " " + Fore.BLACK + Back.WHITE + f"{grid[0][0]}" + Fore.RESET + Back.RESET + f" │ {grid[0][1]} │ {grid[0][2]} ")
 	elif currentSelectedCase == 2:
 		centerTextAtLine(15, f" {grid[0][0]} │ " + Fore.BLACK + Back.WHITE +  f"{grid[0][1]}" + Fore.RESET + Back.RESET +f" │ {grid[0][2]} ")
@@ -39,6 +57,15 @@ def displayGrid(grid : list[list[str]], currentSelectedCase : int, currentPlayer
 		centerTextAtLine(19, f" {grid[2][0]} │ {grid[2][1]} │ "+ Fore.BLACK + Back.WHITE + f"{grid[2][2]}" + Fore.RESET + Back.RESET + " ")
 
 def checkWin(grid : list[list[str]]) -> bool:
+	"""
+	Vérifie si un joueur a gagné
+
+	Entrée : grid : list[list[str]]
+	grid symbolise la grille du morpion
+
+	Sortie : bool
+	True si un joueur a gagné, False sinon
+	"""
 	if grid[0][0] == grid[0][1] == grid[0][2] != ' ': # Horizontal 1
 		return True
 	elif grid[1][0] == grid[1][1] == grid[1][2] != ' ': # Horizontal 2
@@ -59,14 +86,29 @@ def checkWin(grid : list[list[str]]) -> bool:
 		return False
 
 def displaySelectedPlayer(currentPlayer : int, player1 : str, player2: str) -> str:
+	"""
+	Affiche le joueur sélectionner
+
+	Entrée : currentPlayer : int
+	currentPlayer symbolise le joueur actuel
+
+	Entrée : player1 : str
+	player1 symbolise le nom du joueur 1
+
+	Entrée : player2 : str
+	player2 symbolise le nom du joueur 2
+
+	Sortie : gameStr : str
+	gameStr symbolise le joueur sélectionner formaté
+	"""
 	maxWidth : int
 	maxHeight : int
 
-	maxWidth = get_terminal_size().columns - 3
+	maxWidth = get_terminal_size().columns - 3 # Récupère la taille du terminal
 	maxHeight = get_terminal_size().lines - 3
 	
 	
-	if currentPlayer == 1:
+	if currentPlayer == 1: # Affiche le joueur sélectionner
 		printAt(maxHeight // 2 - 1, maxWidth // 2 - len(player1) * 2 + 1, " " * len(player2) + player2)
 		return str(">" + Fore.BLACK + Back.WHITE + player1 + Fore.RESET + Back.RESET + len(player1) * " ")
 	elif currentPlayer == 2:
@@ -76,42 +118,63 @@ def displaySelectedPlayer(currentPlayer : int, player1 : str, player2: str) -> s
 		return "ERROR"
 
 def selectPlayer(player1 : str, player2 : str) -> int:
+	"""
+	Affiche le menu pour choisir le joueur qui commence
+
+	Entrée : player1 : str
+	player1 symbolise le joueur 1
+
+	Entrée : player2 : str
+	player2 symbolise le joueur 2
+
+	Sortie : currentPlayer : int
+	currentPlayer symbolise le joueur qui commence
+	"""
 	currentPlayer : int
 	maxWidth : int
 	maxHeight : int
 
-	maxWidth = get_terminal_size().columns - 3
+	maxWidth = get_terminal_size().columns - 3 # Récupère la taille du terminal
 	maxHeight = get_terminal_size().lines - 3
 	currentPlayer = 1
 	
 	displayEmptySquare()
 	while True:
-		centerTextAtLine(12, "┌────────────────┐")
+		centerTextAtLine(12, "┌────────────────┐") # Affiche le menu
 		centerTextAtLine(13, "| Qui commence ? |")
 		centerTextAtLine(14, "└────────────────┘")
 		printAt((maxHeight // 2) + currentPlayer - 3, maxWidth // 2 - len(player1) - 1, displaySelectedPlayer(currentPlayer, player1, player2))
 		currChar = getKey()
-		if currChar == "UP" and currentPlayer != 1:
+		if currChar == "UP" and currentPlayer != 1: # Change le joueur sélectionner
 			currentPlayer -= 1
-		if currChar == "DOWN" and currentPlayer != 2:
+		if currChar == "DOWN" and currentPlayer != 2: # Change le joueur sélectionner
 			currentPlayer += 1
 		if currChar == "ENTER":
 			break
 		elif currChar == "TAB":
 			return 0
-	if currentPlayer == 1:
+	if currentPlayer == 1: # Retourne le joueur sélectionner
 		return 1
 	else:
 		return 2
 
 
 def start(player1 : str, player2: str):
+	"""
+	Démarre le jeu
+
+	Entrée : player1 : str
+	player1 symbolise le joueur 1
+
+	Entrée : player2 : str
+	player2 symbolise le joueur 2
+	"""
 	grid : list[list[str]]
 	currentCase : int
 	currChar : str
 	currentPlayer : int
 
-	grid = [[' ', ' ', ' '], [' ', ' ', ' '], [' ', ' ', ' ']]
+	grid = [[' ', ' ', ' '], [' ', ' ', ' '], [' ', ' ', ' ']] # Initialise la grille
 	currentCase = 1
 	currChar = ''
 	currentPlayer = selectPlayer(player1, player2)
@@ -122,7 +185,7 @@ def start(player1 : str, player2: str):
 		while True:
 			displayGrid(grid, currentCase, currentPlayer, player1, player2)
 			currChar = getKey()
-			if currChar == "UP":
+			if currChar == "UP": # Change la case sélectionner
 				if currentCase > 3:
 					currentCase -= 3
 			if currChar == "DOWN":
@@ -134,28 +197,28 @@ def start(player1 : str, player2: str):
 			if currChar == "LEFT":
 				if currentCase != 1:
 					currentCase -= 1
-			elif currChar == "ENTER" and grid[(currentCase - 1) // 3][(currentCase - 1) % 3] == ' ': 
+			elif currChar == "ENTER" and grid[(currentCase - 1) // 3][(currentCase - 1) % 3] == ' ': # Change le joueur actuel
 				if currentPlayer == 1:
-					grid[(currentCase - 1) // 3][(currentCase - 1) % 3] = '×'
+					grid[(currentCase - 1) // 3][(currentCase - 1) % 3] = '×' # Ajoute le symbole du joueur actuel
 					currentPlayer = 2
 				elif currentPlayer == 2:
-					grid[(currentCase - 1) // 3][(currentCase - 1) % 3] = '○'
+					grid[(currentCase - 1) // 3][(currentCase - 1) % 3] = '○' # Ajoute le symbole du joueur actuel
 					currentPlayer = 1
-				if checkWin(grid) == True:
+				if checkWin(grid) == True: # Vérifie si un joueur a gagné
 					if currentPlayer == 1:
-						displayEmptySquare()
+						displayEmptySquare() # Affiche le gagnant
 						centerText(f"{player2} a gagné")
 						addPoint(player2, 3)
 						sleep(1)
 						return
 					elif currentPlayer == 2:
-						displayEmptySquare()
+						displayEmptySquare() # Affiche le gagnant
 						centerText(f"{player1} a gagné")
 						addPoint(player1, 3)
 						sleep(1)
 						return
-				elif grid[0][0] != ' ' and grid[0][1] != ' ' and grid[0][2] != ' ' and grid[1][0] != ' ' and grid[1][1] != ' ' and grid[1][2] != ' ' and grid[2][0] != ' ' and grid[2][1] != ' ' and grid[2][2] != ' ':
-					displayEmptySquare()
+				elif grid[0][0] != ' ' and grid[0][1] != ' ' and grid[0][2] != ' ' and grid[1][0] != ' ' and grid[1][1] != ' ' and grid[1][2] != ' ' and grid[2][0] != ' ' and grid[2][1] != ' ' and grid[2][2] != ' ': # Vérifie si il y a égalité
+					displayEmptySquare() # Affiche l'égalité
 					centerText("Égalité")
 					sleep(1)
 					return
