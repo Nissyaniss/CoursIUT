@@ -13,21 +13,21 @@ from players import addPlayer, isPlayerExisting, printScoreboard
 def DisplayMenu(currentSelectedGame : int) -> None:
 	maxWidth : int
 	
-	maxWidth = get_terminal_size().columns - 3
+	maxWidth = get_terminal_size().columns - 3 # Défini la taille maximal du terminal
 	
-	displayEmptySquare()
-	printAt(2, 5, "┌────────────┐")
+	displayEmptySquare() # Affiche un carré vide
+	printAt(2, 5, "┌────────────┐") # Affiche un carré avec Scoreboard écrit dedans au coordonnées 2 et 5
 	printAt(3, 5, "│ SCOREBOARD │")
 	printAt(4, 5, "└────────────┘")
-	printScoreboard(player1, player2)
-	printAt(2, maxWidth - 11, "┌──────────┐")
+	printScoreboard(player1, player2) # Affiche le scoreboard des deux joueur courant
+	printAt(2, maxWidth - 11, "┌──────────┐") # Affiche un carré avec Règles écrit dedans au coordonnées 2 et max - 11
 	printAt(3, maxWidth - 11, "│  RÈGLES  │")
 	printAt(4, maxWidth - 11, "└──────────┘")
 	centerTextAtLine(6, "┌─────────────────────────┐")
-	centerTextAtLine(7, "│         BONJOUR         │")
+	centerTextAtLine(7, "│         BONJOUR         │") # Affiche un carré avec le titre écrit dedans centré
 	centerTextAtLine(8, "│   Liste des mini-jeux   │")
 	centerTextAtLine(9, "└─────────────────────────┘")
-	printAt(10 + currentSelectedGame, (maxWidth - 11) // 2, DisplayGameSelected(currentSelectedGame))
+	printAt(10 + currentSelectedGame, (maxWidth - 11) // 2, DisplayGameSelected(currentSelectedGame)) # Affiche le jeux sélectionner
 
 def DisplayGameSelected(currentSelectedGame : int) -> str:
 	gameStr: str
@@ -148,36 +148,36 @@ if __name__ == "__main__":
 		addPlayer(player2)
 
 	while True:
-		DisplayMenu(currentSelectedGame)
+		DisplayMenu(currentSelectedGame) # Affiche le menu avec le premier jeu de sélectionner
 		while True:
 			currChar = getKey()
-			if currChar == "UP" and currentSelectedGame != 1 and isOnRules == False:
-				currentSelectedGame -= 1
-				printAt(10 + currentSelectedGame, (maxWidth - 11) // 2, DisplayGameSelected(currentSelectedGame))
-			if currChar == "DOWN" and currentSelectedGame != 4 and isOnRules == False:
-				currentSelectedGame += 1
-				printAt(10 + currentSelectedGame, (maxWidth - 11) // 2, DisplayGameSelected(currentSelectedGame))
-			if currChar == "RIGHT" and isOnRules == False:
-				printAt(3, maxWidth - 9, DisplayGameSelected(-1))
+			if currChar == "UP" and currentSelectedGame != 1 and isOnRules == False: # Vérifie is la touche pressée est la flèche du haut
+				currentSelectedGame -= 1 # Change le jeu
+				printAt(10 + currentSelectedGame, (maxWidth - 11) // 2, DisplayGameSelected(currentSelectedGame)) # Affiche le jeu sélectionner
+			if currChar == "DOWN" and currentSelectedGame != 4 and isOnRules == False: # Vérifie is la touche pressée est la flèche du bas
+				currentSelectedGame += 1 # Change le jeu
+				printAt(10 + currentSelectedGame, (maxWidth - 11) // 2, DisplayGameSelected(currentSelectedGame)) # Affiche le jeu sélectionner
+			if currChar == "RIGHT" and isOnRules == False: # Vérifie is la touche pressée est la flèche de droite
+				printAt(3, maxWidth - 9, DisplayGameSelected(-1)) # Affiche les règles qui sont sélectionner
 				isOnRules = True
-			if currChar == "LEFT" and isOnRules:
-				printAt(10 + currentSelectedGame, (maxWidth - 11) // 2, DisplayGameSelected(currentSelectedGame))
+			if currChar == "LEFT" and isOnRules: # Vérifie is la touche pressée est la flèche de gauche
+				printAt(10 + currentSelectedGame, (maxWidth - 11) // 2, DisplayGameSelected(currentSelectedGame)) # Affiche le jeu sélectionner
 				isOnRules = False
-			elif currChar == "TAB":
-				restoreTerm(original)
-			elif currChar == "ENTER":
+			elif currChar == "TAB": # Vérifie is la touche pressée est Tab
+				restoreTerm(original) # Restore le terminal de base
+			elif currChar == "ENTER": # Vérifie is la touche pressée est Entrée
 				break
 			else:
-				continue
-		if isOnRules:
+				continue # Si il y a une autre touche on l'ignore
+		if isOnRules: # Si il est sur le bouton rules
 			rules(1, player1, player2)
 			isOnRules = False
-		elif currentSelectedGame == 1:
+		elif currentSelectedGame == 1: # Si le jeu 1 est sélectionner (devinette)
 			devinette(player1, player2)
 			print("\x1b[?25l", end='', flush=True)
-		elif currentSelectedGame == 2:
+		elif currentSelectedGame == 2: # Si le jeu 2 est sélectionner (allumettes)
 			allumettes(player1, player2)
-		elif currentSelectedGame == 3:
+		elif currentSelectedGame == 3: # Si le jeu 3 est sélectionner (morpion)
 			morpion(player1, player2)
-		elif currentSelectedGame == 4:
+		elif currentSelectedGame == 4: # Si le jeu 4 est sélectionner (puissance 4)
 			puissance4(player1, player2)
