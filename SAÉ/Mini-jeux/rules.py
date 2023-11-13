@@ -1,7 +1,5 @@
-import sys
 from os import system, get_terminal_size
 from colorama import Fore, Back
-from typing import Tuple
 
 from termUtils import printAt, displayEmptySquare, centerTextAtLine, getKey
 

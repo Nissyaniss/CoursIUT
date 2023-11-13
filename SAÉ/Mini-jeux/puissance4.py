@@ -1,5 +1,4 @@
 from os import get_terminal_size
-import sys
 from colorama import Fore, Back
 from time import sleep
 

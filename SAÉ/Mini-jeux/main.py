@@ -1,6 +1,5 @@
 from os import system, get_terminal_size
 from colorama import Fore, Back
-import sys
 
 from morpion import start as morpion
 from allumettes import start as allumettes

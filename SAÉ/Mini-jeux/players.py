@@ -1,6 +1,5 @@
 import json
 from termUtils import printAt
-from os import get_terminal_size
 
 def isPlayerExisting(player: str) -> bool:
 	data: dict[str, tuple[int, int, int, int]]
@@ -13,7 +12,6 @@ def isPlayerExisting(player: str) -> bool:
 	else:
 		return False
 
-
 def addPlayer(player: str) -> None:
 	data: dict[str, tuple[int, int, int, int]]
 
@@ -23,9 +21,7 @@ def addPlayer(player: str) -> None:
 	data.update({player : (0, 0, 0, 0)})
 
 	with open("players.json", "w") as outputFile:
-		json.dump(data, outputFile, sort_keys=True,
-				  indent='\t', separators=(',', ': '))
-
+		json.dump(data, outputFile, sort_keys=True, indent='\t', separators=(',', ': '))
 
 def addPoint(player: str, game: int) -> None:
 	data: dict[str, tuple[int, int, int, int]]
@@ -49,9 +45,7 @@ def addPoint(player: str, game: int) -> None:
 
 	data[player] = playerData
 	with open("players.json", "w") as outputFile:
-		json.dump(data, outputFile, sort_keys=True,
-				  indent='\t', separators=(',', ': '))
-
+		json.dump(data, outputFile, sort_keys=True, indent='\t', separators=(',', ': '))
 
 def printScoreboard(player1: str, player2: str) -> None:
 	data: dict[str, tuple[int, int, int, int]]

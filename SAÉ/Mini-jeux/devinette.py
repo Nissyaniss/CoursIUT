@@ -1,6 +1,5 @@
 from colorama import Fore, Back
 from os import get_terminal_size
-import sys
 from time import sleep
 
 from players import addPoint

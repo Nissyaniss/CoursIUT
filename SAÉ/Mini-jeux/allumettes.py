@@ -1,5 +1,4 @@
 from colorama import Fore, Back
-import sys
 from time import sleep
 from os import get_terminal_size
 
@@ -69,7 +68,6 @@ def selectPlayer(player1 : str, player2 : str) -> int:
 		return 1
 	else:
 		return 2
-
 
 def start(player1 : str, player2 : str) -> None:
 	matchs : int
