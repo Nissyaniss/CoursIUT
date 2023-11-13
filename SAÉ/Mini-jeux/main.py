@@ -10,6 +10,12 @@ from termUtils import printAt, setup, restoreTerm, displayEmptySquare, centerTex
 from players import addPlayer, isPlayerExisting, printScoreboard
 
 def displayMenu(currentSelectedGame : int) -> None:
+	"""
+	Affiche le menu avec le jeu sélectionner
+
+	Entrée : currentSelectedGame : int
+	currentSelectedGame symbolise le jeu sélectionner
+	"""
 	maxWidth : int
 	
 	maxWidth = get_terminal_size().columns - 3 # Défini la taille maximal du terminal
@@ -29,12 +35,21 @@ def displayMenu(currentSelectedGame : int) -> None:
 	printAt(10 + currentSelectedGame, (maxWidth - 11) // 2, displayGameSelected(currentSelectedGame)) # Affiche le jeux sélectionner
 
 def displayGameSelected(currentSelectedGame : int) -> str:
+	"""
+	Affiche le jeu sélectionner
+
+	Entrée : currentSelectedGame : int
+	currentSelectedGame symbolise le jeu sélectionner
+
+	Sortie : gameStr : str
+	gameStr symbolise le string formaté du jeu sélectionner
+	"""
 	gameStr: str
 	maxWidth = get_terminal_size().columns - 3
 
 	if currentSelectedGame == 1:
-		gameStr = "Devinette"
-		printAt(12, (maxWidth - 11) // 2, "  Allumette")
+		gameStr = "Devinette" # Défini le string du jeu sélectionner
+		printAt(12, (maxWidth - 11) // 2, "  Allumette") # Affiche les autres jeux
 		printAt(13, (maxWidth - 11) // 2, "  Morpion")
 		printAt(14, (maxWidth - 11) // 2, "  Puissance 4")
 		printAt(3, maxWidth - 9, " RÈGLES")
@@ -65,9 +80,15 @@ def displayGameSelected(currentSelectedGame : int) -> str:
 	else :
 		gameStr = "ERROR"
 
-	return str(">" + Back.WHITE + Fore.BLACK + gameStr + Back.RESET + Fore.RESET + "  ")
+	return str(">" + Back.WHITE + Fore.BLACK + gameStr + Back.RESET + Fore.RESET + "  ") # Retourne le string formaté
 
 def displayMenuPlayer(player : int) -> None:
+	"""
+	Affiche le menu pour entrer le pseudo du joueur
+
+	Entrée : player : int
+	player symbolise joueur actuel
+	"""
 	system("clear")
 	displayEmptySquare()
 	printAt(maxHeight + 1, 3, "Appuyer sur \"TAB\" pour quitter")
@@ -91,36 +112,36 @@ if __name__ == "__main__":
 	player2 = ""
 	isOnRules  = False
 	currChar = ""
-	maxWidth = get_terminal_size().columns - 3
+	maxWidth = get_terminal_size().columns - 3 # Défini la taille maximal du terminal
 	maxHeight = get_terminal_size().lines - 3
 	currentSelectedGame = 1
-	original = setup()
+	original = setup() # Défini la configuration du terminal original
 
 	pseudo = "> "
 
 	displayMenuPlayer(1)
 	centerTextAtLine(13, pseudo)
 	while True:
-		setCursorPosition(12, maxWidth // 2 + 4)
-		currChar = getKey()
-		if len(currChar) == 1 and currChar.isprintable():
-			pseudo += currChar
-			centerTextAtLine(13, pseudo)
+		setCursorPosition(12, maxWidth // 2 + 4) # Défini la position du curseur
+		currChar = getKey() # Récupère la touche pressée
+		if len(currChar) == 1 and currChar.isprintable(): # Vérifie si la touche pressée est un caractère imprimable
+			pseudo += currChar # Ajoute le caractère au pseudo
+			centerTextAtLine(13, pseudo) # Affiche le pseudo
 		elif currChar == "ENTER" and len(pseudo) > 2:
-			break
-		elif currChar == "BACKSPACE" and len(pseudo) > 2:
-			centerTextAtLine(13, " " * len(pseudo))
-			pseudo = pseudo[:-1]
+			break # Si la touche pressée est Entrée et que le pseudo est plus grand que 2 on sort de la boucle
+		elif currChar == "BACKSPACE" and len(pseudo) > 2: # Vérifie si la touche pressée est Backspace
+			centerTextAtLine(13, " " * len(pseudo)) # Affiche des espaces pour effacer le pseudo
+			pseudo = pseudo[:-1] # Enlève le dernier caractère du pseudo
 			centerTextAtLine(13, pseudo)
-		elif currChar == "TAB":
-			restoreTerm(original)
+		elif currChar == "TAB": # Vérifie si la touche pressée est Tab
+			restoreTerm(original) # Restore le terminal de base
 		else:
 			continue
-	player1 = pseudo[2:]
-	if not isPlayerExisting(player1):
-		addPlayer(player1)
-	pseudo = "> "
-	player2 = player1
+	player1 = pseudo[2:] # Enlève le "> " du pseudo
+	if not isPlayerExisting(player1): # Vérifie si le joueur existe
+		addPlayer(player1) # Ajoute le joueur
+	pseudo = "> " # Réinitialise le pseudo
+	player2 = player1 # Défini le joueur 2 comme le joueur 1 pour éviter les mêmes pseudos
 
 	displayMenuPlayer(2)
 	centerTextAtLine(13, pseudo)
