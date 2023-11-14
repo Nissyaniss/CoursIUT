@@ -21,41 +21,41 @@
 -- GROUP BY nom, prenom
 
 
-SELECT DISTINCT
-CASE
-    WHEN j1.nom < j2.nom THEN j1.nom
-    ELSE j2.nom
-END AS nom1,
-CASE
-    WHEN j1.nom < j2.nom THEN j2.nom
-    ELSE j1.nom
-END AS nom2
-FROM JOUEUR j1, JOUEUR j2, MATCHDOUBLES, MATCH
-WHERE
-    j1.idJoueur != j2.idJoueur AND
-    (
-    (j1.idJoueur = MATCHDOUBLES.idGagnant OR j1.idJoueur = MATCHDOUBLES.idGagnant2)
-    AND (j2.idJoueur = MATCHDOUBLES.idGagnant2 OR j2.idJoueur = MATCHDOUBLES.idGagnant)
-    OR
-    (j1.idJoueur = MATCHDOUBLES.idPerdant OR j1.idJoueur = MATCHDOUBLES.idPerdant2)
-    AND (j2.idJoueur = MATCHDOUBLES.idPerdant2 OR j2.idJoueur = MATCHDOUBLES.idPerdant)
-    )
-INTERSECT
-SELECT DISTINCT
-CASE
-    WHEN j1.nom < j2.nom THEN j1.nom
-    ELSE j2.nom
-END AS nom1,
-CASE
-    WHEN j1.nom < j2.nom THEN j2.nom
-    ELSE j1.nom
-END AS nom2
-FROM JOUEUR j1, JOUEUR j2, MATCH
-WHERE
-    (
-    (j1.idJoueur = MATCH.idGagnant)
-    AND (j2.idJoueur = MATCH.idPerdant)
-    OR
-    (j1.idJoueur = MATCH.idPerdant)
-    AND (j2.idJoueur = MATCH.idGagnant)
-    )
+-- SELECT DISTINCT
+-- CASE
+--     WHEN j1.nom < j2.nom THEN j1.nom
+--     ELSE j2.nom
+-- END AS nom1,
+-- CASE
+--     WHEN j1.nom < j2.nom THEN j2.nom
+--     ELSE j1.nom
+-- END AS nom2
+-- FROM JOUEUR j1, JOUEUR j2, MATCHDOUBLES, MATCH
+-- WHERE
+--     j1.idJoueur != j2.idJoueur AND
+--     (
+--     (j1.idJoueur = MATCHDOUBLES.idGagnant OR j1.idJoueur = MATCHDOUBLES.idGagnant2)
+--     AND (j2.idJoueur = MATCHDOUBLES.idGagnant2 OR j2.idJoueur = MATCHDOUBLES.idGagnant)
+--     OR
+--     (j1.idJoueur = MATCHDOUBLES.idPerdant OR j1.idJoueur = MATCHDOUBLES.idPerdant2)
+--     AND (j2.idJoueur = MATCHDOUBLES.idPerdant2 OR j2.idJoueur = MATCHDOUBLES.idPerdant)
+--     )
+-- INTERSECT
+-- SELECT DISTINCT
+-- CASE
+--     WHEN j1.nom < j2.nom THEN j1.nom
+--     ELSE j2.nom
+-- END AS nom1,
+-- CASE
+--     WHEN j1.nom < j2.nom THEN j2.nom
+--     ELSE j1.nom
+-- END AS nom2
+-- FROM JOUEUR j1, JOUEUR j2, MATCH
+-- WHERE
+--     (
+--     (j1.idJoueur = MATCH.idGagnant)
+--     AND (j2.idJoueur = MATCH.idPerdant)
+--     OR
+--     (j1.idJoueur = MATCH.idPerdant)
+--     AND (j2.idJoueur = MATCH.idGagnant)
+--     )
