@@ -1,9 +1,9 @@
-from colorama import Fore, Back
 from time import sleep
 from os import get_terminal_size
 
 from players import addPoint
 from termUtils import displayEmptySquare, centerTextAtLine, centerText, printAt, getKey
+from ANSIcolors import inverseColor
 
 def displayMenu(currentSelectedNb : int, player : str, matchs : int) -> str:
 	"""
@@ -31,7 +31,7 @@ def displayMenu(currentSelectedNb : int, player : str, matchs : int) -> str:
 		centerTextAtLine(maxHeight // 2 + 3, " 1")
 		centerTextAtLine(maxHeight // 2 + 4, " 2")
 
-	return str(">" + Back.WHITE + Fore.BLACK + f'{currentSelectedNb}' + Back.RESET + Fore.RESET) # Retourne le string formaté
+	return str(">" + inverseColor(f'{currentSelectedNb}')) # Retourne le string formaté
 
 def displaySelectedPlayer(currentPlayer : int, player1 : str, player2: str) -> str:
 	"""
@@ -51,10 +51,10 @@ def displaySelectedPlayer(currentPlayer : int, player1 : str, player2: str) -> s
 	
 	if currentPlayer == 1:
 		printAt(maxHeight // 2 - 1, maxWidth // 2 - len(player1) * 2 + 1, " " * len(player2) + player2) # Affiche les autres joueurs
-		return str(">" + Fore.BLACK + Back.WHITE + player1 + Fore.RESET + Back.RESET + len(player1) * " ")
+		return str(">" + inverseColor(player1) + len(player1) * " ")
 	elif currentPlayer == 2:
 		printAt(maxHeight // 2 - 2, maxWidth // 2 - len(player1) * 2 + 1, " " * len(player1) + player1)
-		return str(">" + Fore.BLACK + Back.WHITE + player2 + Fore.RESET + Back.RESET + len(player2) * " ")
+		return str(">" + inverseColor(player2) + len(player2) * " ")
 	else :
 		return "ERROR"
 

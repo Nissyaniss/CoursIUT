@@ -1,7 +1,7 @@
-from colorama import Fore, Back
 from os import get_terminal_size
 from time import sleep
 
+from ANSIcolors import inverseColor
 from players import addPoint
 from termUtils import setCursorPosition, displayEmptySquare, printAt, centerTextAtLine, centerText, getKey
 
@@ -41,7 +41,7 @@ def displaySelectedOption(currentSelectedOption : int) -> str:
 	else :
 		optionStr = "ERROR"
 
-	return ">" + Back.WHITE + Fore.BLACK + optionStr + Back.RESET + Fore.RESET + "  "
+	return ">" + inverseColor(optionStr) + "  "
 
 def displayMenuPlayer() -> None:
 	"""
@@ -82,7 +82,7 @@ def DisplaySelectedPlayer(currentSelectedPlayer : int, player1 : str, player2 : 
 	else :
 		playerStr = "ERROR"
 
-	return str(">" + Back.WHITE + Fore.BLACK + playerStr + Back.RESET + Fore.RESET + "  ")
+	return str(">" + inverseColor(playerStr) + "  ")
 
 def start(player1 : str, player2 : str) -> None:
 	"""

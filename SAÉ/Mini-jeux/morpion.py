@@ -1,7 +1,7 @@
-from colorama import Fore, Back
 from time import sleep
 from os import get_terminal_size
 
+from ANSIcolors import inverseColor
 from termUtils import displayEmptySquare, centerTextAtLine, centerText, printAt, getKey
 from players import addPoint
 
@@ -36,25 +36,25 @@ def displayGrid(grid : list[list[str]], currentSelectedCase : int, currentPlayer
 	centerTextAtLine(19, f" {grid[2][0]} │ {grid[2][1]} │ {grid[2][2]}")
 
 	if currentSelectedCase == 1: # Affiche la case sélectionner
-		centerTextAtLine(15, " " + Fore.BLACK + Back.WHITE + f"{grid[0][0]}" + Fore.RESET + Back.RESET + f" │ {grid[0][1]} │ {grid[0][2]} ")
+		centerTextAtLine(15, " " + inverseColor(f"{grid[0][0]}") + f" │ {grid[0][1]} │ {grid[0][2]} ")
 	elif currentSelectedCase == 2:
-		centerTextAtLine(15, f" {grid[0][0]} │ " + Fore.BLACK + Back.WHITE +  f"{grid[0][1]}" + Fore.RESET + Back.RESET +f" │ {grid[0][2]} ")
+		centerTextAtLine(15, f" {grid[0][0]} │ " + inverseColor(f"{grid[0][1]}") + f" │ {grid[0][2]} ")
 	elif currentSelectedCase == 3:
-		centerTextAtLine(15, f" {grid[0][0]} │ {grid[0][1]} │ "+ Fore.BLACK + Back.WHITE + f"{grid[0][2]}" + Fore.RESET + Back.RESET + " ")
+		centerTextAtLine(15, f" {grid[0][0]} │ {grid[0][1]} │ "+ inverseColor(f"{grid[0][2]}") + " ")
 
 	elif currentSelectedCase == 4:
-		centerTextAtLine(17, " " + Fore.BLACK + Back.WHITE + f"{grid[1][0]}" + Fore.RESET + Back.RESET + f" │ {grid[1][1]} │ {grid[1][2]} ")
+		centerTextAtLine(17, " " + inverseColor(f"{grid[1][0]}") + f" │ {grid[1][1]} │ {grid[1][2]} ")
 	elif currentSelectedCase == 5:
-		centerTextAtLine(17, f" {grid[1][0]} │ " + Fore.BLACK + Back.WHITE +  f"{grid[1][1]}" + Fore.RESET + Back.RESET +f" │ {grid[1][2]} ")
+		centerTextAtLine(17, f" {grid[1][0]} │ " + inverseColor(f"{grid[1][1]}") + f" │ {grid[1][2]} ")
 	elif currentSelectedCase == 6:
-		centerTextAtLine(17, f" {grid[1][0]} │ {grid[1][1]} │ "+ Fore.BLACK + Back.WHITE + f"{grid[1][2]}" + Fore.RESET + Back.RESET + " ")
+		centerTextAtLine(17, f" {grid[1][0]} │ {grid[1][1]} │ "+ inverseColor(f"{grid[1][2]}") + " ")
 	
 	elif currentSelectedCase == 7:
-		centerTextAtLine(19, " " + Fore.BLACK + Back.WHITE + f"{grid[2][0]}" + Fore.RESET + Back.RESET + f" │ {grid[2][1]} │ {grid[2][2]} ")
+		centerTextAtLine(19, " " + inverseColor(f"{grid[2][0]}") + f" │ {grid[2][1]} │ {grid[2][2]} ")
 	elif currentSelectedCase == 8:
-		centerTextAtLine(19, f" {grid[2][0]} │ " + Fore.BLACK + Back.WHITE +  f"{grid[2][1]}" + Fore.RESET + Back.RESET +f" │ {grid[2][2]} ")
+		centerTextAtLine(19, f" {grid[2][0]} │ " + inverseColor(f"{grid[2][1]}") + f" │ {grid[2][2]} ")
 	elif currentSelectedCase == 9:
-		centerTextAtLine(19, f" {grid[2][0]} │ {grid[2][1]} │ "+ Fore.BLACK + Back.WHITE + f"{grid[2][2]}" + Fore.RESET + Back.RESET + " ")
+		centerTextAtLine(19, f" {grid[2][0]} │ {grid[2][1]} │ " + inverseColor(f"{grid[2][2]}") + " ")
 
 def checkWin(grid : list[list[str]]) -> bool:
 	"""
@@ -110,10 +110,10 @@ def displaySelectedPlayer(currentPlayer : int, player1 : str, player2: str) -> s
 	
 	if currentPlayer == 1: # Affiche le joueur sélectionner
 		printAt(maxHeight // 2 - 1, maxWidth // 2 - len(player1) * 2 + 1, " " * len(player2) + player2)
-		return str(">" + Fore.BLACK + Back.WHITE + player1 + Fore.RESET + Back.RESET + len(player1) * " ")
+		return str(">" + inverseColor(player1) + len(player1) * " ")
 	elif currentPlayer == 2:
 		printAt(maxHeight // 2 - 2, maxWidth // 2 - len(player1) * 2 + 1, " " * len(player1) + player1)
-		return str(">" + Fore.BLACK + Back.WHITE + player2 + Fore.RESET + Back.RESET + len(player2) * " ")
+		return str(">" + inverseColor(player2) + len(player2) * " ")
 	else :
 		return "ERROR"
 

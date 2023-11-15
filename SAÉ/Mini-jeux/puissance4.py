@@ -1,7 +1,7 @@
 from os import get_terminal_size
-from colorama import Fore, Back
 from time import sleep
 
+from ANSIcolors import inverseColor, stringRed, stringYellow
 from termUtils import displayEmptySquare, centerTextAtLine, printAt, centerText, getKey
 from players import addPoint
 
@@ -103,10 +103,10 @@ def displaySelectedPlayer(currentPlayer : int, player1 : str, player2: str) -> s
 	
 	if currentPlayer == 1: # Affiche le joueur sélectionner
 		printAt(maxHeight // 2 - 1, maxWidth // 2 - len(player1) * 2 + 1, " " * len(player2) + player2)
-		return str(">" + Fore.BLACK + Back.WHITE + player1 + Fore.RESET + Back.RESET + len(player1) * " ")
+		return str(">" + inverseColor(player1) + len(player1) * " ")
 	elif currentPlayer == 2:
 		printAt(maxHeight // 2 - 2, maxWidth // 2 - len(player1) * 2 + 1, " " * len(player1) + player1)
-		return str(">" + Fore.BLACK + Back.WHITE + player2 + Fore.RESET + Back.RESET + len(player2) * " ")
+		return str(">" + inverseColor(player2) + len(player2) * " ")
 	else :
 		return "ERROR"
 
@@ -177,7 +177,7 @@ def displayGrid(grid : list[list[str]], currentCase : int, currentPlayer : int):
 	while i < 7: # Affiche la grille 
 		while j < 8:
 			if currentCase == j and i <= 0: # Affiche la case sélectionner
-				printAt(maxHeight // 2 - 3 + i, maxWidth // 2 + j * 2 - 8,"│" + Back.WHITE + Fore.BLACK + grid[i][j] + Back.RESET + Fore.RESET + "│")
+				printAt(maxHeight // 2 - 3 + i, maxWidth // 2 + j * 2 - 8,"│" + inverseColor(grid[i][j]) + "│")
 			else:
 				printAt(maxHeight // 2 - 3 + i, maxWidth // 2 + j * 2 - 8,"│" + grid[i][j] + "│")
 			j += 1
@@ -216,7 +216,7 @@ def start(player1 : str, player2 : str):
 			i = 6
 			while i >= 0:
 				if grid[i][currentCase] == ' ': # Ajoute un pion
-					grid[i][currentCase] = Fore.YELLOW + "●" + Fore.RESET
+					grid[i][currentCase] = stringYellow("●")
 					break
 				i -= 1
 			if checker(grid, i, currentCase): # Vérifie si un joueur a gagné
@@ -230,7 +230,7 @@ def start(player1 : str, player2 : str):
 			i = 6
 			while i >= 0:
 				if grid[i][currentCase] == ' ': # Ajoute un pion
-					grid[i][currentCase] = Fore.RED + "●" + Fore.RESET
+					grid[i][currentCase] =  stringRed("●")
 					break
 				i -= 1
 			if checker(grid, i, currentCase): # Vérifie si un joueur a gagné

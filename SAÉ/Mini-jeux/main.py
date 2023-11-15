@@ -1,5 +1,4 @@
 from os import system, get_terminal_size
-from colorama import Fore, Back
 
 from morpion import start as morpion
 from allumettes import start as allumettes
@@ -8,6 +7,7 @@ from puissance4 import start as puissance4
 from devinette import start as devinette
 from termUtils import printAt, setup, restoreTerm, displayEmptySquare, centerTextAtLine, setCursorPosition, getKey
 from players import addPlayer, isPlayerExisting, printScoreboard
+from ANSIcolors import inverseColor
 
 def displayMenu(currentSelectedGame : int) -> None:
 	"""
@@ -80,7 +80,7 @@ def displayGameSelected(currentSelectedGame : int) -> str:
 	else :
 		gameStr = "ERROR"
 
-	return str(">" + Back.WHITE + Fore.BLACK + gameStr + Back.RESET + Fore.RESET + "  ") # Retourne le string formaté
+	return str(">" + inverseColor(gameStr) + "  ") # Retourne le string formaté
 
 def displayMenuPlayer(player : int) -> None:
 	"""
@@ -190,7 +190,7 @@ if __name__ == "__main__":
 			else:
 				continue # Si il y a une autre touche on l'ignore
 		if isOnRules: # Si il est sur le bouton rules
-			rules(1, player1, player2)
+			rules(1)
 			isOnRules = False
 		elif currentSelectedGame == 1: # Si le jeu 1 est sélectionner (devinette)
 			devinette(player1, player2)

@@ -1,4 +1,5 @@
 import json
+
 from termUtils import printAt
 
 def isPlayerExisting(player: str) -> bool:

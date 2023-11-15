@@ -1,6 +1,6 @@
 from os import system, get_terminal_size
-from colorama import Fore, Back
 
+from ANSIcolors import inverseColor
 from termUtils import printAt, displayEmptySquare, centerTextAtLine, getKey
 
 def displayMenu() -> None:
@@ -52,7 +52,7 @@ def displayGameSelected(currentSelectedGame : int) -> str:
 		gameStr = "ERROR"
 
 	print()
-	return ">" + Back.WHITE + Fore.BLACK + gameStr + Back.RESET + Fore.RESET + " "
+	return ">" + inverseColor(gameStr) + " "
 
 def printRule(gameStr : str, ruleStr : str) -> None:
 	"""
