@@ -1,0 +1,12 @@
+@media only screen and (max-width: 1300px) {
+	#News {
+		display: grid;
+		grid-template-columns: 50% 50%;
+	}
+
+	#otherSitesItems a{
+		padding-bottom: 15px;
+		padding-right: 25px;
+	}
+
+}

@@ -1,0 +1,32 @@
+@media only screen and (max-width: 750px) {
+	#otherSites{
+		display: none;
+	}
+	#Title div{
+		display: none;
+	}
+	#Title{
+		display: flex;
+		justify-content: center;
+	}
+	#News {
+		display: grid;
+		grid-template-columns: 100%;
+	}
+	.littleBox{
+		display: flex;
+		float: none;
+		width: 85%;
+	}
+
+	#Images {
+		display: flex;
+		justify-content: center;
+		overflow: hidden;
+	}
+	#Hover4{
+		display: flex;
+		justify-content: space-around;
+	}
+	
+}
