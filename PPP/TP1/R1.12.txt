@@ -1,0 +1,62 @@
+R1.12 - TP 1
+
+Contexte des activités et structure de la ressource
+
+Le but de cette ressource est de vous permettre de vous projeter dans les métiers de développeurs en informatique, surtout en termes de compétences non-techniques, de type " soft skills " : le savoir-être plutôt que le savoir-faire.
+Cette analyse, à la fois du métier ciblé et à la fois de soi, sera structurée, dans le cadre de cette ressource, dans les étapes suivantes : 
+* Métier et profils fixes (Toto vers métier X) - étape accompagnée : 
+o TP 1 : Analyse d'une fiche de poste en informatique => compréhension du profil recherché (en termes de compétences non-techniques), projection dans le métier
+o TD 1 : Un vocabulaire pour la connaissance de soi
+o TD 2 : Analyse d'un profil professionnel en informatique => compréhension d'un profil humain donné (en termes de compétences techniques)
+o TD 3 (évalué) : Analyse de compatibilité entre un profil humain et celui recherché dans une fiche de poste, exercice de rédaction noté
+* Choix de métier, personnalisation de profil (moi vers métier Y) - étape en autonomie : 
+o TP 2 : Analyse de plusieurs fiches de postes possibles, choix d'une fiche seulement
+o TD 4 : Analyse de soi : qui suis-je ? établissement d'un profil qui vous correspond 
+o TD 5 (évalué) : Analyse de compatibilité entre son profil et celui du métier choisi => projection dans le métier
+
+L'objectif de ce TP
+
+Durant ce TP vous allez analyser une fiche de poste de développeur. 
+Votre objectif sera à la fois de relever les caractéristiques du métier et de commencer à vous projeter dans les activités professionnelles que le poste suppose. 
+L'analyse est structurée par rapport à 5 aspects : OÙ, QUOI, QUI, AVEC QUI, et COMMENT.
+L'approche envisagée est graduelle : 
+> Première étape : étude superficielle se limitant à quelques recherches
+> Deuxième étape : l'analyse plus profonde du savoir-être demandé
+> Troisième étape : la projection vers le métier
+L'analyse réalisée durant ce TP vous sera utile tout au long de cette ressource, veuillez donc vous assurer de l'avoir à la main à chaque TP et TD.
+
+Préambule du TP : accès Moodle
+
+Veuillez vous rendre sur la page du Moodle de l'IUT : https://community-iut.unilim.fr . Un login vous sera demandé pour y accéder. 
+Une fois authentifié(e), cherchez, en haut de l'écran, l'onglet " Mes Cours " et trouvez le cours BUT1 : PPP. Cliquez là-dessus.
+Normalement cela vous amènera à la page d'accueil du cours, où vous pourrez retrouver, dans le dossier du TP1, une fiche de poste. 
+Récupérez la fiche de poste en question.
+
+Étape 1 : Première analyse de la fiche de poste
+
+Lisez attentivement les détails de la fiche de poste.
+Par la suite, retrouvez et relevez, dans le plus de détails possibles, les informations suivantes : 
+> OU : Quelle est l'entreprise visée ? Relevez le secteur dans lequel elle opère, son coeur de métier, la taille de l'entreprise, son emplacement géographique en France, ainsi que tout autre détail qui vous semble intéressant 
+
+> QUOI : Quelles sont les missions confiées au futur employé, en termes techniques (conception, développement, gestion, intégration...) , mais également en termes humains (missions de formation, de maintenance, contact clients...)
+
+> QUI : Quel est le profil recherché ? Quelles caractéristiques de savoir-être sont attendues du futur employé ? Qui doit être le futur professionnel ?
+
+> AVEC QUI : Quel sera l'environnement humain de travail du futur employé, avec qui on attend qu'il interagisse, quelle est la taille de l'équipe et quels sont leurs profils, quel niveau technique existe dans son entourage, ...
+
+> COMMENT : Quelles sont les conditions de travail ? (Poste fixe, télétravail, missions fréquentes, conseil...)
+
+Attention : il ne s'agit pas de copier/coller des informations en vrac de la fiche de poste, sinon de premièrement classifier les informations évidentes (missions confiées par exemple), et ensuite de chercher les indices moins évidents. Ne vous contentez pas d'un travail superficiel !
+
+
+Etape 2 : Aller plus loin
+
+Dans cette deuxième étape nous allons pousser plus loin l'analyse du profil recherché. Replongez-vous dans la fiche de poste, et lisez-la attentivement. Pour chacune des caractéristiques retrouvées dans l'étape précédente, essayez d'approfondir votre exploration, en vous demandant à chaque fois quelles caractéristiques de savoir-être sont demandées. 
+Par exemple, un développeur responsable d'un produit informatique à destination d'un client doit montrer de l'autonomie, de la créativité et un bon relationnel avec les clients. Un développeur junior qui fera partie d'une équipe informatique de taille moyenne ou grande aura besoin d'un peu moins d'autonomie, mais devra montrer des qualités de travail en équipe ainsi qu'une certaine flexibilité. 
+à vous de détailler le plus possible les caractéristiques du métier présenté dans la fiche de poste, en utilisant un vocabulaire adapté et nuancé.
+
+Etape 3 : Se projeter dans le métier
+
+L'étape finale de votre travail d'aujourd'hui a pour but de pouvoir se projeter dans la routine d'un métier à partir des informations obtenues. 
+Nous allons nous imaginer qu'un personnage fictif, Toto, a été recruté pour ce poste. Toto a toutes les compétences techniques requises et son profil personnel s'adapte bien aux besoins de l'entreprise.
+Pouvez-vous vous imaginer une journée habituelle de travail pour Toto ? Comment cette journée est-elle susceptible d'évoluer au fil du temps ? Quelles sont les perspectives de Toto pour l'évolution de sa carrière ? Argumentez à chaque fois vos inférences en utilisant des éléments propres à la fiche de poste et aux détails que vous avez pu retrouver dans les deux étapes précédentes.

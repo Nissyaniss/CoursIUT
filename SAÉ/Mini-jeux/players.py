@@ -92,10 +92,10 @@ def printScoreboard(player1: str, player2: str) -> None:
 		playerFormat = player1[:10] + "..."
 	else:
 		playerFormat = player1
-	printAt(6, 5, f"{playerFormat} :") # Affiche le tableau des scores
-	printAt(7, 6, f"Devinette   = {data[player1][0]}")
-	printAt(8, 6, f"Allumette   = {data[player1][1]}")
-	printAt(9, 6, f"Morpion     = {data[player1][2]}")
+	printAt(6,  5, f"{playerFormat} :") # Affiche le tableau des scores
+	printAt(7,  6, f"Devinette   = {data[player1][0]}")
+	printAt(8,  6, f"Allumette   = {data[player1][1]}")
+	printAt(9,  6, f"Morpion     = {data[player1][2]}")
 	printAt(10, 6, f"Puissance 4 = {data[player1][3]}")
 
 	if len(player2) > 10:

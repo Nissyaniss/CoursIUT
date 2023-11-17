@@ -188,13 +188,13 @@ def start(player1 : str, player2: str):
 			if currChar == "UP": # Change la case sélectionner
 				if currentCase > 3:
 					currentCase -= 3
-			if currChar == "DOWN":
+			elif currChar == "DOWN":
 				if currentCase < 7:
 					currentCase += 3
-			if currChar == "RIGHT":
+			elif currChar == "RIGHT":
 				if currentCase != 9:
 					currentCase += 1
-			if currChar == "LEFT":
+			elif currChar == "LEFT":
 				if currentCase != 1:
 					currentCase -= 1
 			elif currChar == "ENTER" and grid[(currentCase - 1) // 3][(currentCase - 1) % 3] == ' ': # Change le joueur actuel

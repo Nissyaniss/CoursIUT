@@ -214,7 +214,7 @@ $ cat /etc/passwd | cut -d: -f1,3-5 | tr ':' ' ' | sort
 ```
 >11)
 ```bash
-$ cat /etc/passwd | tr ':' '\n'
+$ cat /etc/passwd | grep '^root' | tr ':' '\n'
 ```
 > 12)
 ```bash
@@ -223,4 +223,31 @@ $ who | cut -d' ' -f1 | sort
 > 13)
 ```bash
 $ id | cut -d'(' -f2 | cut -d')' -f1
+```
+> 14)
+```bash
+$ who | head -1 | tr -s ' ' |cut -d' ' -f4
+```
+
+## Find
+
+> 1)
+```bash
+$ find / -name 'find' -type f -print 2>/dev/null
+```
+> 2)
+```bash
+$ find / -name '?' -print 2>/dev/null
+```
+> 3)
+```bash
+$ find / -name '?' -print 2>/dev/null | head -1
+```
+> 4)
+```bash
+$ find / -name '*.h' -print 2>/dev/null
+```
+> 5)
+```bash
+$ find / -user nissya -type d -print 2>/dev/null 
 ```
