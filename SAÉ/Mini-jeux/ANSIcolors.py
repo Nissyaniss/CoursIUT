@@ -32,4 +32,28 @@ def stringYellow(string : str) -> str:
 	Sortie : str
 	Symbolise le string formaté
 	"""
-	return '\x1b[38:5:11m' + string + '\x1b[m'
+	return '\x1b[93m' + string + '\x1b[m'
+
+def backStringRed(string : str) -> str:
+	"""
+	Change la couleur du background du string en rouge avec un code ANSI
+
+	Entrée : string : str
+	Symbolise le string a modifié
+
+	Sortie : str
+	Symbolise le string formaté
+	"""
+	return '\x1b[41m' + string + '\x1b[m'
+
+def backStringYellow(string : str) -> str:
+	"""
+	Change la couleur du background du string en jaune avec un code ANSI
+
+	Entrée : string : str
+	Symbolise le string a modifié
+
+	Sortie : str
+	Symbolise le string formaté
+	"""
+	return '\x1b[103m' + string + '\x1b[m'

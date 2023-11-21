@@ -1,7 +1,7 @@
 from os import get_terminal_size
 from time import sleep
 
-from ANSIcolors import inverseColor, stringRed, stringYellow
+from ANSIcolors import inverseColor, stringRed, stringYellow, backStringRed, backStringYellow
 from termUtils import displayEmptySquare, centerTextAtLine, printAt, centerText, getKey
 from players import addPoint
 
@@ -33,7 +33,7 @@ def checker(grid : list[list[str]], posY : int, posX : int) -> bool:
 			i += 1
 			count += 1
 	i = 1
-	while ((posX + i) <= 7):
+	while ((posX + i) <= 6):
 		if grid[posY][posX + i] != grid[posY][posX]:
 			break
 		else:
@@ -50,7 +50,7 @@ def checker(grid : list[list[str]], posY : int, posX : int) -> bool:
 			i += 1
 			count += 1
 	i = 1
-	while ((posY + i) <= 6) and count < 3:
+	while ((posY + i) <= 5) and count < 3:
 		if grid[posY + i][posX] != grid[posY][posX]:
 			break
 		else:
@@ -60,14 +60,14 @@ def checker(grid : list[list[str]], posY : int, posX : int) -> bool:
 	if count < 3:
 		count = 0
 	i = 1
-	while ((posY + i) <= 6 and (posX - i) >= 0) and count < 3: # Vérifie si un joueur a gagné en diagonal
+	while ((posY + i) <= 5 and (posX - i) >= 0) and count < 3: # Vérifie si un joueur a gagné en diagonal
 		if grid[posY + i][posX - i] != grid[posY][posX]:
 			break
 		else:
 			i += 1
 			count += 1
 	i = 1
-	while ((posY - i) >= 0 and (posX + i) <= 7) and count < 3:
+	while ((posY - i) >= 0 and (posX + i) <= 6) and count < 3:
 		if grid[posY - i][posX + i] != grid[posY][posX]:
 			break
 		else:
@@ -174,10 +174,12 @@ def displayGrid(grid : list[list[str]], currentCase : int, currentPlayer : int):
 	i = 0
 	j = 0
 
-	while i < 7: # Affiche la grille 
-		while j < 8:
-			if currentCase == j and i <= 0: # Affiche la case sélectionner
-				printAt(maxHeight // 2 - 3 + i, maxWidth // 2 + j * 2 - 8,"│" + inverseColor(grid[i][j]) + "│")
+	while i < 6: # Affiche la grille 
+		while j < 7:
+			if currentCase == j and i <= 0 and currentPlayer == 2: # Affiche la case sélectionner
+				printAt(maxHeight // 2 - 3 + i, maxWidth // 2 + j * 2 - 8,"│" + backStringRed(grid[i][currentCase]) + "│")
+			elif currentCase == j and i <= 0 and currentPlayer == 1: # Affiche la case sélectionner
+				printAt(maxHeight // 2 - 3 + i, maxWidth // 2 + j * 2 - 8,"│" + backStringYellow(grid[i][currentCase]) + "│")
 			else:
 				printAt(maxHeight // 2 - 3 + i, maxWidth // 2 + j * 2 - 8,"│" + grid[i][j] + "│")
 			j += 1
@@ -190,7 +192,7 @@ def start(player1 : str, player2 : str):
 	currChar : str
 	currentCase : int
 
-	grid = [[" " for i in range(8)] for j in range(7)] # Initialise la grille
+	grid = [[" " for i in range(7)] for j in range(6)] # Initialise la grille
 	currentPlayer = selectPlayer(player1, player2)
 	currChar = ""
 	currentCase = 0
@@ -204,7 +206,7 @@ def start(player1 : str, player2 : str):
 				centerTextAtLine(10, f"C'est le tour de : {player2}")
 			displayGrid(grid, currentCase, currentPlayer)
 			currChar = getKey()
-			if currChar == "RIGHT" and currentCase < 7: # Change la case sélectionner
+			if currChar == "RIGHT" and currentCase < 6: # Change la case sélectionner
 				currentCase += 1
 			if currChar == "LEFT" and currentCase > 0:
 				currentCase -= 1
@@ -213,7 +215,7 @@ def start(player1 : str, player2 : str):
 			elif currChar == "TAB": # Retourne au menu
 				return
 		if currentPlayer == 1 and grid[0][currentCase] == ' ':
-			i = 6
+			i = 5
 			while i >= 0:
 				if grid[i][currentCase] == ' ': # Ajoute un pion
 					grid[i][currentCase] = stringYellow("●")
@@ -227,7 +229,7 @@ def start(player1 : str, player2 : str):
 				return
 			currentPlayer = 2
 		elif currentPlayer == 2 and grid[0][currentCase] == ' ':
-			i = 6
+			i = 5
 			while i >= 0:
 				if grid[i][currentCase] == ' ': # Ajoute un pion
 					grid[i][currentCase] =  stringRed("●")
@@ -240,3 +242,13 @@ def start(player1 : str, player2 : str):
 				sleep(1)
 				return
 			currentPlayer = 1
+		i = 0
+		for e in grid:
+			for e2 in e:
+				if e2 != " ":
+					i = i + 1
+		if i == 42:
+			displayEmptySquare()
+			centerText(f"Égalité")
+			sleep(1)
+			return
