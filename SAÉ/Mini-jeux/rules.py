@@ -54,7 +54,7 @@ def displayGameSelected(currentSelectedGame : int) -> str:
 	print()
 	return ">" + inverseColor(gameStr) + " "
 
-def printRule(gameStr : str, ruleStr : str) -> None:
+def printRule(gameStr : str, listStr : list[str]) -> None:
 	"""
 	Affiche la règle du jeu sélectionner
 
@@ -72,7 +72,8 @@ def printRule(gameStr : str, ruleStr : str) -> None:
 	centerTextAtLine(2, "┌" + len(gameStr) * "─" + "┐") # Affiche le menu des règles du jeu sélectionner
 	centerTextAtLine(3, "│" + f"{gameStr}" +       "│")
 	centerTextAtLine(4, "└" + len(gameStr) * "─" + "┘")
-	centerTextAtLine(8, ruleStr) # Affiche la règle du jeu sélectionner
+	for i, line in enumerate(listStr):
+		centerTextAtLine(8 + i, line) # Affiche la règle du jeu sélectionner
 	while True:
 		currChar = getKey()
 		if currChar == "TAB":
@@ -92,7 +93,7 @@ def start(currentSelectedGame : int) -> None:
 	while True:
 		while True:
 			displayMenu()
-			printAt(10 + currentSelectedGame, (maxWidth - 12) // 2, displayGameSelected(currentSelectedGame)) # Affiche le jeu sélectionner
+			printAt(10 + currentSelectedGame, (maxWidth - 11) // 2, displayGameSelected(currentSelectedGame)) # Affiche le jeu sélectionner
 			currChar = getKey()
 			if currChar == "UP" and currentSelectedGame != 1: # Change le jeu sélectionner
 				currentSelectedGame -= 1
@@ -104,10 +105,10 @@ def start(currentSelectedGame : int) -> None:
 				system("clear")
 				break
 		if currentSelectedGame == 1:
-			printRule("DEVINETTE", "Le joueur 1 rentre un chiffre et le joueur 2 doit le deviner en moins de temps possible !")
+			printRule("DEVINETTE", ["Le joueur 1 rentre un chiffre et le joueur 2 doit le deviner en moins de temps possible !", "Le joueur 1 triche il peut mais il prendra 1 strike au bout de 3 il a perdu.", "Aussi si le joueur 1 ment alors que le joueur 2 a juste alors le joueur 1 perd directement peut importe le nombre de strike."])
 		elif currentSelectedGame == 2:
-			printRule("ALLUMETTES", "Chaque joueur retire 1 - 3 allumettes jusqu'a ce qui en ai plus ! Le perdant est celui qui prend la dernière.")
+			printRule("ALLUMETTES", ["Chaque joueur retire 1 - 3 allumettes jusqu'a ce qui en ai plus ! Le perdant est celui qui prend la dernière."])
 		elif currentSelectedGame == 3:
-			printRule("MORPION", "Chacun son tour les joueurs place un pion le premier à en aligner 3 a gagné !")
+			printRule("MORPION", ["Chacun son tour les joueurs place un pion le premier à en aligner 3 a gagné !"])
 		elif currentSelectedGame == 4:
-			printRule("PUISSANCE 4", "Chacun son tour les joueurs place un pion le premier à en aligner 4 a gagné !")
+			printRule("PUISSANCE 4", ["Chacun son tour les joueurs place un pion le premier à en aligner 4 a gagné !"])
