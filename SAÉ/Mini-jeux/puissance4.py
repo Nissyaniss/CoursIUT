@@ -243,7 +243,7 @@ def start(player1 : str, player2 : str):
 				return
 			currentPlayer = 1
 		i = 0
-		for e in grid:
+		for e in grid: # Vérifie si il y a égalité
 			for e2 in e:
 				if e2 != " ":
 					i = i + 1
