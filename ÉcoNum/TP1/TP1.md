@@ -36,3 +36,25 @@ c'est une entreprise dont l'existence est liée au numérique
 |Avantage du télétravail pour l'employeur|Avantage du télétravail pour le salarié|
 |:-|:-|
 |- Espérer accroître la production des salariés<br>- Réaliser des économies d'échelle sur les locaux (coûts sur les structures + frais annexes aux locaux) + dépense courantes<br>- Amélioration de la qualité de vie de ses salariés et leur motivation|- Gains de temps/argent lier aux transports<br>- Plus grande autonomie dans la gestion des tâches<br>- Production plus rapide dû à une meilleure concentration|
+
+## Question 2
+
+|Limite sdu télétravail pour l'employeur|Limites du télétravail pour le salarié|
+|:-|:-|
+|- Distanciation avec l'entreprise risquant des démissions<br>- Complexification de la supervision<br>- Manque de motivation de l'employé dû aux télétravail<br>- Moins bonne qualité des échanges employés / employeurs<br>- Une innovation moindre faisant que l'entreprise est plus ralenti étant la conséquences du  manque<br>- Complexité de mettre en place des systèmes pour s'assurer que les employés travaillent correctement (et n'utilisent pas ChatGPT)|- Espaces et outils de travail inadaptés<br>- Baisse de la qualité des relations avec les collègues et le manager créant une distance et une prise de distance avec le travail<br>- Risques de développement de comportements psychosociaux entraînant un repli sur soi et un possible hyperconnexion et le développement de stress avec les problèmes de séparation entre la vie professionnelle et personnelle<br>- Manque de motivation de l'employé dû au télétravail<br>- Risque de "sur-surveillance" de la part de l'employeur afin de s'assurer que l'employé travail suffisamment risquant le développement de comportements psychotiques au fait de se sentir constamment surveiller|
+
+## Question 3
+
+> En aidant un travailleur à effectuer une partie de son travail, les intelligences artificielles permettant au travailleur d'avoir plus de temps / de ressources cognitives pour effectuer ses tâches, qui seront donc mieux effectuées. En somme, les intelligences artificielles permettent d'augmenter la productivité de nombreux travailleurs.
+
+## Question 4
+
+> L'impact du recours à l'intelligence artificielle sur l'emploi est l'intelligence artificielle supprime certains emplois et parties des tâches qui jusqu'a maintenant étaient toutes réalisez "manuellement". Mais l'IA libère aussi les salariés de tâches répétitives/chrono-phages grâce à l'automatisation basée sur d'important ensembles de données. L'IA crée aussi par sa simple existence une diversité d'emplois étant une palette large et variée comportant les personnes se spécialisant dans l'IA et les jobs dans l'entretien de cette dernière
+
+## Question 5
+
+> Problème de détermination du prix du travail/service numérique
+
+## Question 6
+
+> Les entreprises du numérique peuvent rentabiliser leurs activités en adoptant des modèles freemium, en tirant profit de la publicité en ligne, en proposant des abonnements ou des modèles d'adhésion, en vendant des données, en développant le commerce électronique, en établissant des partenariats, en offrant des services professionnels, en créant des marketplaces, en développant des applications personnalisées, et en investissant dans la recherche et le développement. Ces approches permettent de diversifier les sources de revenus et de s'adapter aux besoins changeants du marché.
