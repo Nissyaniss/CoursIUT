@@ -79,7 +79,7 @@ def displayScoreboard(game : int) -> None:
 	data = getPlayers()
 	i = 0
 	scores = list(data.items()) # Récupère les données des joueurs
-	scores.sort(key=lambda x: x[1][game - 1], reverse=True) # Trie les scores (lambda est une function temporaire et sans nom)
+	scores.sort(key=lambda x: x[1][game - 1], reverse=True) # Trie les scores (lambda est une function temporaire et sans nom et x est un paramètre que je ne peut pas typé)
 
 	system("clear")
 	printAt(1, 1, "╔" + "═" * maxWidth +"╗\n") # Affiche le début d'un carré vide

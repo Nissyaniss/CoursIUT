@@ -197,6 +197,8 @@ def start(player1 : str, player2 : str):
 	currChar = ""
 	currentCase = 0
 
+	if currentPlayer == 0:
+		return
 	displayEmptySquare()
 	while True:
 		while True:

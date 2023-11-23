@@ -5,14 +5,14 @@ from ANSIcolors import inverseColor
 from players import addPoint
 from termUtils import setCursorPosition, displayEmptySquare, printAt, centerTextAtLine, centerText, getKey
 
-def displayMenuMaster() -> None:
+def displayMenuMaster(guess : str) -> None:
 	"""
 	Affiche le menu du maître du jeu
 	"""
 	displayEmptySquare()
-	centerTextAtLine(6, "┌──────────────────────────────┐")
-	centerTextAtLine(7, "│    Comment est sa réponse    │")
-	centerTextAtLine(8, "└──────────────────────────────┘")
+	centerTextAtLine(6, "┌───"+ "─" * len(guess) + "───┐")
+	centerTextAtLine(7, f"│   {guess}   │")
+	centerTextAtLine(8, "└───"+ "─" * len(guess) + "───┘")
 
 def displaySelectedOption(currentSelectedOption : int) -> str:
 	"""
@@ -37,7 +37,7 @@ def displaySelectedOption(currentSelectedOption : int) -> str:
 	elif currentSelectedOption == 3:
 		centerTextAtLine(11, "  Plus Grand ")
 		centerTextAtLine(12, "  Plus Petit ")
-		optionStr = "C'est Bon !"
+		optionStr = "C'est Bon!"
 	else :
 		optionStr = "ERROR"
 
@@ -75,9 +75,9 @@ def DisplaySelectedPlayer(currentSelectedPlayer : int, player1 : str, player2 : 
 	
 	if currentSelectedPlayer == 1: # Affiche le joueur sélectionné
 		playerStr = player1
-		printAt(12, maxWidth // 2 - len(player1) + 3, "  " + player2)
+		printAt(12, maxWidth // 2 - len(player1) + 2, "  " + player2)
 	elif currentSelectedPlayer == 2:
-		printAt(11, maxWidth // 2 - len(player1) + 3, "  " + player1)
+		printAt(11, maxWidth // 2 - len(player1) + 2, "  " + player1)
 		playerStr = player2
 	else :
 		playerStr = "ERROR"
@@ -158,7 +158,7 @@ def start(player1 : str, player2 : str) -> None:
 		while True:
 			setCursorPosition(maxHeight // 2, (maxWidth // 2 + 4) + len(guess))
 			currChar = getKey()
-			if currChar.isdigit():
+			if currChar.isdigit() and len(guess) < 3:
 				printAt(maxHeight // 2, (maxWidth // 2 + 5) - 1 + len(guess), currChar)
 				guess += currChar
 			elif currChar == "ENTER" and len(guess) > 0:
@@ -169,7 +169,7 @@ def start(player1 : str, player2 : str) -> None:
 				if len(guess) != 0:
 					printAt(maxHeight // 2, (maxWidth // 2 + 4) - 1 + len(guess), " ")
 					guess = guess[:-1]
-		displayMenuMaster()
+		displayMenuMaster(guess)
 		print("\x1b[?25l", end='', flush=True)
 		while True:
 			centerTextAtLine(10 + currentSelectedOption, displaySelectedOption(currentSelectedOption))
@@ -194,21 +194,27 @@ def start(player1 : str, player2 : str) -> None:
 		if strikes == 3: # Vérifie si le master a pas triché
 			print("\x1b[?25l", end='', flush=True)
 			displayEmptySquare()
-			centerText(f"{guesser} a gagné car {master} a triché") 
+			centerText(f"{guesser} a gagné car {master} a triché. La réponse était {solution}.")
 			addPoint(guesser, 1)
-			sleep(1)
-			return
+			while True:
+				currChar = getKey()
+				if currChar == "TAB":
+					return
 		elif tries == maxTries: # Vérifie si le joueur a pas dépassé le nombre d'essais
 			print("\x1b[?25l", end='', flush=True)
 			displayEmptySquare()
-			centerText(f"{master} a gagné car {guesser} n'a pas trouvé en {maxTries} essais")
-			sleep(1)
+			centerText(f"{master} a gagné car {guesser} n'a pas trouvé en {maxTries} essais. La réponse était {solution}.")
 			addPoint(master, 1)
-			return
+			while True:
+				currChar = getKey()
+				if currChar == "TAB":
+					return
 		elif currentSelectedOption == 3: # Vérifie si le joueur a trouvé
 			print("\x1b[?25l", end='', flush=True)
 			displayEmptySquare()
 			centerText(f"{guesser} a gagné car il a trouvé en {tries}/{maxTries} essais")
-			sleep(1)
 			addPoint(guesser, 1)
-			return
+			while True:
+				currChar = getKey()
+				if currChar == "TAB":
+					return

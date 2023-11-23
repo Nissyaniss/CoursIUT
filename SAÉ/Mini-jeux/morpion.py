@@ -141,7 +141,7 @@ def selectPlayer(player1 : str, player2 : str) -> int:
 	displayEmptySquare()
 	while True:
 		centerTextAtLine(12, "┌────────────────┐") # Affiche le menu
-		centerTextAtLine(13, "| Qui commence ? |")
+		centerTextAtLine(13, "│ Qui commence ? │")
 		centerTextAtLine(14, "└────────────────┘")
 		printAt((maxHeight // 2) + currentPlayer - 3, maxWidth // 2 - len(player1) - 1, displaySelectedPlayer(currentPlayer, player1, player2))
 		currChar = getKey()
