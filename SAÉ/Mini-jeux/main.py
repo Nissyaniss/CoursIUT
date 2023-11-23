@@ -5,6 +5,7 @@ from allumettes import start as allumettes
 from rules import start as rules
 from puissance4 import start as puissance4
 from devinette import start as devinette
+from scoreboard import start as scoreboard
 from termUtils import printAt, setup, restoreTerm, displayEmptySquare, centerTextAtLine, setCursorPosition, getKey
 from players import addPlayer, isPlayerExisting, printScoreboard
 from ANSIcolors import inverseColor
@@ -21,9 +22,9 @@ def displayMenu(currentSelectedGame : int) -> None:
 	maxWidth = get_terminal_size().columns - 3 # Défini la taille maximal du terminal
 	
 	displayEmptySquare() # Affiche un carré vide
-	printAt(2, 5, "┌────────────┐") # Affiche un carré avec Scoreboard écrit dedans au coordonnées 2 et 5
-	printAt(3, 5, "│ SCOREBOARD │")
-	printAt(4, 5, "└────────────┘")
+	printAt(2, 5, "┌────────────────┐") # Affiche un carré avec Scoreboard écrit dedans au coordonnées 2 et 5
+	printAt(3, 5, "│   SCOREBOARD   │")
+	printAt(4, 5, "└────────────────┘")
 	printScoreboard(player1, player2) # Affiche le scoreboard des deux joueur courant
 	printAt(2, maxWidth - 11, "┌──────────┐") # Affiche un carré avec Règles écrit dedans au coordonnées 2 et max - 11
 	printAt(3, maxWidth - 11, "│  RÈGLES  │")
@@ -52,31 +53,43 @@ def displayGameSelected(currentSelectedGame : int) -> str:
 		printAt(12, (maxWidth - 11) // 2, "  Allumette") # Affiche les autres jeux
 		printAt(13, (maxWidth - 11) // 2, "  Morpion")
 		printAt(14, (maxWidth - 11) // 2, "  Puissance 4")
+		printAt(3, 8, " SCOREBOARD")
 		printAt(3, maxWidth - 9, " RÈGLES")
 	elif currentSelectedGame == 2:
 		printAt(11, (maxWidth - 11) // 2, "  Devinette")
 		gameStr = "Allumette"
 		printAt(13, (maxWidth - 11) // 2, "  Morpion")
 		printAt(14, (maxWidth - 11) // 2, "  Puissance 4")
+		printAt(3, 8, " SCOREBOARD")
 		printAt(3, maxWidth - 9, " RÈGLES" )
 	elif currentSelectedGame == 3:
 		printAt(11, (maxWidth - 11) // 2, "  Devinette")
 		printAt(12, (maxWidth - 11) // 2, "  Allumette")
 		gameStr = "Morpion"
 		printAt(14, (maxWidth - 11) // 2, "  Puissance 4")
+		printAt(3, 8, " SCOREBOARD")
 		printAt(3, maxWidth - 9, " RÈGLES")
 	elif currentSelectedGame == 4:
 		printAt(11, (maxWidth - 11) // 2, "  Devinette")
 		printAt(12, (maxWidth - 11) // 2, "  Allumette")
 		printAt(13, (maxWidth - 11) // 2, "  Morpion")
 		gameStr = "Puissance 4" 
+		printAt(3, 8, " SCOREBOARD")
 		printAt(3, maxWidth - 9, " RÈGLES")
 	elif currentSelectedGame == -1:
 		printAt(11, (maxWidth - 11) // 2, "  Devinette")
 		printAt(12, (maxWidth - 11) // 2, "  Allumette")
 		printAt(13, (maxWidth - 11) // 2, "  Morpion")
 		printAt(14, (maxWidth - 11) // 2, "  Puissance 4")
+		gameStr = "SCOREBOARD"
+		printAt(3, maxWidth - 9, " RÈGLES")
+	elif currentSelectedGame == -2:
+		printAt(11, (maxWidth - 11) // 2, "  Devinette")
+		printAt(12, (maxWidth - 11) // 2, "  Allumette")
+		printAt(13, (maxWidth - 11) // 2, "  Morpion")
+		printAt(14, (maxWidth - 11) // 2, "  Puissance 4")
 		gameStr = "RÈGLES"
+		printAt(3, 8, " SCOREBOARD")
 	else :
 		gameStr = "ERROR"
 
@@ -103,6 +116,7 @@ if __name__ == "__main__":
 	player2 : str
 	currChar : str
 	isOnRules : bool
+	isOnScoreboard : bool
 	maxWidth : int
 	maxHeight : int
 	original : list[int]
@@ -111,6 +125,7 @@ if __name__ == "__main__":
 	player1 = ""
 	player2 = ""
 	isOnRules  = False
+	isOnScoreboard = False
 	currChar = ""
 	maxWidth = get_terminal_size().columns - 3 # Défini la taille maximal du terminal
 	maxHeight = get_terminal_size().lines - 3
@@ -171,27 +186,36 @@ if __name__ == "__main__":
 		displayMenu(currentSelectedGame) # Affiche le menu avec le premier jeu de sélectionner
 		while True:
 			currChar = getKey()
-			if currChar == "UP" and currentSelectedGame != 1 and isOnRules == False: # Vérifie is la touche pressée est la flèche du haut
+			if currChar == "UP" and currentSelectedGame != 1 and isOnRules == False and isOnScoreboard == False: # Vérifie is la touche pressée est la flèche du haut
 				currentSelectedGame -= 1 # Change le jeu
 				printAt(10 + currentSelectedGame, (maxWidth - 11) // 2, displayGameSelected(currentSelectedGame)) # Affiche le jeu sélectionner
-			if currChar == "DOWN" and currentSelectedGame != 4 and isOnRules == False: # Vérifie is la touche pressée est la flèche du bas
+			if currChar == "DOWN" and currentSelectedGame != 4 and isOnRules == False and isOnScoreboard == False: # Vérifie is la touche pressée est la flèche du bas
 				currentSelectedGame += 1 # Change le jeu
 				printAt(10 + currentSelectedGame, (maxWidth - 11) // 2, displayGameSelected(currentSelectedGame)) # Affiche le jeu sélectionner
-			if currChar == "RIGHT" and isOnRules == False: # Vérifie is la touche pressée est la flèche de droite
-				printAt(3, maxWidth - 9, displayGameSelected(-1)) # Affiche les règles qui sont sélectionner
+			if currChar == "RIGHT" and isOnRules == False and isOnScoreboard == False: # Vérifie is la touche pressée est la flèche de droite
+				printAt(3, maxWidth - 9, displayGameSelected(-2)) # Affiche le button règles qui est sélectionner
 				isOnRules = True
+			elif currChar == "RIGHT" and isOnScoreboard == True: # Vérifie is la touche pressée est la flèche de droite
+				printAt(10 + currentSelectedGame, (maxWidth - 11) // 2, displayGameSelected(currentSelectedGame)) # Affiche les règles qui sont sélectionner
+				isOnScoreboard = False # Affiche le button scoreboard qui est sélectionner
 			if currChar == "LEFT" and isOnRules: # Vérifie is la touche pressée est la flèche de gauche
 				printAt(10 + currentSelectedGame, (maxWidth - 11) // 2, displayGameSelected(currentSelectedGame)) # Affiche le jeu sélectionner
 				isOnRules = False
+			elif currChar == "LEFT": # Vérifie is la touche pressée est la flèche de gauche
+				printAt(3, 8, displayGameSelected(-1)) # Affiche le jeu sélectionner
+				isOnScoreboard = True
 			elif currChar == "TAB": # Vérifie is la touche pressée est Tab
 				restoreTerm(original) # Restore le terminal de base
 			elif currChar == "ENTER": # Vérifie is la touche pressée est Entrée
 				break
 			else:
 				continue # Si il y a une autre touche on l'ignore
-		if isOnRules: # Si il est sur le bouton rules
+		if isOnRules: # Si il est sur le bouton règles
 			rules(1)
 			isOnRules = False
+		elif isOnScoreboard: # Si il est sur le bouton scoreboard
+			scoreboard()
+			isOnScoreboard = False
 		elif currentSelectedGame == 1: # Si le jeu 1 est sélectionner (devinette)
 			devinette(player1, player2)
 			print("\x1b[?25l", end='', flush=True)

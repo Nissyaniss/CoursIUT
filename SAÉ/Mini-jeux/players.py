@@ -22,6 +22,20 @@ def isPlayerExisting(player: str) -> bool:
 	else:
 		return False
 
+def getPlayers() -> dict[str, tuple[int, int, int, int]]:
+	"""
+	Récupère les joueurs et leurs scores
+
+	Sortie : players : list[str]
+	players symbolise la liste des joueurs
+	"""
+	data: dict[str, tuple[int, int, int, int]] # Déclaration du dictionnaire
+
+	with open("players.json", "r") as jsonFile: # Récupère les données du fichier
+		data = json.load(jsonFile)
+
+	return data
+
 def addPlayer(player: str) -> None:
 	"""
 	Ajoute un joueur
