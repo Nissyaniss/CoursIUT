@@ -3,6 +3,7 @@ import tty
 from os import system, get_terminal_size, path
 from typing import Any
 import sys
+from ANSIcolors import stripANSIColors
 
 def printAt(line : int, column : int, message : str) -> None:
 	"""
@@ -105,7 +106,7 @@ def centerTextAtLine(line : int, text : str) -> None:
 	lenText : int
 
 	width = get_terminal_size().columns - 3
-	lenText = len(StripANSIColors(text)) # Récupère la taille du message sans les couleurs
+	lenText = len(stripANSIColors(text)) # Récupère la taille du message sans les couleurs
 
 	printAt(line, (width - lenText) // 2, text)
 
@@ -122,35 +123,9 @@ def centerText(text : str) -> None:
 
 	width = get_terminal_size().columns - 3
 	height = get_terminal_size().lines - 3
-	lenText = len(StripANSIColors(text)) # Récupère la taille du message sans les couleurs
+	lenText = len(stripANSIColors(text)) # Récupère la taille du message sans les couleurs
 
 	printAt(height // 2, (width - lenText) // 2, text)
-
-def StripANSIColors(string : str) -> str:
-	"""
-	Enlève les couleurs ANSI d'une chaîne de caractères
-
-	Entrée : string : str
-	string symbolise la chaîne de caractères ou l'on veux enlever les couleurs
-	"""
-	result : str
-	i : int
-	j : int
-
-	result = ""
-	i = 0
-	j = 0
-
-	while i < len(string):
-		if string[i] == '\x1B':
-			j = i
-			while string[j] != 'm':
-				j += 1
-			i = j + 1
-		else:
-			result += string[i]
-			i += 1
-	return result
 
 def getKey() -> str:
 	"""

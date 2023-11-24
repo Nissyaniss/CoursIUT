@@ -57,3 +57,29 @@ def backStringYellow(string : str) -> str:
 	Symbolise le string formaté
 	"""
 	return '\x1b[103m' + string + '\x1b[m'
+
+def stripANSIColors(string : str) -> str:
+	"""
+	Enlève les couleurs ANSI d'une chaîne de caractères
+
+	Entrée : string : str
+	string symbolise la chaîne de caractères ou l'on veux enlever les couleurs
+	"""
+	result : str
+	i : int
+	j : int
+
+	result = ""
+	i = 0
+	j = 0
+
+	while i < len(string):
+		if string[i] == '\x1B':
+			j = i
+			while string[j] != 'm':
+				j += 1
+			i = j + 1
+		else:
+			result += string[i]
+			i += 1
+	return result
