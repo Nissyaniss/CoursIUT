@@ -1,0 +1,19 @@
+<mxfile host="65bd71144e">
+    <diagram id="ZePmN_sL6F9iyQH9IWCe" name="Page-1">
+        <mxGraphModel dx="797" dy="601" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="7" value="En temps que client du site leboncoin&lt;br&gt;Je veux que je puisse chercher plus facilement des outils précis (ex : Des outils pour battre mes enfants). Je veux dire par la que les annonces doivent avoir des tags soumit par le créateur et/ou par l'utilisateur.&lt;br&gt;Pour que je puisse naviguer et acheter plus facilement sur votre site." style="text;spacingTop=-5;whiteSpace=wrap;html=1;align=left;fontSize=12;fontFamily=Helvetica;fillColor=none;strokeColor=none;" vertex="1" parent="1">
+                    <mxGeometry width="1700" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="10" value="En temps que client du site leboncoin&lt;br&gt;Je veux achter des choses, mais pas des choses vendu pas un grosse entreprise (Je hais Apple) mais aussi des choses revendu par des particulier&lt;br&gt;Pour que je puisse donner de l'argent à des gens que je puisse voir" style="text;spacingTop=-5;whiteSpace=wrap;html=1;align=left;fontSize=12;fontFamily=Helvetica;fillColor=none;strokeColor=none;" vertex="1" parent="1">
+                    <mxGeometry y="50" width="1700" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="11" value="En temps que client du site leboncoin&lt;br&gt;Je veux vendre mes biens&lt;br&gt;Parce que j'en veux plus" style="text;spacingTop=-5;whiteSpace=wrap;html=1;align=left;fontSize=12;fontFamily=Helvetica;fillColor=none;strokeColor=none;" vertex="1" parent="1">
+                    <mxGeometry y="100" width="1700" height="50" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
