@@ -42,3 +42,4 @@ for i in $(seq 0 $largeur)
 do
 	echo -n "*"
 done
+echo
