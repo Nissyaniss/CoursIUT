@@ -61,7 +61,8 @@
 
 ### QUOI
 
->
+>- Gestion de logistique
+>- Gérant d'association = chef d'équipe ou +
 
 ### QUI
 
@@ -70,9 +71,45 @@
 >- Passionné
 >- Responsable
 >- Entrepreneur
+>- Travailleur
+>- Charismatique
+>- Investi
+
+### AVEC QUI
+
+>- N'importe qui, tant que cette personne n'est pas hypocrite et/ou discriminante
+
+### COMMENT
+
+>- Ira aussi loin qu'il faut pour atteindre son but
+
+# Personna 3
+
+## Erwan Bragart
+
+### OÙ
+
+> France et Canada peut être
+
+### QUOI
+
+>
+
+### QUI
+
+>- Adaptatif
+>- Stratégique
+>- Charismatique
+>- Meneur
+>- Potentiel modeleur
+>- Responsable
+>- Curieux
+>- Créatif
 
 ### AVEC QUI
 
 >
 
 ### COMMENT
+
+>- Cherche à développer ses capacités 
