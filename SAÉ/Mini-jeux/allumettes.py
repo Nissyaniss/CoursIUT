@@ -133,7 +133,7 @@ def start(player1 : str, player2 : str) -> None:
 			currChar = getKey()
 			if currChar == "UP" and currentSelectedNb != 1: # Change le nombre d'allumettes sélectionner
 				currentSelectedNb -= 1
-			if currChar == "UP" and currentSelectedNb != 3: # Change le nombre d'allumettes sélectionner
+			if currChar == "DOWN" and currentSelectedNb != 3: # Change le nombre d'allumettes sélectionner
 				currentSelectedNb += 1
 			elif currChar == "TAB": # Retourne 0 si le joueur quitte
 				return
