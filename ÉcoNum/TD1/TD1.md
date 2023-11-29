@@ -25,7 +25,3 @@
 ### Question 1
 
 > Cette a place de marché a pour avantage de proposer en grande quantité des produit BIO et donc moins cher.
-
-### Question 2
-
-> 
