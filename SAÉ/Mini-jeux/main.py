@@ -10,7 +10,7 @@ from termUtils import printAt, setup, restoreTerm, displayEmptySquare, centerTex
 from players import addPlayer, isPlayerExisting, printScoreboard
 from ANSIcolors import inverseColor
 
-def displayMenu(currentSelectedGame : int) -> None:
+def displayMenu(currentSelectedGame : int, player1 : str, player2 : str) -> None:
 	"""
 	Affiche le menu avec le jeu sélectionner
 
@@ -102,6 +102,10 @@ def displayMenuPlayer(player : int) -> None:
 	Entrée : player : int
 	player symbolise joueur actuel
 	"""
+	maxHeight : int
+
+	maxHeight = get_terminal_size().lines
+
 	system("clear")
 	displayEmptySquare()
 	printAt(maxHeight + 1, 3, "Appuyer sur \"TAB\" pour quitter")
@@ -111,14 +115,13 @@ def displayMenuPlayer(player : int) -> None:
 	centerTextAtLine(9, "└──────────────────────────────────┘")
 	centerTextAtLine(11, "Votre pseudo :")
 
-if __name__ == "__main__":
+def main() -> None:
 	player1 : str
 	player2 : str
 	currChar : str
 	isOnRules : bool
 	isOnScoreboard : bool
 	maxWidth : int
-	maxHeight : int
 	original : list[int]
 	currentSelectedGame : int
 
@@ -128,7 +131,6 @@ if __name__ == "__main__":
 	isOnScoreboard = False
 	currChar = ""
 	maxWidth = get_terminal_size().columns - 3 # Défini la taille maximal du terminal
-	maxHeight = get_terminal_size().lines - 3
 	currentSelectedGame = 1
 	original = setup() # Défini la configuration du terminal original
 
@@ -183,7 +185,7 @@ if __name__ == "__main__":
 		addPlayer(player2)
 
 	while True:
-		displayMenu(currentSelectedGame) # Affiche le menu avec le premier jeu de sélectionner
+		displayMenu(currentSelectedGame, player1, player2) # Affiche le menu avec le premier jeu de sélectionner
 		while True:
 			currChar = getKey()
 			if currChar == "UP" and currentSelectedGame != 1 and isOnRules == False and isOnScoreboard == False: # Vérifie is la touche pressée est la flèche du haut
@@ -225,3 +227,6 @@ if __name__ == "__main__":
 			morpion(player1, player2)
 		elif currentSelectedGame == 4: # Si le jeu 4 est sélectionner (puissance 4)
 			puissance4(player1, player2)
+
+if __name__ == "__main__":
+	main()
