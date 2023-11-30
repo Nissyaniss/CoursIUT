@@ -104,7 +104,7 @@ def displayMenuPlayer(player : int) -> None:
 	"""
 	maxHeight : int
 
-	maxHeight = get_terminal_size().lines
+	maxHeight = get_terminal_size().lines - 3
 
 	system("clear")
 	displayEmptySquare()
