@@ -1,11 +1,12 @@
 from time import sleep
 from os import get_terminal_size
+from typing import List
 
 from ANSIcolors import inverseColor
 from termUtils import displayEmptySquare, centerTextAtLine, centerText, printAt, getKey
 from players import addPoint
 
-def displayGrid(grid : list[list[str]], currentSelectedCase : int, currentPlayer : int, player1 : str, player2: str) -> None:
+def displayGrid(grid : List[List[str]], currentSelectedCase : int, currentPlayer : int, player1 : str, player2: str) -> None:
 	"""
 	Affiche la grille du morpion
 
@@ -56,7 +57,7 @@ def displayGrid(grid : list[list[str]], currentSelectedCase : int, currentPlayer
 	elif currentSelectedCase == 9:
 		centerTextAtLine(19, f" {grid[2][0]} │ {grid[2][1]} │ " + inverseColor(f"{grid[2][2]}") + " ")
 
-def checkWin(grid : list[list[str]]) -> bool:
+def checkWin(grid : List[List[str]]) -> bool:
 	"""
 	Vérifie si un joueur a gagné
 
@@ -169,7 +170,7 @@ def start(player1 : str, player2: str):
 	Entrée : player2 : str
 	player2 symbolise le joueur 2
 	"""
-	grid : list[list[str]]
+	grid : List[List[str]]
 	currentCase : int
 	currChar : str
 	currentPlayer : int

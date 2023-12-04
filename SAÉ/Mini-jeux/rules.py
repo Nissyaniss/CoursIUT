@@ -1,4 +1,5 @@
 from os import system, get_terminal_size
+from typing import List
 
 from ANSIcolors import inverseColor
 from termUtils import printAt, displayEmptySquare, centerTextAtLine, getKey
@@ -54,7 +55,7 @@ def displayGameSelected(currentSelectedGame : int) -> str:
 	print()
 	return ">" + inverseColor(gameStr) + " "
 
-def printRule(gameStr : str, listStr : list[str]) -> None:
+def printRule(gameStr : str, listStr : List[str]) -> None:
 	"""
 	Affiche la règle du jeu sélectionner
 

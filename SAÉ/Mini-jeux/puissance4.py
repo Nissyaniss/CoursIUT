@@ -1,11 +1,12 @@
 from os import get_terminal_size
 from time import sleep
+from typing import List
 
 from ANSIcolors import inverseColor, stringRed, stringYellow, backStringRed, backStringYellow
 from termUtils import displayEmptySquare, centerTextAtLine, printAt, centerText, getKey
 from players import addPoint
 
-def checker(grid : list[list[str]], posY : int, posX : int) -> bool:
+def checker(grid : List[List[str]], posY : int, posX : int) -> bool:
 	"""
 	Vérifie si un joueur a gagné
 
@@ -151,7 +152,7 @@ def selectPlayer(player1 : str, player2 : str) -> int:
 	else:
 		return 2
 
-def displayGrid(grid : list[list[str]], currentCase : int, currentPlayer : int):
+def displayGrid(grid : List[List[str]], currentCase : int, currentPlayer : int):
 	"""
 	Affiche la grille du puissance4
 
@@ -187,7 +188,7 @@ def displayGrid(grid : list[list[str]], currentCase : int, currentPlayer : int):
 		i += 1
 
 def start(player1 : str, player2 : str):
-	grid : list[list[str]]
+	grid : List[List[str]]
 	currentPlayer : int
 	currChar : str
 	currentCase : int

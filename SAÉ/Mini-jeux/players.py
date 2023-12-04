@@ -1,4 +1,5 @@
 import json
+from typing import Dict, Tuple
 
 from termUtils import printAt
 
@@ -12,7 +13,7 @@ def isPlayerExisting(player: str) -> bool:
 	Sortie : bool
 	True si le joueur existe, False sinon
 	"""
-	data: dict[str, tuple[int, int, int, int]] # Déclaration du dictionnaire
+	data: Dict[str, Tuple[int, int, int, int]] # Déclaration du dictionnaire
 
 	with open("players.json", "r") as jsonFile: # Récupère les données du fichier
 		data = json.load(jsonFile)
@@ -22,14 +23,14 @@ def isPlayerExisting(player: str) -> bool:
 	else:
 		return False
 
-def getPlayers() -> dict[str, tuple[int, int, int, int]]:
+def getPlayers() -> Dict[str, Tuple[int, int, int, int]]:
 	"""
 	Récupère les joueurs et leurs scores
 
 	Sortie : players : list[str]
 	players symbolise la liste des joueurs
 	"""
-	data: dict[str, tuple[int, int, int, int]] # Déclaration du dictionnaire
+	data: Dict[str, tuple[int, int, int, int]] # Déclaration du dictionnaire
 
 	with open("players.json", "r") as jsonFile: # Récupère les données du fichier
 		data = json.load(jsonFile)
@@ -43,7 +44,7 @@ def addPlayer(player: str) -> None:
 	Entrée : player : str
 	player symbolise le nom du joueur
 	"""
-	data: dict[str, tuple[int, int, int, int]] # Déclaration du dictionnaire
+	data: Dict[str, tuple[int, int, int, int]] # Déclaration du dictionnaire
 
 	with open("players.json", "r") as jsonFile: # Récupère les données du fichier
 		data = json.load(jsonFile)
@@ -63,7 +64,7 @@ def addPoint(player: str, game: int) -> None:
 	Entrée : game : int
 	game symbolise le jeu
 	"""
-	data: dict[str, tuple[int, int, int, int]] # Déclaration du dictionnaire
+	data: Dict[str, tuple[int, int, int, int]] # Déclaration du dictionnaire
 
 	with open("players.json", "r") as jsonFile: # Récupère les données du fichier
 		data = json.load(jsonFile)
@@ -96,7 +97,7 @@ def printScoreboard(player1: str, player2: str) -> None:
 	Entrée : player2 : str
 	player2 symbolise le nom du joueur 2
 	"""
-	data: dict[str, tuple[int, int, int, int]] # Déclaration du dictionnaire
+	data: Dict[str, tuple[int, int, int, int]] # Déclaration du dictionnaire
 	playerFormat : str
 
 	with open("players.json", "r") as jsonFile: # Récupère les données du fichier

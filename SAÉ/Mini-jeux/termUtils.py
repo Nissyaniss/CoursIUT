@@ -1,5 +1,6 @@
 import termios
 import tty
+from typing import List
 from os import system, get_terminal_size, path
 from typing import Any
 import sys
@@ -32,7 +33,7 @@ def setCursorPosition(line : int, column : int) -> None:
 	"""
 	print(f"\x1b[{line};{column}f", end='', flush=True)
 
-def restoreTerm(original: list[Any]) -> None:
+def restoreTerm(original: List[Any]) -> None:
 	"""
 	Réinitialise le terminal à son état d'origine
 
@@ -44,15 +45,15 @@ def restoreTerm(original: list[Any]) -> None:
 	system("clear")
 	exit()
 
-def setup() -> list[Any]:
+def setup() -> List[Any]:
 	"""
 	Initialise le terminal
 
 	Sortie : original : list[Any]
 	original symbolise les paramètres du terminal avant l'initialisation du jeu
 	"""
-	original: list[Any]
-	new: list[Any]
+	original: List[Any]
+	new: List[Any]
 	if not path.exists("players.json"): # Si le fichier n'existe pas
 		f = open("players.json", "x+") # Crée le fichier
 		f = open("players.json", 'w')

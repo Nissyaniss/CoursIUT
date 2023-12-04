@@ -1,4 +1,4 @@
-import dis
+from typing import List, Dict
 from players import getPlayers
 from ANSIcolors import inverseColor
 from termUtils import printAt, get_terminal_size, getKey, centerTextAtLine, displayEmptySquare
@@ -70,15 +70,15 @@ def displayScoreboard(game : int) -> None:
 	game symbolise le jeu sélectionner
 	"""
 	maxWidth : int
-	data: dict[str, tuple[int, int, int, int]]
+	data: Dict[str, tuple[int, int, int, int]]
 	i : int
-	scores : list[tuple[str, tuple[int, int, int, int]]]
+	scores : List[tuple[str, tuple[int, int, int, int]]]
 	
 	maxWidth = get_terminal_size().columns - 3
 	maxHeight = get_terminal_size().lines
 	data = getPlayers()
 	i = 0
-	scores = list(data.items()) # Récupère les données des joueurs
+	scores = List(data.items()) # Récupère les données des joueurs
 	scores.sort(key=lambda x: x[1][game - 1], reverse=True) # Trie les scores (lambda est une function temporaire et sans nom et x est un paramètre que je ne peut pas typé)
 
 	system("clear")
