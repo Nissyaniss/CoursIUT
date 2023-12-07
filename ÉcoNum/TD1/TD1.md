@@ -54,4 +54,19 @@
 
 ### Question 2
 
-> 
+> Les pouvoirs publiques fixent les règles en qui concerne les données utilisateur, la fiscalité de ces sociétés, ...(pour que la concurrence ne pas déloyale)
+
+### Question 3
+
+> La part de consommation collaborative est très importante (95%) avec :
+>- Achat et revente de produits de seconde main
+>- Achats groupés
+>
+> But : Réaliser des économie d'argent
+
+### Question 4
+
+> Participatif :
+>- Faire des achats groupés
+>- Faire du covoiturage (mais gratuitement)
+>- Dons (Leboncoin)
