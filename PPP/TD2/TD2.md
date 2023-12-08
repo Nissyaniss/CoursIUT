@@ -1,4 +1,4 @@
-# Personna 1
+# Persona 1
 
 ## Sylvie GRELET
 
@@ -48,9 +48,9 @@
 >- Cherche à évaluer professionnellement
 >- Salaire convenable + CDI
 >- Missions variées, contact humain, force de proposition
->- Missions du mandant de la créativité
+>- Missions demandant de la créativité
 
-# Personna 2
+# Persona 2
 
 ## Tau Adrian
 
@@ -83,7 +83,7 @@
 
 >- Ira aussi loin qu'il faut pour atteindre son but
 
-# Personna 3
+# Persona 3
 
 ## Erwan Bragart
 
