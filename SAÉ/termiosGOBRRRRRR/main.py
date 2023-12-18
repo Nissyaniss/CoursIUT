@@ -188,16 +188,16 @@ def main() -> None:
 		displayMenu(currentSelectedGame, player1, player2) # Affiche le menu avec le premier jeu de sélectionner
 		while True:
 			currChar = getKey()
-			if currChar == "UP" and currentSelectedGame != 1 and isOnRules == False and isOnScoreboard == False: # Vérifie is la touche pressée est la flèche du haut
+			if currChar == "UP" and currentSelectedGame != 1 and isOnRules is False and isOnScoreboard is False: # Vérifie is la touche pressée est la flèche du haut
 				currentSelectedGame -= 1 # Change le jeu
 				printAt(10 + currentSelectedGame, (maxWidth - 11) // 2, displayGameSelected(currentSelectedGame)) # Affiche le jeu sélectionner
-			if currChar == "DOWN" and currentSelectedGame != 4 and isOnRules == False and isOnScoreboard == False: # Vérifie is la touche pressée est la flèche du bas
+			if currChar == "DOWN" and currentSelectedGame != 4 and isOnRules is False and isOnScoreboard is False: # Vérifie is la touche pressée est la flèche du bas
 				currentSelectedGame += 1 # Change le jeu
 				printAt(10 + currentSelectedGame, (maxWidth - 11) // 2, displayGameSelected(currentSelectedGame)) # Affiche le jeu sélectionner
-			if currChar == "RIGHT" and isOnRules == False and isOnScoreboard == False: # Vérifie is la touche pressée est la flèche de droite
+			if currChar == "RIGHT" and isOnRules is False and isOnScoreboard is False: # Vérifie is la touche pressée est la flèche de droite
 				printAt(3, maxWidth - 9, displayGameSelected(-2)) # Affiche le button règles qui est sélectionner
 				isOnRules = True
-			elif currChar == "RIGHT" and isOnScoreboard == True: # Vérifie is la touche pressée est la flèche de droite
+			elif currChar == "RIGHT" and isOnScoreboard is True: # Vérifie is la touche pressée est la flèche de droite
 				printAt(10 + currentSelectedGame, (maxWidth - 11) // 2, displayGameSelected(currentSelectedGame)) # Affiche les règles qui sont sélectionner
 				isOnScoreboard = False # Affiche le button scoreboard qui est sélectionner
 			if currChar == "LEFT" and isOnRules: # Vérifie is la touche pressée est la flèche de gauche
