@@ -124,6 +124,8 @@ def main() -> None:
 	maxWidth : int
 	original : list[int]
 	currentSelectedGame : int
+	player1IsBot : bool
+	player2IsBot : bool
 
 	player1 = ""
 	player2 = ""
@@ -133,6 +135,8 @@ def main() -> None:
 	maxWidth = get_terminal_size().columns - 3 # Défini la taille maximal du terminal
 	currentSelectedGame = 1
 	original = setup() # Défini la configuration du terminal original
+	player1IsBot = False
+	player2IsBot = False
 
 	pseudo = "> "
 
@@ -144,7 +148,7 @@ def main() -> None:
 		if len(currChar) == 1 and currChar.isprintable(): # Vérifie si la touche pressée est un caractère imprimable
 			pseudo += currChar # Ajoute le caractère au pseudo
 			centerTextAtLine(13, pseudo) # Affiche le pseudo
-		elif currChar == "ENTER" and len(pseudo) > 2:
+		elif currChar == "ENTER":
 			break # Si la touche pressée est Entrée et que le pseudo est plus grand que 2 on sort de la boucle
 		elif currChar == "BACKSPACE" and len(pseudo) > 2: # Vérifie si la touche pressée est Backspace
 			centerTextAtLine(13, " " * len(pseudo)) # Affiche des espaces pour effacer le pseudo
@@ -154,10 +158,14 @@ def main() -> None:
 			restoreTerm(original) # Restore le terminal de base
 		else:
 			continue
-	player1 = pseudo[2:] # Enlève le "> " du pseudo
-	if not isPlayerExisting(player1): # Vérifie si le joueur existe
-		addPlayer(player1) # Ajoute le joueur
-	pseudo = "> " # Réinitialise le pseudo
+	if len(pseudo) - 2 == 0:
+		player1IsBot = True
+		player1 = '\t'
+	elif player1IsBot is False:
+		player1 = pseudo[2:] # Enlève le "> " du pseudo
+		if not isPlayerExisting(player1): # Vérifie si le joueur existe
+			addPlayer(player1) # Ajoute le joueur
+		pseudo = "> " # Réinitialise le pseudo
 	player2 = player1 # Défini le joueur 2 comme le joueur 1 pour éviter les mêmes pseudos
 
 	displayMenuPlayer(2)
@@ -180,9 +188,13 @@ def main() -> None:
 			continue
 		else:
 			restoreTerm(original)
-	player2 = pseudo[2:]
-	if not isPlayerExisting(player2):
-		addPlayer(player2)
+	if len(pseudo) - 2 == 0:
+		player2IsBot = True
+		player2 = '\t'
+	elif player2IsBot is False :
+		player2 = pseudo[2:]
+		if not isPlayerExisting(player2):
+			addPlayer(player2)
 
 	while True:
 		displayMenu(currentSelectedGame, player1, player2) # Affiche le menu avec le premier jeu de sélectionner

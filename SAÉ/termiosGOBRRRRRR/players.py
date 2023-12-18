@@ -103,22 +103,24 @@ def printScoreboard(player1: str, player2: str) -> None:
 	with open("players.json", "r") as jsonFile: # Récupère les données du fichier
 		data = json.load(jsonFile)
 
-	if len(player1) > 10: # Formate le nom des joueurs si ils sont trop longs
-		playerFormat = player1[:10] + "..."
-	else:
-		playerFormat = player1
-	printAt(6,  5, f"{playerFormat} :") # Affiche le tableau des scores
-	printAt(7,  6, f"Devinette   = {data[player1][0]}")
-	printAt(8,  6, f"Allumette   = {data[player1][1]}")
-	printAt(9,  6, f"Morpion     = {data[player1][2]}")
-	printAt(10, 6, f"Puissance 4 = {data[player1][3]}")
+	if player1 != '\t':
+		if len(player1) > 10: # Formate le nom des joueurs si ils sont trop longs
+			playerFormat = player1[:10] + "..."
+		else:
+			playerFormat = player1
+		printAt(6,  5, f"{playerFormat} :") # Affiche le tableau des scores
+		printAt(7,  6, f"Devinette   = {data[player1][0]}")
+		printAt(8,  6, f"Allumette   = {data[player1][1]}")
+		printAt(9,  6, f"Morpion     = {data[player1][2]}")
+		printAt(10, 6, f"Puissance 4 = {data[player1][3]}")
 
-	if len(player2) > 10:
-		playerFormat = player2[:10] + "..."
-	else:
-		playerFormat = player2
-	printAt(12, 5, f"{playerFormat} :")
-	printAt(13, 6, f"Devinette   = {data[player2][0]}")
-	printAt(14, 6, f"Allumette   = {data[player2][1]}")
-	printAt(15, 6, f"Morpion     = {data[player2][2]}")
-	printAt(16, 6, f"Puissance 4 = {data[player2][3]}")
+	if player2 != '\t':
+		if len(player2) > 10:
+			playerFormat = player2[:10] + "..."
+		else:
+			playerFormat = player2
+		printAt(12, 5, f"{playerFormat} :")
+		printAt(13, 6, f"Devinette   = {data[player2][0]}")
+		printAt(14, 6, f"Allumette   = {data[player2][1]}")
+		printAt(15, 6, f"Morpion     = {data[player2][2]}")
+		printAt(16, 6, f"Puissance 4 = {data[player2][3]}")

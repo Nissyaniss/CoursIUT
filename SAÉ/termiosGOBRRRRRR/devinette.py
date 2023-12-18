@@ -1,4 +1,6 @@
 from os import get_terminal_size
+import random
+from time import sleep
 
 from ANSIcolors import inverseColor
 from players import addPoint
@@ -73,11 +75,25 @@ def DisplaySelectedPlayer(currentSelectedPlayer : int, player1 : str, player2 : 
 	maxWidth = get_terminal_size().columns - 3 # Récupère la taille du terminal
 	
 	if currentSelectedPlayer == 1: # Affiche le joueur sélectionné
-		playerStr = player1
-		printAt(12, maxWidth // 2 - len(player1) + 2, "  " + player2)
+		if player1 == '\t' and player2 == '\t':
+			playerStr = "Bot 1"
+			printAt(12, maxWidth // 2 - len("Bot 1") + 2, "  " + "Bot 2")
+		elif player1 == '\t':
+			playerStr = "Bot 1"
+			printAt(12, maxWidth // 2 - len("Bot 1") + 2, "  " + player2)
+		else:
+			playerStr = player1
+			printAt(12, maxWidth // 2 - len(player1) + 2, "  " + player2)
 	elif currentSelectedPlayer == 2:
-		printAt(11, maxWidth // 2 - len(player1) + 2, "  " + player1)
-		playerStr = player2
+		if player1 == '\t' and player2 == '\t':
+			playerStr = "Bot 2"
+			printAt(11, maxWidth // 2 - len("Bot 1") + 2, "  " + "Bot 1")
+		elif player2 == '\t':
+			playerStr = "Bot 2"
+			printAt(12, maxWidth // 2 - len(player1) + 2, "  " + player2)
+		else:
+			playerStr = player2
+			printAt(11, maxWidth // 2 - len(player1) + 2, "  " + player1)
 	else :
 		playerStr = "ERROR"
 
@@ -104,6 +120,9 @@ def start(player1 : str, player2 : str) -> None:
 	master : str
 	maxTries : int
 	tries : int
+	start : int
+	end : int
+	result : int
 
 	maxWidth = get_terminal_size().columns - 3 # Récupère la taille du terminal
 	maxHeight = get_terminal_size().lines - 3
@@ -117,11 +136,17 @@ def start(player1 : str, player2 : str) -> None:
 	strikes = 0
 	maxTries = 15
 	tries = 0
+	start = 1
+	end = 999
+	result = 0
 
 	displayEmptySquare()
 	displayMenuPlayer()
 	while True:
-		printAt(10 + currentSelectedPlayer, maxWidth // 2 - len(player1) + 3, DisplaySelectedPlayer(currentSelectedPlayer, player1, player2))
+		if player1 == '\t' and player2 == '\t':
+			printAt(10 + currentSelectedPlayer, maxWidth // 2 - len("Bot 1") + 3, DisplaySelectedPlayer(currentSelectedPlayer, player1, player2))
+		else:
+			printAt(10 + currentSelectedPlayer, maxWidth // 2 - len(player1) + 3, DisplaySelectedPlayer(currentSelectedPlayer, player1, player2))
 		currChar = getKey()
 		if currChar == "UP" and currentSelectedPlayer != 1: # Déplace le curseur
 			currentSelectedPlayer -= 1
@@ -139,57 +164,93 @@ def start(player1 : str, player2 : str) -> None:
 		guesser = player1
 	print("\x1b[?25h", end='')
 	displayEmptySquare()
-	centerText("Nombre : ") # Demande le nombre à faire deviner
-	while True:
-		currChar = getKey()
-		if currChar.isdigit() and len(solution) < 3:
-			solution += currChar
-		elif currChar == "ENTER" and len(solution) > 0:
-			break
-		elif currChar == "TAB":
-			return
-		elif currChar == "BACKSPACE":
-			if len(solution) != 0:
-				solution = solution[:-1]
-	while True:
-		displayEmptySquare()
-		centerText("Devinez : " + len(solution) * " ") # Demande le nombre à deviner
+	if master != '\t':
+		centerText("Nombre : ") # Demande le nombre à faire deviner
 		while True:
-			setCursorPosition(maxHeight // 2, (maxWidth // 2 + 4) + len(guess))
 			currChar = getKey()
-			if currChar.isdigit() and len(guess) < 3:
-				printAt(maxHeight // 2, (maxWidth // 2 + 5) - 1 + len(guess), currChar)
-				guess += currChar
-			elif currChar == "ENTER" and len(guess) > 0:
+			if currChar.isdigit() and len(solution) < 3:
+				solution += currChar
+			elif currChar == "ENTER" and len(solution) > 0:
 				break
 			elif currChar == "TAB":
 				return
 			elif currChar == "BACKSPACE":
-				if len(guess) != 0:
-					printAt(maxHeight // 2, (maxWidth // 2 + 4) - 1 + len(guess), " ")
-					guess = guess[:-1]
-		displayMenuMaster(guess)
-		print("\x1b[?25l", end='', flush=True)
-		while True:
-			centerTextAtLine(10 + currentSelectedOption, displaySelectedOption(currentSelectedOption))
-			currChar = getKey()
-			if currChar == "UP" and currentSelectedOption != 1: # Déplace le curseur
-				currentSelectedOption -= 1
-			elif currChar == "DOWN" and currentSelectedOption != 3:
-				currentSelectedOption += 1
-			elif currChar == "TAB":
-				return
-			elif currChar == "ENTER":
-				print("\x1b[?25h", end='', flush=True)
-				break
-		tries = tries + 1
-		if currentSelectedOption == 1 and int(guess) < int(solution): # Vérifie si la réponse est bonne
-			strikes += 1
-		elif currentSelectedOption == 2 and int(guess) > int(solution):
-			strikes =+ 1
-		elif (currentSelectedOption == 1 or currentSelectedOption == 2) and guess == solution: # Vérifie si le master a pas triché
-			strikes = 3
-		guess = ""
+				if len(solution) != 0:
+					solution = solution[:-1]
+	else:
+		solution = str(random.randint(1, 999))
+	
+	while True:
+		displayEmptySquare()
+		if guesser == '\t':
+			while start <= end:
+				result = (start + end) // 2
+				if result == int(solution):
+					centerText("Devinez : " + str(result)) # Demande le nombre à deviner
+					sleep(1)
+					displayEmptySquare()
+					displayMenuMaster(str(result))
+					centerTextAtLine(13, displaySelectedOption(3))
+					sleep(1)
+					break
+				elif result < int(solution):
+					start = result + 1
+					tries += 1
+					centerText("Devinez : " + str(result)) # Demande le nombre à deviner
+					sleep(1)
+					displayEmptySquare()
+					displayMenuMaster(str(result))
+					centerTextAtLine(11, displaySelectedOption(1))
+					sleep(1)
+					displayEmptySquare()
+				else:
+					end = result - 1
+					tries += 1
+					centerText("Devinez : " + str(result)) # Demande le nombre à deviner
+					sleep(1)
+					displayEmptySquare()
+					displayMenuMaster(str(result))
+					centerTextAtLine(12, displaySelectedOption(2))
+					sleep(1)
+					displayEmptySquare()
+		else:
+			centerText("Devinez : " + str(result)) # Demande le nombre à deviner
+			while True:
+				setCursorPosition(maxHeight // 2, (maxWidth // 2 + 4) + len(guess))
+				currChar = getKey()
+				if currChar.isdigit() and len(guess) < 3:
+					printAt(maxHeight // 2, (maxWidth // 2 + 5) - 1 + len(guess), currChar)
+					guess += currChar
+				elif currChar == "ENTER" and len(guess) > 0:
+					break
+				elif currChar == "TAB":
+					return
+				elif currChar == "BACKSPACE":
+					if len(guess) != 0:
+						printAt(maxHeight // 2, (maxWidth // 2 + 4) - 1 + len(guess), " ")
+						guess = guess[:-1]
+			displayMenuMaster(guess)
+			print("\x1b[?25l", end='', flush=True)
+			while True:
+				centerTextAtLine(10 + currentSelectedOption, displaySelectedOption(currentSelectedOption))
+				currChar = getKey()
+				if currChar == "UP" and currentSelectedOption != 1: # Déplace le curseur
+					currentSelectedOption -= 1
+				elif currChar == "DOWN" and currentSelectedOption != 3:
+					currentSelectedOption += 1
+				elif currChar == "TAB":
+					return
+				elif currChar == "ENTER":
+					print("\x1b[?25h", end='', flush=True)
+					break
+			tries = tries + 1
+			if currentSelectedOption == 1 and int(guess) < int(solution): # Vérifie si la réponse est bonne
+				strikes += 1
+			elif currentSelectedOption == 2 and int(guess) > int(solution):
+				strikes =+ 1
+			elif (currentSelectedOption == 1 or currentSelectedOption == 2) and guess == solution: # Vérifie si le master a pas triché
+				strikes = 3
+			guess = ""
 		if strikes == 3: # Vérifie si le master a pas triché
 			print("\x1b[?25l", end='', flush=True)
 			displayEmptySquare()

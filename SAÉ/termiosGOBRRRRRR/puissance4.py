@@ -252,6 +252,6 @@ def start(player1 : str, player2 : str):
 					i = i + 1
 		if i == 42:
 			displayEmptySquare()
-			centerText(f"Égalité")
+			centerText("Égalité")
 			sleep(1)
 			return

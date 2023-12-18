@@ -205,7 +205,7 @@ def start(player1 : str, player2: str):
 				elif currentPlayer == 2:
 					grid[(currentCase - 1) // 3][(currentCase - 1) % 3] = '○' # Ajoute le symbole du joueur actuel
 					currentPlayer = 1
-				if checkWin(grid) == True: # Vérifie si un joueur a gagné
+				if checkWin(grid) is True: # Vérifie si un joueur a gagné
 					if currentPlayer == 1:
 						displayEmptySquare() # Affiche le gagnant
 						centerText(f"{player2} a gagné")
