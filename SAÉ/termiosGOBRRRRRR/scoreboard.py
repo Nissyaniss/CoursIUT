@@ -78,7 +78,7 @@ def displayScoreboard(game : int) -> None:
 	maxHeight = get_terminal_size().lines
 	data = getPlayers()
 	i = 0
-	scores = List(data.items()) # Récupère les données des joueurs
+	scores = list(data.items()) # Récupère les données des joueurs
 	scores.sort(key=lambda x: x[1][game - 1], reverse=True) # Trie les scores (lambda est une function temporaire et sans nom et x est un paramètre que je ne peut pas typé)
 
 	system("clear")
