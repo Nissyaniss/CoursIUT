@@ -1,5 +1,4 @@
 from os import get_terminal_size
-from time import sleep
 
 from ANSIcolors import inverseColor
 from players import addPoint
