@@ -76,20 +76,20 @@ def DisplaySelectedPlayer(currentSelectedPlayer : int, player1 : str, player2 : 
 	
 	if currentSelectedPlayer == 1: # Affiche le joueur sélectionné
 		if player1 == '\t' and player2 == '\t':
-			playerStr = "Bot 1"
-			printAt(12, maxWidth // 2 - len("Bot 1") + 2, "  " + "Bot 2")
+			playerStr = "Bot"
+			printAt(12, maxWidth // 2 - len("Bot") + 2, "  " + "Bot")
 		elif player1 == '\t':
-			playerStr = "Bot 1"
-			printAt(12, maxWidth // 2 - len("Bot 1") + 2, "  " + player2)
+			playerStr = "Bot"
+			printAt(12, maxWidth // 2 - len("Bot") + 2, "  " + player2)
 		else:
 			playerStr = player1
 			printAt(12, maxWidth // 2 - len(player1) + 2, "  " + player2)
 	elif currentSelectedPlayer == 2:
 		if player1 == '\t' and player2 == '\t':
-			playerStr = "Bot 2"
-			printAt(11, maxWidth // 2 - len("Bot 1") + 2, "  " + "Bot 1")
+			playerStr = "Bot"
+			printAt(11, maxWidth // 2 - len("Bot") + 2, "  " + "Bot")
 		elif player2 == '\t':
-			playerStr = "Bot 2"
+			playerStr = "Bot"
 			printAt(12, maxWidth // 2 - len(player1) + 2, "  " + player2)
 		else:
 			playerStr = player2
@@ -134,7 +134,7 @@ def start(player1 : str, player2 : str) -> None:
 	guess = ''
 	currChar = ""
 	strikes = 0
-	maxTries = 15
+	maxTries = 25
 	tries = 0
 	start = 1
 	end = 999
@@ -144,9 +144,11 @@ def start(player1 : str, player2 : str) -> None:
 	displayMenuPlayer()
 	while True:
 		if player1 == '\t' and player2 == '\t':
-			printAt(10 + currentSelectedPlayer, maxWidth // 2 - len("Bot 1") + 3, DisplaySelectedPlayer(currentSelectedPlayer, player1, player2))
-		else:
-			printAt(10 + currentSelectedPlayer, maxWidth // 2 - len(player1) + 3, DisplaySelectedPlayer(currentSelectedPlayer, player1, player2))
+			break
+		elif player1 == '\t':
+			printAt(10 + currentSelectedPlayer, maxWidth // 2 - len("Bot") + 2, DisplaySelectedPlayer(currentSelectedPlayer, "Bot", player2))
+		elif player2 == '\t':
+			printAt(10 + currentSelectedPlayer, maxWidth // 2 - len("Bot") + 2, DisplaySelectedPlayer(currentSelectedPlayer, player1, "Bot"))
 		currChar = getKey()
 		if currChar == "UP" and currentSelectedPlayer != 1: # Déplace le curseur
 			currentSelectedPlayer -= 1
@@ -189,9 +191,11 @@ def start(player1 : str, player2 : str) -> None:
 					centerText("Devinez : " + str(result)) # Demande le nombre à deviner
 					sleep(1)
 					displayEmptySquare()
+					print("\x1b[?25l", end='', flush=True)
 					displayMenuMaster(str(result))
 					centerTextAtLine(13, displaySelectedOption(3))
 					sleep(1)
+					print("\x1b[?25h", end='', flush=True)
 					break
 				elif result < int(solution):
 					start = result + 1
@@ -199,9 +203,11 @@ def start(player1 : str, player2 : str) -> None:
 					centerText("Devinez : " + str(result)) # Demande le nombre à deviner
 					sleep(1)
 					displayEmptySquare()
+					print("\x1b[?25l", end='', flush=True)
 					displayMenuMaster(str(result))
 					centerTextAtLine(11, displaySelectedOption(1))
 					sleep(1)
+					print("\x1b[?25h", end='', flush=True)
 					displayEmptySquare()
 				else:
 					end = result - 1
@@ -209,17 +215,19 @@ def start(player1 : str, player2 : str) -> None:
 					centerText("Devinez : " + str(result)) # Demande le nombre à deviner
 					sleep(1)
 					displayEmptySquare()
+					print("\x1b[?25l", end='', flush=True)
 					displayMenuMaster(str(result))
 					centerTextAtLine(12, displaySelectedOption(2))
 					sleep(1)
+					print("\x1b[?25h", end='', flush=True)
 					displayEmptySquare()
 		else:
-			centerText("Devinez : " + str(result)) # Demande le nombre à deviner
+			centerText("Devinez : ") # Demande le nombre à deviner
 			while True:
-				setCursorPosition(maxHeight // 2, (maxWidth // 2 + 4) + len(guess))
+				setCursorPosition(maxHeight // 2, (maxWidth // 2 + 4) + 1 + len(guess))
 				currChar = getKey()
 				if currChar.isdigit() and len(guess) < 3:
-					printAt(maxHeight // 2, (maxWidth // 2 + 5) - 1 + len(guess), currChar)
+					printAt(maxHeight // 2, (maxWidth // 2 + 5) + len(guess), currChar)
 					guess += currChar
 				elif currChar == "ENTER" and len(guess) > 0:
 					break
@@ -227,29 +235,50 @@ def start(player1 : str, player2 : str) -> None:
 					return
 				elif currChar == "BACKSPACE":
 					if len(guess) != 0:
-						printAt(maxHeight // 2, (maxWidth // 2 + 4) - 1 + len(guess), " ")
+						printAt(maxHeight // 2, (maxWidth // 2 + 4) + len(guess), " ")
 						guess = guess[:-1]
 			displayMenuMaster(guess)
 			print("\x1b[?25l", end='', flush=True)
-			while True:
-				centerTextAtLine(10 + currentSelectedOption, displaySelectedOption(currentSelectedOption))
-				currChar = getKey()
-				if currChar == "UP" and currentSelectedOption != 1: # Déplace le curseur
-					currentSelectedOption -= 1
-				elif currChar == "DOWN" and currentSelectedOption != 3:
-					currentSelectedOption += 1
-				elif currChar == "TAB":
-					return
-				elif currChar == "ENTER":
+			if master == '\t':
+				displayEmptySquare()
+				print("\x1b[?25l", end='', flush=True)
+				displayMenuMaster(guess)
+				if int(guess) < int(solution):
+					currentSelectedOption = 1
+					centerTextAtLine(11, displaySelectedOption(currentSelectedOption))
+				elif int(guess) > int(solution):
+					currentSelectedOption = 2
+					centerTextAtLine(12, displaySelectedOption(currentSelectedOption))
+				else:
+					currentSelectedOption = 3
+					centerTextAtLine(13, displaySelectedOption(currentSelectedOption))
+					sleep(1)
 					print("\x1b[?25h", end='', flush=True)
-					break
+					displayEmptySquare()
+				sleep(1)
+				print("\x1b[?25h", end='', flush=True)
+				displayEmptySquare()
+			else:
+				while True:
+					centerTextAtLine(10 + currentSelectedOption, displaySelectedOption(currentSelectedOption))
+					currChar = getKey()
+					if currChar == "UP" and currentSelectedOption != 1: # Déplace le curseur
+						currentSelectedOption -= 1
+					elif currChar == "DOWN" and currentSelectedOption != 3:
+						currentSelectedOption += 1
+					elif currChar == "TAB":
+						return
+					elif currChar == "ENTER":
+						print("\x1b[?25h", end='', flush=True)
+						break
 			tries = tries + 1
-			if currentSelectedOption == 1 and int(guess) < int(solution): # Vérifie si la réponse est bonne
-				strikes += 1
-			elif currentSelectedOption == 2 and int(guess) > int(solution):
-				strikes =+ 1
-			elif (currentSelectedOption == 1 or currentSelectedOption == 2) and guess == solution: # Vérifie si le master a pas triché
-				strikes = 3
+			if master != '\t':
+				if currentSelectedOption == 1 and int(guess) < int(solution): # Vérifie si la réponse est bonne
+					strikes += 1
+				elif currentSelectedOption == 2 and int(guess) > int(solution):
+					strikes =+ 1
+				elif (currentSelectedOption == 1 or currentSelectedOption == 2) and guess == solution: # Vérifie si le master a pas triché
+					strikes = 3
 			guess = ""
 		if strikes == 3: # Vérifie si le master a pas triché
 			print("\x1b[?25l", end='', flush=True)
@@ -263,17 +292,23 @@ def start(player1 : str, player2 : str) -> None:
 		elif tries == maxTries: # Vérifie si le joueur a pas dépassé le nombre d'essais
 			print("\x1b[?25l", end='', flush=True)
 			displayEmptySquare()
-			centerText(f"{master} a gagné car {guesser} n'a pas trouvé en {maxTries} essais. La réponse était {solution}.")
-			addPoint(master, 1)
+			if master != '\t':
+				centerText(f"{master} a gagné car {guesser} n'a pas trouvé en {maxTries} essais. La réponse était {solution}.")
+				addPoint(master, 1)
+			else:
+				centerText(f"Le bot a gagné car {guesser} n'a pas trouvé en {maxTries} essais. La réponse était {solution}.")
 			while True:
 				currChar = getKey()
 				if currChar == "TAB":
 					return
-		elif currentSelectedOption == 3: # Vérifie si le joueur a trouvé
+		elif currentSelectedOption == 3 or result == int(solution): # Vérifie si le joueur a trouvé
 			print("\x1b[?25l", end='', flush=True)
 			displayEmptySquare()
-			centerText(f"{guesser} a gagné car il a trouvé en {tries}/{maxTries} essais")
-			addPoint(guesser, 1)
+			if not guesser == "\t":
+				centerText(f"{guesser} a gagné car il a trouvé en {tries}/{maxTries} essais")
+				addPoint(guesser, 1)
+			else:
+				centerText(f"Le bot a gagné en {tries} essais")
 			while True:
 				currChar = getKey()
 				if currChar == "TAB":
