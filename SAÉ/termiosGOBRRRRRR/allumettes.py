@@ -116,7 +116,14 @@ def start(player1 : str, player2 : str) -> None:
 	maxHeight : int
 
 	maxHeight = get_terminal_size().lines - 3 # Récupère la hauteur du terminal
-	currentPlayer = selectPlayer(player1, player2)
+	if player1 == '\t' and player2 == '\t':
+		currentPlayer = 1
+	elif player1 == '\t':
+		currentPlayer = selectPlayer("Bot", player2)
+	elif player2 == '\t':
+		currentPlayer = selectPlayer(player1, "Bot")
+	else:
+		currentPlayer = selectPlayer(player1, player2)
 	matchs = 20
 	currChar = ""
 	currentSelectedNb = 1
@@ -125,34 +132,33 @@ def start(player1 : str, player2 : str) -> None:
 		return
 	displayEmptySquare()
 	while True:
-		while True:
-			if currentPlayer == 1: # Affiche le menu
-				centerTextAtLine(maxHeight // 2 + 2 + currentSelectedNb, displayMenu(currentSelectedNb, player1, matchs))
-			else:
-				centerTextAtLine(maxHeight // 2 + 2 + currentSelectedNb, displayMenu(currentSelectedNb, player2, matchs))
-			currChar = getKey()
-			if currChar == "UP" and currentSelectedNb != 1: # Change le nombre d'allumettes sélectionner
-				currentSelectedNb -= 1
-			if currChar == "DOWN" and currentSelectedNb != 3: # Change le nombre d'allumettes sélectionner
-				currentSelectedNb += 1
-			elif currChar == "TAB": # Retourne 0 si le joueur quitte
+		if currentPlayer == 1: # Affiche le menu
+			centerTextAtLine(maxHeight // 2 + 2 + currentSelectedNb, displayMenu(currentSelectedNb, player1, matchs))
+		else:
+			centerTextAtLine(maxHeight // 2 + 2 + currentSelectedNb, displayMenu(currentSelectedNb, player2, matchs))
+		currChar = getKey()
+		if currChar == "UP" and currentSelectedNb != 1: # Change le nombre d'allumettes sélectionner
+			currentSelectedNb -= 1
+		if currChar == "DOWN" and currentSelectedNb != 3: # Change le nombre d'allumettes sélectionner
+			currentSelectedNb += 1
+		elif currChar == "TAB": # Retourne 0 si le joueur quitte
+			return
+		elif currChar == "ENTER": # Retourne le nombre d'allumettes sélectionner
+			matchs = matchs - currentSelectedNb # Retire le nombre d'allumettes sélectionner
+			if matchs == 0: # Vérifie si le joueur a gagné
+				displayEmptySquare()
+				if currentPlayer == player1: # Affiche le gagnant
+					centerText(f"{player2} a gagné")
+					addPoint(player2, 2)
+				else:
+					centerText(f"{player1} a gagné")
+					addPoint(player1, 2)
+				sleep(1)
 				return
-			elif currChar == "ENTER": # Retourne le nombre d'allumettes sélectionner
-				matchs = matchs - currentSelectedNb # Retire le nombre d'allumettes sélectionner
-				if matchs == 0: # Vérifie si le joueur a gagné
-					displayEmptySquare()
-					if currentPlayer == player1: # Affiche le gagnant
-						centerText(f"{player2} a gagné")
-						addPoint(player2, 2)
-					else:
-						centerText(f"{player1} a gagné")
-						addPoint(player1, 2)
-					sleep(1)
-					return
-				elif matchs < 0: # Si il y a moins d'allumettes que le nombre sélectionner
-					matchs = matchs + currentSelectedNb
-				else: # Change de joueur
-					if currentPlayer == 1:
-						currentPlayer = 2
-					else:
-						currentPlayer = 1
+			elif matchs < 0: # Si il y a moins d'allumettes que le nombre sélectionner
+				matchs = matchs + currentSelectedNb
+			else: # Change de joueur
+				if currentPlayer == 1:
+					currentPlayer = 2
+				else:
+					currentPlayer = 1
