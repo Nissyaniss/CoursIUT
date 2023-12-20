@@ -1,6 +1,7 @@
 from time import sleep
 from os import get_terminal_size
 from typing import List
+from random import randint
 
 from ANSIcolors import inverseColor
 from termUtils import displayEmptySquare, centerTextAtLine, centerText, printAt, getKey
@@ -26,10 +27,18 @@ def displayGrid(grid : List[List[str]], currentSelectedCase : int, currentPlayer
 	player2 symbolise le nom du joueur 2
 	"""
 	displayEmptySquare()
-	if currentPlayer == 1: # Affiche le joueur actuel
+	if currentPlayer == 1 and player1 != '\t': # Affiche le joueur actuel
 		centerTextAtLine(13, f"C'est actuellement au tour de : {player1}" + len(player2) * " ")
-	elif currentPlayer == 2:
+	elif currentPlayer == 1 and player1 == '\t' and player2 == '\t':
+		centerTextAtLine(13, "C'est actuellement au tour du bot")
+	elif currentPlayer == 1 and player1 == '\t':
+		centerTextAtLine(13, "C'est actuellement au tour du bot" + len(player2) * " ")
+	elif currentPlayer == 2 and player2 != '\t':
 		centerTextAtLine(13, f"C'est actuellement au tour de : {player2}" + len(player1) * " ")
+	elif currentPlayer == 2 and player2 == '\t':
+		centerTextAtLine(13, "C'est actuellement au tour du bot" + len(player1) * " ")
+	elif currentPlayer == 2 and player2 == '\t' and player1 == '\t':
+		centerTextAtLine(13, "C'est actuellement au tour du bot")
 	centerTextAtLine(15, f" {grid[0][0]} │ {grid[0][1]} │ {grid[0][2]} ") # Affiche la grille
 	centerTextAtLine(16, "───┼───┼───")
 	centerTextAtLine(17, f" {grid[1][0]} │ {grid[1][1]} │ {grid[1][2]}")
@@ -178,13 +187,54 @@ def start(player1 : str, player2: str):
 	grid = [[' ', ' ', ' '], [' ', ' ', ' '], [' ', ' ', ' ']] # Initialise la grille
 	currentCase = 1
 	currChar = ''
-	currentPlayer = selectPlayer(player1, player2)
+	if player1 == '\t' and player2 == '\t':
+		currentPlayer = 1
+	elif player1 == '\t':
+		currentPlayer = selectPlayer("Bot", player2)
+	elif player2 == '\t':
+		currentPlayer = selectPlayer(player1, "Bot")
+	else:
+		currentPlayer = selectPlayer(player1, player2)
 
 	if currentPlayer == 0:
 		return
 	while True:
-		while True:
+		displayGrid(grid, currentCase, currentPlayer, player1, player2)
+		if currentPlayer == 1 and player1 == '\t':
+			while grid[(currentCase - 1) // 3][(currentCase - 1) % 3] != ' ':
+				currentCase = randint(1, 9)
+			grid[(currentCase - 1) // 3][(currentCase - 1) % 3] = '×' # Ajoute le symbole du joueur actuel
 			displayGrid(grid, currentCase, currentPlayer, player1, player2)
+			sleep(1)
+			currentPlayer = 2
+			if checkWin(grid) is True: # Vérifie si un joueur a gagné
+				displayEmptySquare() # Affiche le gagnant
+				centerText("Le bot a gagné")
+				sleep(1)
+				return
+			elif grid[0][0] != ' ' and grid[0][1] != ' ' and grid[0][2] != ' ' and grid[1][0] != ' ' and grid[1][1] != ' ' and grid[1][2] != ' ' and grid[2][0] != ' ' and grid[2][1] != ' ' and grid[2][2] != ' ': # Vérifie si il y a égalité
+				displayEmptySquare() # Affiche l'égalité
+				centerText("Égalité")
+				sleep(1)
+				return
+		elif currentPlayer == 2 and player2 == '\t':
+			while grid[(currentCase - 1) // 3][(currentCase - 1) % 3] != ' ':
+				currentCase = randint(1, 9)
+			grid[(currentCase - 1) // 3][(currentCase - 1) % 3] = '○' # Ajoute le symbole du joueur actuel
+			displayGrid(grid, currentCase, currentPlayer, player1, player2)
+			sleep(1)
+			currentPlayer = 1
+			if checkWin(grid) is True: # Vérifie si un joueur a gagné
+				displayEmptySquare() # Affiche le gagnant
+				centerText("Le bot a gagné")
+				sleep(1)
+				return
+			elif grid[0][0] != ' ' and grid[0][1] != ' ' and grid[0][2] != ' ' and grid[1][0] != ' ' and grid[1][1] != ' ' and grid[1][2] != ' ' and grid[2][0] != ' ' and grid[2][1] != ' ' and grid[2][2] != ' ': # Vérifie si il y a égalité
+				displayEmptySquare() # Affiche l'égalité
+				centerText("Égalité")
+				sleep(1)
+				return
+		else:
 			currChar = getKey()
 			if currChar == "UP": # Change la case sélectionner
 				if currentCase > 3:
