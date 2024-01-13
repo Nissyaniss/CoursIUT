@@ -8,8 +8,6 @@ from players import addPoint
 from termUtils import displayEmptySquare, centerTextAtLine, centerText, printAt, getKey
 from ANSIcolors import inverseColor
 
-from IGNOREconsole import log as consoleLog
-
 def displayMenu(currentSelectedNb : int, player : str, matchs : int) -> str:
 	"""
 	Affiche le menu avec le nombre d'allumettes sélectionner
@@ -177,7 +175,6 @@ def start(player1 : str, player2 : str) -> None:
 						hasBotPlayed = True
 				if hasBotPlayed == False:
 					for i in range(4, 0, -1):
-						consoleLog(f"{matchs} - (4 * {i} + 1) = {matchs - (4 * i + 1)}")
 						if matchs > 4 * i + 1 and hasBotPlayed == False:
 							matchs = matchs - (matchs - (4 * i + 1))
 							currentSelectedNb = matchs - (4 * i + 1)
@@ -195,7 +192,6 @@ def start(player1 : str, player2 : str) -> None:
 					hasBotPlayed = True
 			if hasBotPlayed == False:
 				for i in range(4, 0, -1):
-					consoleLog(f"{matchs} - (4 * {i} + 1) = {matchs - (4 * i + 1)}")
 					if matchs > 4 * i + 1 and hasBotPlayed == False:
 						matchs = matchs - (matchs - (4 * i + 1))
 						currentSelectedNb = matchs - (4 * i + 1)
