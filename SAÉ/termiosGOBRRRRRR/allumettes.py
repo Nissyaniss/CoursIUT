@@ -1,3 +1,5 @@
+from calendar import c
+import random
 from time import sleep
 from os import get_terminal_size
 from random import randint
@@ -5,6 +7,8 @@ from random import randint
 from players import addPoint
 from termUtils import displayEmptySquare, centerTextAtLine, centerText, printAt, getKey
 from ANSIcolors import inverseColor
+
+from IGNOREconsole import log as consoleLog
 
 def displayMenu(currentSelectedNb : int, player : str, matchs : int) -> str:
 	"""
@@ -20,7 +24,7 @@ def displayMenu(currentSelectedNb : int, player : str, matchs : int) -> str:
 
 	maxHeight = get_terminal_size().lines - 3 # Récupère la hauteur du terminal
 	
-	centerTextAtLine(maxHeight // 2 - 1, f"Nombre d'allumettes restantes : {matchs}  ") # Affiche le nombre d'allumettes restantes
+	centerTextAtLine(maxHeight // 2 - 1, f" Nombre d'allumettes restantes : {matchs}  ") # Affiche le nombre d'allumettes restantes
 	centerText(f"{player} choisissez combien d'allumette vous allez supprimer :") # Affiche le texte pour choisir le nombre d'allumettes
 	if currentSelectedNb == 1: # Affiche les autres choix
 		centerTextAtLine(maxHeight // 2 + 4, " 2")
@@ -115,68 +119,88 @@ def start(player1 : str, player2 : str) -> None:
 	currentSelectedNb : int
 	currentPlayer : int
 	maxHeight : int
+	hasBotPlayed : bool
 
 	maxHeight = get_terminal_size().lines - 3 # Récupère la hauteur du terminal
-	if player1 == '\t' and player2 == '\t':
+	if player1[0] == '\t' and player2[0] == '\t':
 		currentPlayer = 1
-	elif player1 == '\t':
+	elif player1[0] == '\t':
 		currentPlayer = selectPlayer("Bot", player2)
-	elif player2 == '\t':
+	elif player2[0] == '\t':
 		currentPlayer = selectPlayer(player1, "Bot")
 	else:
 		currentPlayer = selectPlayer(player1, player2)
 	matchs = 20
 	currChar = ""
 	currentSelectedNb = 1
+	hasBotPlayed = False
 
 	if currentPlayer == 0:
 		return
 	displayEmptySquare()
 	while True:
-		if currentPlayer == 1: # Affiche le menu
-			if player1 == '\t':
-				centerTextAtLine(maxHeight // 2 + 2 + currentSelectedNb, displayMenu(currentSelectedNb, "Bot", matchs))
-				sleep(1)
-			else:
-				centerTextAtLine(maxHeight // 2 + 2 + currentSelectedNb, displayMenu(currentSelectedNb, player1, matchs))
-		else:
-			if player2 == '\t':
-				centerTextAtLine(maxHeight // 2 + 2 + currentSelectedNb, displayMenu(currentSelectedNb, "Bot", matchs))
-				sleep(1)
-			else:
-				centerTextAtLine(maxHeight // 2 + 2 + currentSelectedNb, displayMenu(currentSelectedNb, player2, matchs))
-		if currentPlayer == 1 and player1 == '\t':
-			currentSelectedNb = randint(1, 3)
-			matchs = matchs - currentSelectedNb # Retire le nombre d'allumettes sélectionner
-			if matchs == 0: # Vérifie si le joueur a gagné
-				displayEmptySquare()
-				if currentPlayer == 1 and player1 != '\t': # Affiche le gagnant
-					centerText(f"{player2} a gagné")
-					addPoint(player2, 2)
-				else:
-					centerText("Le bot a gagné")
-				sleep(1)
-				return
-			elif matchs < 0: # Si il y a moins d'allumettes que le nombre sélectionner
-				matchs = matchs + currentSelectedNb
-			else: # Change de joueur
+		if matchs < 0: # Si il y a moins d'allumettes que le nombre sélectionner
+			matchs = matchs + currentSelectedNb
+		else: # Change de joueur
+			if currentPlayer == 1:
 				currentPlayer = 2
-		elif currentPlayer == 2 and player2 == '\t':
+			else:
+				currentPlayer = 1
+			if currentPlayer == 1: # Affiche le menu
+				if player1[0] == '\t':
+					centerTextAtLine(maxHeight // 2 + 2 + currentSelectedNb, displayMenu(currentSelectedNb, "Bot", matchs))
+					sleep(1)
+				else:
+					centerTextAtLine(maxHeight // 2 + 2 + currentSelectedNb, displayMenu(currentSelectedNb, player1, matchs))
+			else:
+				if player2[0] == '\t':
+					centerTextAtLine(maxHeight // 2 + 2 + currentSelectedNb, displayMenu(currentSelectedNb, "Bot", matchs))
+					sleep(1)
+				else:
+					centerTextAtLine(maxHeight // 2 + 2 + currentSelectedNb, displayMenu(currentSelectedNb, player2, matchs))
+		if (player1[0] == '\t' and player1[1] == '1') or (player2[0] == '\t' and player2[0] == '1'):
 			currentSelectedNb = randint(1, 3)
 			matchs = matchs - currentSelectedNb # Retire le nombre d'allumettes sélectionner
-			if matchs == 0: # Vérifie si le joueur a gagné
-				displayEmptySquare()
-				if currentPlayer == 2 and player1 != '\t': # Affiche le gagnant
-					centerText(f"{player1} a gagné")
-					addPoint(player1, 2)
-				else:
-					centerText("Le bot a gagné")
-				sleep(1)
-				return
-			elif matchs < 0: # Si il y a moins d'allumettes que le nombre sélectionner
-				matchs = matchs + currentSelectedNb
-			else: # Change de joueur
-				currentPlayer = 1
+		elif (player1[0] == '\t' and player1[1] == '2') or (player2[0] == '\t' and player2[0] == '2'):
+			if random.randint(0, 1):
+				currentSelectedNb = randint(1, 3)
+				matchs = matchs - currentSelectedNb # Retire le nombre d'allumettes sélectionner
+			else:
+				if hasBotPlayed == False:
+					currentSelectedNb = randint(1, 3)
+					matchs = matchs - currentSelectedNb # Retire le nombre d'allumettes sélectionner
+					hasBotPlayed = True
+				for i in range(1, 5):
+					if matchs < 4 * i + 1 and hasBotPlayed == False:
+						matchs = matchs - (matchs - (4 * (i - 1) + 1))
+						currentSelectedNb = matchs - (4 * (i - 1) + 1)
+						hasBotPlayed = True
+				if hasBotPlayed == False:
+					for i in range(4, 0, -1):
+						consoleLog(f"{matchs} - (4 * {i} + 1) = {matchs - (4 * i + 1)}")
+						if matchs > 4 * i + 1 and hasBotPlayed == False:
+							matchs = matchs - (matchs - (4 * i + 1))
+							currentSelectedNb = matchs - (4 * i + 1)
+							hasBotPlayed = True
+				hasBotPlayed = False
+		elif (player1[0] == '\t' and player1[1] == '3') or (player2[0] == '\t' and player2[0] == '3'):
+			if hasBotPlayed == False:
+				currentSelectedNb = randint(1, 3)
+				matchs = matchs - currentSelectedNb # Retire le nombre d'allumettes sélectionner
+				hasBotPlayed = True
+			for i in range(1, 5):
+				if matchs < 4 * i + 1 and hasBotPlayed == False:
+					matchs = matchs - (matchs - (4 * (i - 1) + 1))
+					currentSelectedNb = matchs - (4 * (i - 1) + 1)
+					hasBotPlayed = True
+			if hasBotPlayed == False:
+				for i in range(4, 0, -1):
+					consoleLog(f"{matchs} - (4 * {i} + 1) = {matchs - (4 * i + 1)}")
+					if matchs > 4 * i + 1 and hasBotPlayed == False:
+						matchs = matchs - (matchs - (4 * i + 1))
+						currentSelectedNb = matchs - (4 * i + 1)
+						hasBotPlayed = True
+			hasBotPlayed = False
 		else:
 			currChar = getKey()
 			if currChar == "UP" and currentSelectedNb != 1: # Change le nombre d'allumettes sélectionner
@@ -187,20 +211,18 @@ def start(player1 : str, player2 : str) -> None:
 				return
 			elif currChar == "ENTER": # Retourne le nombre d'allumettes sélectionner
 				matchs = matchs - currentSelectedNb # Retire le nombre d'allumettes sélectionner
-				if matchs == 0: # Vérifie si le joueur a gagné
-					displayEmptySquare()
-					if currentPlayer == 1: # Affiche le gagnant
-						centerText(f"{player2} a gagné")
-						addPoint(player2, 2)
-					else:
-						centerText(f"{player1} a gagné")
-						addPoint(player1, 2)
-					sleep(1)
-					return
-				elif matchs < 0: # Si il y a moins d'allumettes que le nombre sélectionner
-					matchs = matchs + currentSelectedNb
-				else: # Change de joueur
-					if currentPlayer == 1:
-						currentPlayer = 2
-					else:
-						currentPlayer = 1
+
+		if matchs == 0: # Vérifie si le joueur a gagné
+			displayEmptySquare()
+			if currentPlayer == 1 and player2[0] != '\t': # Affiche le gagnant
+				centerText(f"{player2} a gagné")
+				addPoint(player2, 2)
+			elif player1[0] != '\t':
+				centerText(f"{player1} a gagné")
+				addPoint(player1, 2)
+			elif currentPlayer == 1 and player2[0] == '\t': # Affiche le gagnant
+				centerText(f"Le bot 2 a gagné")
+			else:
+				centerText(f"Le bot 1 a gagné")
+			sleep(1)
+			return

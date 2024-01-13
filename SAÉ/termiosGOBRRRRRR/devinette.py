@@ -185,7 +185,6 @@ def start(player1 : str, player2 : str) -> None:
 					solution = solution[:-1]
 	else:
 		solution = str(random.randint(1, 999))
-	
 	while True:
 		displayEmptySquare()
 		if guesser[0] == '\t':
