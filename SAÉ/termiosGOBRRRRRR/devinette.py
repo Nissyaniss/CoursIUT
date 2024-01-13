@@ -200,7 +200,7 @@ def start(player1 : str, player2 : str) -> None:
 					sleep(1)
 					displayEmptySquare()
 					print("\x1b[?25l", end='', flush=True)
-					displayMenuMaster(f"{str(result)} {solution}")
+					displayMenuMaster(f"{str(result)}")
 				if result < int(solution):
 					centerTextAtLine(11, displaySelectedOption(1))
 					currentSelectedOption = 1
@@ -238,7 +238,6 @@ def start(player1 : str, player2 : str) -> None:
 						sleep(1)
 						print("\x1b[?25h", end='', flush=True)
 						displayEmptySquare()
-						break
 					else:
 						end = result - 1
 						tries += 1
@@ -251,18 +250,30 @@ def start(player1 : str, player2 : str) -> None:
 						sleep(1)
 						print("\x1b[?25h", end='', flush=True)
 						displayEmptySquare()
-						break
 				else:
-					result = random.randint(1, 999)
-					centerText("Devinez : " + str(result)) # Demande le nombre à deviner
-					sleep(1)
-					displayEmptySquare()
-					print("\x1b[?25l", end='', flush=True)
-					displayMenuMaster(str(result))
-					centerTextAtLine(13, displaySelectedOption(3))
+					if currentSelectedOption == 1:
+						result = random.randint(previousNumber + 1 , 999)
+					elif currentSelectedOption == 2:
+						result = random.randint(1, previousNumber - 1)
+					if currentSelectedOption != 3:
+						previousNumber = result
+						centerText("Devinez : " + str(result)) # Demande le nombre à deviner
+						sleep(1)
+						displayEmptySquare()
+						print("\x1b[?25l", end='', flush=True)
+						displayMenuMaster(f"{str(result)}")
+					if result < int(solution):
+						centerTextAtLine(11, displaySelectedOption(1))
+						currentSelectedOption = 1
+					elif result > int(solution):
+						centerTextAtLine(12, displaySelectedOption(2))
+						currentSelectedOption = 2
+					elif result == int(solution):
+						centerTextAtLine(13, displaySelectedOption(3))
+						currentSelectedOption = 3
+						break
 					sleep(1)
 					print("\x1b[?25h", end='', flush=True)
-					break
 			if guesser[1] == "3":
 				while start <= end:
 					result = (start + end) // 2
