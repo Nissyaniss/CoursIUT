@@ -95,6 +95,53 @@ def displayGameSelected(currentSelectedGame : int) -> str:
 
 	return str(">" + inverseColor(gameStr) + "  ") # Retourne le string formaté
 
+def selectDifficulty(currentSelectedDifficulty : int) -> None:
+	"""
+	Affiche le menu des difficulté de bot
+
+	Entrée : currentSelectedDifficulty : int
+	currentSelectedDifficulty symbolise la difficulté sélectionnée
+	"""
+	maxWidth : int
+	
+	maxWidth = get_terminal_size().columns - 3 # Défini la taille maximal du terminal
+	
+	displayEmptySquare() # Affiche un carré vide
+	centerTextAtLine(6, "┌───────────────────────────────────┐")
+	centerTextAtLine(7, "│         Difficulté du bot         │") # Affiche un carré avec le titre écrit dedans centré
+	centerTextAtLine(8, "└───────────────────────────────────┘")
+	printAt(10 + currentSelectedDifficulty, (maxWidth) // 2, displayDifficultySelected(currentSelectedDifficulty)) # Affiche le jeux sélectionner
+
+def displayDifficultySelected(currentSelectedDifficulty : int) -> str:
+	"""
+	Affiche le jeu sélectionner
+
+	Entrée : currentSelectedDifficulty : int
+	currentSelectedDifficulty symbolise la difficulté sélectionnée
+
+	Sortie : difficultyStr : str
+	difficultyStr symbolise le string formaté de la difficulté sélectionner
+	"""
+	difficultyStr: str
+	maxWidth = get_terminal_size().columns - 3
+
+	if currentSelectedDifficulty == 1:
+		difficultyStr = "1" # Défini le string de la difficulté sélectionnée
+		printAt(12, (maxWidth) // 2, "  2") # Affiche les autres difficultés
+		printAt(13, (maxWidth) // 2, "  3")
+	elif currentSelectedDifficulty == 2:
+		printAt(11, (maxWidth) // 2, "  1")
+		difficultyStr = "2"
+		printAt(13, (maxWidth) // 2, "  3")
+	elif currentSelectedDifficulty == 3:
+		printAt(11, (maxWidth) // 2, "  1")
+		printAt(12, (maxWidth) // 2, "  2")
+		difficultyStr = "3"
+	else :
+		difficultyStr = "ERROR"
+
+	return str(">" + inverseColor(difficultyStr) + "  ") # Retourne le string formaté
+
 def displayMenuPlayer(player : int) -> None:
 	"""
 	Affiche le menu pour entrer le pseudo du joueur
@@ -126,6 +173,7 @@ def main() -> None:
 	currentSelectedGame : int
 	player1IsBot : bool
 	player2IsBot : bool
+	currentSelectedDifficulty : int
 
 	player1 = ""
 	player2 = ""
@@ -137,6 +185,7 @@ def main() -> None:
 	original = setup() # Défini la configuration du terminal original
 	player1IsBot = False
 	player2IsBot = False
+	currentSelectedDifficulty = 1
 
 	pseudo = "> "
 
@@ -160,7 +209,22 @@ def main() -> None:
 			continue
 	if len(pseudo) - 2 == 0:
 		player1IsBot = True
-		player1 = '\t'
+		while True:
+			selectDifficulty(currentSelectedDifficulty)
+			currChar = getKey()
+			if currChar == "UP" and currentSelectedDifficulty != 1 :
+				currentSelectedDifficulty -= 1 # Change la difficulté
+				printAt(10 + currentSelectedDifficulty, (maxWidth) // 2, displayDifficultySelected(currentSelectedDifficulty)) # Affiche la difficulté sélectionnée
+			if currChar == "DOWN" and currentSelectedDifficulty != 3 : # Vérifie is la touche pressée est la flèche du bas
+				currentSelectedDifficulty += 1 # Change la difficulté
+				printAt(10 + currentSelectedDifficulty, (maxWidth) // 2, displayDifficultySelected(currentSelectedDifficulty)) # Affiche la difficulté sélectionnée
+			elif currChar == "TAB": # Vérifie is la touche pressée est Tab
+				restoreTerm(original) # Restore le terminal de base
+			elif currChar == "ENTER": # Vérifie is la touche pressée est Entrée
+				break
+			else:
+				continue # Si il y a une autre touche on l'ignore
+		player1 = '\t' + str(currentSelectedDifficulty)
 	elif player1IsBot is False:
 		player1 = pseudo[2:] # Enlève le "> " du pseudo
 		if not isPlayerExisting(player1): # Vérifie si le joueur existe
@@ -190,10 +254,25 @@ def main() -> None:
 			restoreTerm(original)
 	if len(pseudo) - 2 == 0:
 		player2IsBot = True
-		player2 = '\t'
+		while True:
+			selectDifficulty(currentSelectedDifficulty)
+			currChar = getKey()
+			if currChar == "UP" and currentSelectedDifficulty != 1 :
+				currentSelectedDifficulty -= 1 # Change la difficulté
+				printAt(10 + currentSelectedDifficulty, (maxWidth - 11) // 2, displayDifficultySelected(currentSelectedDifficulty)) # Affiche la difficulté sélectionnée
+			if currChar == "DOWN" and currentSelectedDifficulty != 3: # Vérifie is la touche pressée est la flèche du bas
+				currentSelectedDifficulty += 1 # Change la difficulté
+				printAt(10 + currentSelectedDifficulty, (maxWidth - 11) // 2, displayDifficultySelected(currentSelectedDifficulty)) # Affiche la difficulté sélectionnée
+			elif currChar == "TAB": # Vérifie is la touche pressée est Tab
+				restoreTerm(original) # Restore le terminal de base
+			elif currChar == "ENTER": # Vérifie is la touche pressée est Entrée
+				break
+			else:
+				continue # Si il y a une autre touche on l'ignore
+		player2 = '\t' + str(currentSelectedDifficulty)
 	elif player2IsBot is False :
 		player2 = pseudo[2:]
-		if not isPlayerExisting(player2):
+		if not isPlayerExisting(player2) :
 			addPlayer(player2)
 
 	while True:

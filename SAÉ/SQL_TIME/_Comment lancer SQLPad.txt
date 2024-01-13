@@ -9,7 +9,7 @@ login : admin
 password : admin
 
 Créez une nouvelle connexion en utilisant le driver SQL Server
-Host/Server/IP Address : 164.81.120.19
+Host/Server/IP Address :  
 Database : « nom de votre base »
 Database Username : BUT1
 Database Password : IUT

@@ -103,7 +103,7 @@ def printScoreboard(player1: str, player2: str) -> None:
 	with open("players.json", "r") as jsonFile: # Récupère les données du fichier
 		data = json.load(jsonFile)
 
-	if player1 != '\t':
+	if player1[0] != '\t':
 		if len(player1) > 10: # Formate le nom des joueurs si ils sont trop longs
 			playerFormat = player1[:10] + "..."
 		else:
@@ -114,7 +114,7 @@ def printScoreboard(player1: str, player2: str) -> None:
 		printAt(9,  6, f"Morpion     = {data[player1][2]}")
 		printAt(10, 6, f"Puissance 4 = {data[player1][3]}")
 
-	if player2 != '\t':
+	if player2[0] != '\t':
 		if len(player2) > 10:
 			playerFormat = player2[:10] + "..."
 		else:
