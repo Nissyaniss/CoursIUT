@@ -1,3 +1,5 @@
+import random
+from re import X
 from time import sleep
 from os import get_terminal_size
 from typing import List
@@ -6,6 +8,8 @@ from random import randint
 from ANSIcolors import inverseColor
 from termUtils import displayEmptySquare, centerTextAtLine, centerText, printAt, getKey
 from players import addPoint
+
+from IGNOREconsole import log as consoleLog
 
 def displayGrid(grid : List[List[str]], currentSelectedCase : int, currentPlayer : int, player1 : str, player2: str) -> None:
 	"""
@@ -27,17 +31,17 @@ def displayGrid(grid : List[List[str]], currentSelectedCase : int, currentPlayer
 	player2 symbolise le nom du joueur 2
 	"""
 	displayEmptySquare()
-	if currentPlayer == 1 and player1 != '\t': # Affiche le joueur actuel
+	if currentPlayer == 1 and player1[0] != '\t': # Affiche le joueur actuel
 		centerTextAtLine(13, f"C'est actuellement au tour de : {player1}" + len(player2) * " ")
-	elif currentPlayer == 1 and player1 == '\t' and player2 == '\t':
+	elif currentPlayer == 1 and player1[0] == '\t' and player2 == '\t':
 		centerTextAtLine(13, "C'est actuellement au tour du bot")
-	elif currentPlayer == 1 and player1 == '\t':
+	elif currentPlayer == 1 and player1[0] == '\t':
 		centerTextAtLine(13, "C'est actuellement au tour du bot" + len(player2) * " ")
-	elif currentPlayer == 2 and player2 != '\t':
+	elif currentPlayer == 2 and player2[0] != '\t':
 		centerTextAtLine(13, f"C'est actuellement au tour de : {player2}" + len(player1) * " ")
-	elif currentPlayer == 2 and player2 == '\t':
+	elif currentPlayer == 2 and player2[0] == '\t':
 		centerTextAtLine(13, "C'est actuellement au tour du bot" + len(player1) * " ")
-	elif currentPlayer == 2 and player2 == '\t' and player1 == '\t':
+	elif currentPlayer == 2 and player2[0] == '\t' and player1[0] == '\t':
 		centerTextAtLine(13, "C'est actuellement au tour du bot")
 	centerTextAtLine(15, f" {grid[0][0]} │ {grid[0][1]} │ {grid[0][2]} ") # Affiche la grille
 	centerTextAtLine(16, "───┼───┼───")
@@ -94,6 +98,65 @@ def checkWin(grid : List[List[str]]) -> bool:
 		return True
 	else:
 		return False
+		
+def checkPreWin(grid : List[List[str]], enemy : str) -> tuple[int, int]:
+		if grid[0][0] == enemy and grid[0][2] == enemy: # Horizontal 1
+			return (0, 1)
+		elif grid[0][1] == enemy and grid[0][2] == enemy: # Horizontal 1
+			return (0, 0)
+		elif grid[0][0] == enemy and grid[0][1] == enemy: # Horizontal 1
+			return (0, 2)
+
+		elif grid[1][0] == enemy and grid[1][2] == enemy: # Horizontal 2
+			return (1, 1)
+		elif grid[1][1] == enemy and grid[1][2] == enemy: # Horizontal 2
+			return (1, 0)
+		elif grid[1][0] == enemy and grid[1][1] == enemy: # Horizontal 2
+			return (1, 2)
+
+		elif grid[2][0] == enemy and grid[2][2] == enemy: # Horizontal 3
+			return (2, 1)
+		elif grid[2][1] == enemy and grid[2][2] == enemy: # Horizontal 3
+			return (2, 0)
+		elif grid[2][0] == enemy and grid[2][1] == enemy: # Horizontal 3
+			return (2, 2)
+
+		elif grid[0][0] == enemy and grid[2][0] == enemy: # Vertical 1
+			return (1, 0)
+		elif grid[1][0] == enemy and grid[2][0] == enemy: # Vertical 1
+			return (0, 0)
+		elif grid[0][0] == enemy and grid[1][0] == enemy: # Vertical 1
+			return (2, 0)
+
+		elif grid[0][1] == enemy and grid[2][1] == enemy: # Vertical 2
+			return (1, 1)
+		elif grid[1][1] == enemy and grid[2][1] == enemy: # Vertical 2
+			return (0, 1)
+		elif grid[0][1] == enemy and grid[1][1] == enemy: # Vertical 2
+			return (2, 1)
+
+		elif grid[0][2] == enemy and grid[2][2] == enemy: # Vertical 3
+			return (1, 2)
+		elif grid[1][2] == enemy and grid[2][2] == enemy: # Vertical 3
+			return (0, 2)
+		elif grid[0][2] == enemy and grid[1][2] == enemy: # Vertical 3
+			return (2, 2)
+
+		elif grid[0][0] == enemy and grid[2][2] == enemy: # Diagonal 1
+			return (1, 1)
+		elif grid[1][1] == enemy and grid[2][2] == enemy: # Diagonal 1
+			return (0, 0)
+		elif grid[0][0] == enemy and grid[1][1] == enemy: # Diagonal 1
+			return (2, 2)
+
+		elif grid[0][2] == enemy and grid[2][0] == enemy: # Diagonal 2
+			return (1, 1)
+		elif grid[1][1] == enemy and grid[2][0] == enemy: # Diagonal 2
+			return (0, 2)
+		elif grid[0][2] == enemy and grid[1][1] == enemy: # Diagonal 2
+			return (2, 0)
+		else:
+			return (4, 4)
 
 def displaySelectedPlayer(currentPlayer : int, player1 : str, player2: str) -> str:
 	"""
@@ -183,58 +246,104 @@ def start(player1 : str, player2: str):
 	currentCase : int
 	currChar : str
 	currentPlayer : int
+	posBlock : tuple[int, int]
 
 	grid = [[' ', ' ', ' '], [' ', ' ', ' '], [' ', ' ', ' ']] # Initialise la grille
 	currentCase = 1
 	currChar = ''
-	if player1 == '\t' and player2 == '\t':
+	if player1[0] == '\t' and player2[0] == '\t':
 		currentPlayer = 1
-	elif player1 == '\t':
+	elif player1[0] == '\t':
 		currentPlayer = selectPlayer("Bot", player2)
-	elif player2 == '\t':
+	elif player2[0] == '\t':
 		currentPlayer = selectPlayer(player1, "Bot")
 	else:
 		currentPlayer = selectPlayer(player1, player2)
+	posBlock = (0, 0)
 
 	if currentPlayer == 0:
 		return
 	while True:
 		displayGrid(grid, currentCase, currentPlayer, player1, player2)
-		if currentPlayer == 1 and player1 == '\t':
+		if currentPlayer == 1 and player1[0] == '\t' and player1[1] == '1':
 			while grid[(currentCase - 1) // 3][(currentCase - 1) % 3] != ' ':
 				currentCase = randint(1, 9)
 			grid[(currentCase - 1) // 3][(currentCase - 1) % 3] = '×' # Ajoute le symbole du joueur actuel
-			displayGrid(grid, currentCase, currentPlayer, player1, player2)
-			sleep(1)
 			currentPlayer = 2
-			if checkWin(grid) is True: # Vérifie si un joueur a gagné
-				displayEmptySquare() # Affiche le gagnant
-				centerText("Le bot a gagné")
-				sleep(1)
-				return
-			elif grid[0][0] != ' ' and grid[0][1] != ' ' and grid[0][2] != ' ' and grid[1][0] != ' ' and grid[1][1] != ' ' and grid[1][2] != ' ' and grid[2][0] != ' ' and grid[2][1] != ' ' and grid[2][2] != ' ': # Vérifie si il y a égalité
-				displayEmptySquare() # Affiche l'égalité
-				centerText("Égalité")
-				sleep(1)
-				return
-		elif currentPlayer == 2 and player2 == '\t':
+
+		elif currentPlayer == 2 and player2[0] == '\t' and player2[1] == '1':
 			while grid[(currentCase - 1) // 3][(currentCase - 1) % 3] != ' ':
 				currentCase = randint(1, 9)
 			grid[(currentCase - 1) // 3][(currentCase - 1) % 3] = '○' # Ajoute le symbole du joueur actuel
+			currentPlayer = 1
+
+		elif currentPlayer == 1 and player1[0] == '\t' and player1[1] == '2':
+			if randint(0, 1):
+				while grid[(currentCase - 1) // 3][(currentCase - 1) % 3] != ' ':
+					currentCase = randint(1, 9)
+				grid[(currentCase - 1) // 3][(currentCase - 1) % 3] = '×' # Ajoute le symbole du joueur actuel
+			else:
+				posBlock = checkPreWin(grid, '○')
+				if posBlock[0] != 4 and grid[posBlock[0]][posBlock[1]] == ' ':
+					currentCase = posBlock[0] * 3 + posBlock[1] + 1
+					grid[posBlock[0]][posBlock[1]] = '×'
+				else:
+					while grid[(currentCase - 1) // 3][(currentCase - 1) % 3] != ' ':
+						currentCase = randint(1, 9)
+					grid[(currentCase - 1) // 3][(currentCase - 1) % 3] = '×' # Ajoute le symbole du joueur actuel
+			currentPlayer = 2
+		elif currentPlayer == 2 and player2[0] == '\t' and player2[1] == '2':
+			if randint(0, 1):
+				while grid[(currentCase - 1) // 3][(currentCase - 1) % 3] != ' ':
+					currentCase = randint(1, 9)
+				grid[(currentCase - 1) // 3][(currentCase - 1) % 3] = '○' # Ajoute le symbole du joueur actuel
+			else:
+				posBlock = checkPreWin(grid, '×')
+				if posBlock[0] != 4 and grid[posBlock[0]][posBlock[1]] == ' ':
+					currentCase = posBlock[0] * 3 + posBlock[1] + 1
+					grid[posBlock[0]][posBlock[1]] = '○'
+				else:
+					while grid[(currentCase - 1) // 3][(currentCase - 1) % 3] != ' ':
+						currentCase = randint(1, 9)
+					grid[(currentCase - 1) // 3][(currentCase - 1) % 3] = '○' # Ajoute le symbole du joueur actuel
+			currentPlayer = 1
+
+		elif currentPlayer == 1 and player1[0] == '\t' and player1[1] == '3':
+			posBlock = checkPreWin(grid, '○')
+			if posBlock[0] != 4 and grid[posBlock[0]][posBlock[1]] == ' ':
+				currentCase = posBlock[0] * 3 + posBlock[1] + 1
+				grid[posBlock[0]][posBlock[1]] = '×'
+			else:
+				while grid[(currentCase - 1) // 3][(currentCase - 1) % 3] != ' ':
+					currentCase = randint(1, 9)
+				grid[(currentCase - 1) // 3][(currentCase - 1) % 3] = '×' # Ajoute le symbole du joueur actuel
+			currentPlayer = 2
+		elif currentPlayer == 2 and player2[0] == '\t' and player2[1] == '3':
+			posBlock = checkPreWin(grid, '×')
+			if posBlock[0] != 4 and grid[posBlock[0]][posBlock[1]] == ' ':
+				currentCase = posBlock[0] * 3 + posBlock[1] + 1
+				grid[posBlock[0]][posBlock[1]] = '○'
+			else:
+				while grid[(currentCase - 1) // 3][(currentCase - 1) % 3] != ' ':
+					currentCase = randint(1, 9)
+				grid[(currentCase - 1) // 3][(currentCase - 1) % 3] = '○' # Ajoute le symbole du joueur actuel
+			currentPlayer = 1
+
+		displayGrid(grid, currentCase, currentPlayer, player1, player2)
+		sleep(1)
+		if checkWin(grid) is True: # Vérifie si un joueur a gagné
 			displayGrid(grid, currentCase, currentPlayer, player1, player2)
 			sleep(1)
-			currentPlayer = 1
-			if checkWin(grid) is True: # Vérifie si un joueur a gagné
-				displayEmptySquare() # Affiche le gagnant
-				centerText("Le bot a gagné")
-				sleep(1)
-				return
-			elif grid[0][0] != ' ' and grid[0][1] != ' ' and grid[0][2] != ' ' and grid[1][0] != ' ' and grid[1][1] != ' ' and grid[1][2] != ' ' and grid[2][0] != ' ' and grid[2][1] != ' ' and grid[2][2] != ' ': # Vérifie si il y a égalité
-				displayEmptySquare() # Affiche l'égalité
-				centerText("Égalité")
-				sleep(1)
-				return
-		else:
+			displayEmptySquare() # Affiche le gagnant
+			centerText(f"Le bot {currentPlayer:{currentPlayer - 1 if currentPlayer == 2 else currentPlayer + 1}} a gagné")
+			sleep(1)
+			return
+		elif grid[0][0] != ' ' and grid[0][1] != ' ' and grid[0][2] != ' ' and grid[1][0] != ' ' and grid[1][1] != ' ' and grid[1][2] != ' ' and grid[2][0] != ' ' and grid[2][1] != ' ' and grid[2][2] != ' ': # Vérifie si il y a égalité
+			displayEmptySquare() # Affiche l'égalité
+			centerText("Égalité")
+			sleep(1)
+			return
+		elif player1[0] != '\t' and player2[0] != '\t':
 			currChar = getKey()
 			if currChar == "UP": # Change la case sélectionner
 				if currentCase > 3:
