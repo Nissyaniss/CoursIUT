@@ -1,5 +1,3 @@
-import random
-from re import X
 from time import sleep
 from os import get_terminal_size
 from typing import List
@@ -8,8 +6,6 @@ from random import randint
 from ANSIcolors import inverseColor
 from termUtils import displayEmptySquare, centerTextAtLine, centerText, printAt, getKey
 from players import addPoint
-
-from IGNOREconsole import log as consoleLog
 
 def displayGrid(grid : List[List[str]], currentSelectedCase : int, currentPlayer : int, player1 : str, player2: str) -> None:
 	"""
