@@ -76,6 +76,23 @@ def checker(grid : List[List[str]], posY : int, posX : int) -> bool:
 			i += 1
 			count += 1
 
+	if count < 3:
+		count = 0
+	i = 1
+	while ((posY - i) >= 0 and (posX - i) >= 0) and count < 3: # Vérifie si un joueur a gagné en diagonal
+		if grid[posY - i][posX - i] != grid[posY][posX]:
+			break
+		else:
+			i += 1
+			count += 1
+	i = 1
+	while ((posY + i) <= 5 and (posX + i) <= 6) and count < 3:
+		if grid[posY + i][posX + i] != grid[posY][posX]:
+			break
+		else:
+			i += 1
+			count += 1
+
 	if count >= 3: # Vérifie si un joueur a gagné
 		return True
 	else:
@@ -211,8 +228,13 @@ def start(player1 : str, player2 : str):
 	if currentPlayer == 0:
 		return
 	displayEmptySquare()
+	
+	bot1 = 0
+	bot2 = 0
+	egacount = 0
+	
 	while True:
-		while True:
+		while True:			
 			if currentPlayer == 1 and player1[0] != '\t': # Affiche le joueur actuel
 				centerTextAtLine(13, f"C'est actuellement au tour de : {player1}" + len(player2) * " ")
 			elif currentPlayer == 1 and player1[0] == '\t' and player2 == '\t':
@@ -228,6 +250,15 @@ def start(player1 : str, player2 : str):
 			displayGrid(grid, currentCase, currentPlayer)
 			if player1[0] == '\t' and currentPlayer == 1:
 				currentCase = randint(0, 6)
+				for e in grid: # Vérifie si il y a égalité
+					for e2 in e:
+						if e2 != " ":
+							i = i + 1
+				if i == 42:
+					displayEmptySquare()
+					centerText("Égalité")
+					sleep(1)
+					return
 				while grid[0][currentCase] != " ": 
 					currentCase = randint(0, 6)
 				i = 5
@@ -245,6 +276,17 @@ def start(player1 : str, player2 : str):
 				currentPlayer = 2
 			elif player2[0] == '\t' and currentPlayer == 2:
 				currentCase = randint(0, 6)
+				for e in grid: # Vérifie si il y a égalité
+					for e2 in e:
+						if e2 != " ":
+							i = i + 1
+				if i == 42:
+					displayEmptySquare()
+					centerText("Égalité")
+					egacount += 1
+					grid = [[" " for i in range(7)] for j in range(6)] # Initialise la grille
+					sleep(1)
+					return
 				while grid[0][currentCase] != " ": 
 					currentCase = randint(0, 6)
 				i = 5
