@@ -270,8 +270,8 @@ def main() -> None:
 			else:
 				continue # Si il y a une autre touche on l'ignore
 		player2 = '\t' + str(currentSelectedDifficulty)
-		if player2 == player1:
-			player2 = '\t' + str(currentSelectedDifficulty) + "2"
+		if player2 == player1: # Vérifie si le joueur 2 est le même que le joueur 1
+			player2 = '\t' + str(currentSelectedDifficulty) + "2" # Ajoute un 2 au pseudo du joueur 2 pour éviter les mêmes pseudos
 	elif player2IsBot is False :
 		player2 = pseudo[2:]
 		if not isPlayerExisting(player2) :

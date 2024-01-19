@@ -149,7 +149,7 @@ def checkPreWin(grid : List[List[str]], symbol : str) -> tuple[int, int]:
 			return (2, 0)
 
 		else:
-			return (4, 4)
+			return (4, 4) # Retourne une position impossible
 
 def displaySelectedPlayer(currentPlayer : int, player1 : str, player2: str) -> str:
 	"""
@@ -267,141 +267,133 @@ def start(player1 : str, player2: str):
 	posBlock = (0, 0)
 	posWin = (0, 0)
 
-	#
-	bot1 : int = 0
-	bot2 : int = 0
-	partie : int = 0
-	ega : int = 0
-	ehh : str = currentPlayer
-	#
-
 	if currentPlayer == "0":
 		return
-	while partie != 10000:
+	while True:
 		displayGrid(grid, currentCase, currentPlayer, player1, player2)
-		if currentPlayer == player1 and player1[0] == '\t' and player1[1] == '1':
-			currentCase = randint(1, 9)
-			while grid[(currentCase - 1) // 3][(currentCase - 1) % 3] != ' ':
+		if currentPlayer == player1 and player1[0] == '\t' and player1[1] == '1': # Si le joueur actuel est un bot et qu'il est le joueur 1 et qu'il est de difficulté 1
+			currentCase = randint(1, 9) # Choisi une case aléatoire
+			while grid[(currentCase - 1) // 3][(currentCase - 1) % 3] != ' ':  # Vérifie si la case est vide
 				currentCase = randint(1, 9)
 			grid[(currentCase - 1) // 3][(currentCase - 1) % 3] = '×' # Ajoute le symbole du joueur actuel
 			displayGrid(grid, currentCase, currentPlayer, player1, player2)
-			# sleep(1)
-			currentPlayer = player2
+			sleep(1)
+			currentPlayer = player2 # Change le joueur actuel
 
-		elif currentPlayer == player2 and player2[0] == '\t' and player2[1] == '1':
-			currentCase = randint(1, 9)
-			while grid[(currentCase - 1) // 3][(currentCase - 1) % 3] != ' ':
+		elif currentPlayer == player2 and player2[0] == '\t' and player2[1] == '1': # Si le joueur actuel est un bot et qu'il est le joueur 2 et qu'il est de difficulté 1
+			currentCase = randint(1, 9) # Choisi une case aléatoire
+			while grid[(currentCase - 1) // 3][(currentCase - 1) % 3] != ' ': # Vérifie si la case est vide
 				currentCase = randint(1, 9)
 			grid[(currentCase - 1) // 3][(currentCase - 1) % 3] = '○' # Ajoute le symbole du joueur actuel
 			displayGrid(grid, currentCase, currentPlayer, player1, player2)
-			# sleep(1)
-			currentPlayer = player1
+			sleep(1)
+			currentPlayer = player1 # Change le joueur actuel
 
-		elif currentPlayer == player1 and player1[0] == '\t' and player1[1] == '2':
-			if randint(0, 1):
-				currentCase = randint(1, 9)
-				while grid[(currentCase - 1) // 3][(currentCase - 1) % 3] != ' ':
+		elif currentPlayer == player1 and player1[0] == '\t' and player1[1] == '2': # Si le joueur actuel est un bot et qu'il est le joueur 1 et qu'il est de difficulté 2
+			if randint(0, 1): # Choisi aléatoirement entre jouer aléatoirement ou jouer pour gagner
+				currentCase = randint(1, 9) # Choisi une case aléatoire
+				while grid[(currentCase - 1) // 3][(currentCase - 1) % 3] != ' ': # Vérifie si la case est vide
 					currentCase = randint(1, 9)
 				grid[(currentCase - 1) // 3][(currentCase - 1) % 3] = '×' # Ajoute le symbole du joueur actuel
 				displayGrid(grid, currentCase, currentPlayer, player1, player2)
-				# sleep(1)
+				sleep(1)
 			else:
-				posWin = checkPreWin(grid, '×')
-				if posWin[0] != 4 and grid[posWin[0]][posWin[1]] == ' ':
-					currentCase = posWin[0] * 3 + posWin[1] + 1
-					grid[posWin[0]][posWin[1]] = '×'
+				posWin = checkPreWin(grid, '×') # Vérifie si le joueur peut gagner
+				if posWin[0] != 4 and grid[posWin[0]][posWin[1]] == ' ': # Vérifie si la case est vide et si le joueur peut gagner
+					currentCase = posWin[0] * 3 + posWin[1] + 1 # Converti la position en case
+					grid[posWin[0]][posWin[1]] = '×' # Ajoute le symbole du joueur actuel
 					displayGrid(grid, currentCase, currentPlayer, player1, player2)
-					# sleep(1)
-				else:
-					posBlock = checkPreWin(grid, '○')
-					if posBlock[0] != 4 and grid[posBlock[0]][posBlock[1]] == ' ':
-						currentCase = posBlock[0] * 3 + posBlock[1] + 1
-						grid[posBlock[0]][posBlock[1]] = '×'
+					sleep(1)
+				else: # Si le joueur ne peut pas gagner
+					posBlock = checkPreWin(grid, '○') # Vérifie si le joueur peut bloquer
+					if posBlock[0] != 4 and grid[posBlock[0]][posBlock[1]] == ' ': # Vérifie si la case est vide et si le joueur peut bloquer
+						currentCase = posBlock[0] * 3 + posBlock[1] + 1 # Converti la position en case
+						grid[posBlock[0]][posBlock[1]] = '×' # Ajoute le symbole du joueur actuel
 						displayGrid(grid, currentCase, currentPlayer, player1, player2)
-						# sleep(1)
-					else:
-						currentCase = randint(1, 9)
-						while grid[(currentCase - 1) // 3][(currentCase - 1) % 3] != ' ':
+						sleep(1)
+					else: # Si le joueur ne peut pas gagner ou bloquer
+						currentCase = randint(1, 9) # Choisi une case aléatoire
+						while grid[(currentCase - 1) // 3][(currentCase - 1) % 3] != ' ': # Vérifie si la case est vide
 							currentCase = randint(1, 9)
 						grid[(currentCase - 1) // 3][(currentCase - 1) % 3] = '×' # Ajoute le symbole du joueur actuel
 						displayGrid(grid, currentCase, currentPlayer, player1, player2)
-						# sleep(1)
-			currentPlayer = player2
-		elif currentPlayer == player2 and player2[0] == '\t' and player2[1] == '2':
-			if randint(0, 1):
-				currentCase = randint(1, 9)
-				while grid[(currentCase - 1) // 3][(currentCase - 1) % 3] != ' ':
+						sleep(1)
+			currentPlayer = player2 # Change le joueur actuel
+		elif currentPlayer == player2 and player2[0] == '\t' and player2[1] == '2': # Si le joueur actuel est un bot et qu'il est le joueur 2 et qu'il est de difficulté 2
+			if randint(0, 1): # Choisi aléatoirement entre jouer aléatoirement ou jouer pour gagner
+				currentCase = randint(1, 9) # Choisi une case aléatoire
+				while grid[(currentCase - 1) // 3][(currentCase - 1) % 3] != ' ': # Vérifie si la case est vide
 					currentCase = randint(1, 9)
 				grid[(currentCase - 1) // 3][(currentCase - 1) % 3] = '○' # Ajoute le symbole du joueur actuel
 				displayGrid(grid, currentCase, currentPlayer, player1, player2)
-				# sleep(1)
+				sleep(1)
 			else:
-				posWin = checkPreWin(grid, '○')
-				if posWin[0] != 4 and grid[posWin[0]][posWin[1]] == ' ':
-					currentCase = posWin[0] * 3 + posWin[1] + 1
-					grid[posWin[0]][posWin[1]] = '○'
+				posWin = checkPreWin(grid, '○') # Vérifie si le joueur peut gagner
+				if posWin[0] != 4 and grid[posWin[0]][posWin[1]] == ' ': # Vérifie si la case est vide et si le joueur peut gagner
+					currentCase = posWin[0] * 3 + posWin[1] + 1 # Converti la position en case
+					grid[posWin[0]][posWin[1]] = '○' # Ajoute le symbole du joueur actuel
 					displayGrid(grid, currentCase, currentPlayer, player1, player2)
-					# sleep(1)
-				else:
-					posBlock = checkPreWin(grid, '×')
-					if posBlock[0] != 4 and grid[posBlock[0]][posBlock[1]] == ' ':
-						currentCase = posBlock[0] * 3 + posBlock[1] + 1
-						grid[posBlock[0]][posBlock[1]] = '○'
+					sleep(1)
+				else: # Si le joueur ne peut pas gagner
+					posBlock = checkPreWin(grid, '×') # Vérifie si le joueur peut bloquer
+					if posBlock[0] != 4 and grid[posBlock[0]][posBlock[1]] == ' ': # Vérifie si la case est vide et si le joueur peut bloquer
+						currentCase = posBlock[0] * 3 + posBlock[1] + 1 # Converti la position en case
+						grid[posBlock[0]][posBlock[1]] = '○' # Ajoute le symbole du joueur actuel
 						displayGrid(grid, currentCase, currentPlayer, player1, player2)
-						# sleep(1)
-					else:
-						currentCase = randint(1, 9)
-						while grid[(currentCase - 1) // 3][(currentCase - 1) % 3] != ' ':
+						sleep(1)
+					else: # Si le joueur ne peut pas gagner ou bloquer
+						currentCase = randint(1, 9) # Choisi une case aléatoire
+						while grid[(currentCase - 1) // 3][(currentCase - 1) % 3] != ' ': # Vérifie si la case est vide
 							currentCase = randint(1, 9)
 						grid[(currentCase - 1) // 3][(currentCase - 1) % 3] = '○' # Ajoute le symbole du joueur actuel
 						displayGrid(grid, currentCase, currentPlayer, player1, player2)
-						# sleep(1)
-			currentPlayer = player1
+						sleep(1)
+			currentPlayer = player1 # Change le joueur actuel
 
-		elif currentPlayer == player1 and player1[0] == '\t' and player1[1] == '3':
-			posWin = checkPreWin(grid, '×')
-			if posWin[0] != 4 and grid[posWin[0]][posWin[1]] == ' ':
-				currentCase = posWin[0] * 3 + posWin[1] + 1
-				grid[posWin[0]][posWin[1]] = '×'
+		elif currentPlayer == player1 and player1[0] == '\t' and player1[1] == '3': # Si le joueur actuel est un bot et qu'il est le joueur 1 et qu'il est de difficulté 3
+			posWin = checkPreWin(grid, '×') # Vérifie si le joueur peut gagner
+			if posWin[0] != 4 and grid[posWin[0]][posWin[1]] == ' ': # Vérifie si la case est vide et si le joueur peut gagner
+				currentCase = posWin[0] * 3 + posWin[1] + 1 # Converti la position en case
+				grid[posWin[0]][posWin[1]] = '×' # Ajoute le symbole du joueur actuel
 				displayGrid(grid, currentCase, currentPlayer, player1, player2)
-				# sleep(1)
-			else:
-				posBlock = checkPreWin(grid, '○')
-				if posBlock[0] != 4 and grid[posBlock[0]][posBlock[1]] == ' ':
-					currentCase = posBlock[0] * 3 + posBlock[1] + 1
-					grid[posBlock[0]][posBlock[1]] = '×'
+				sleep(1)
+			else: # Si le joueur ne peut pas gagner
+				posBlock = checkPreWin(grid, '○') # Vérifie si le joueur peut bloquer
+				if posBlock[0] != 4 and grid[posBlock[0]][posBlock[1]] == ' ': # Vérifie si la case est vide et si le joueur peut bloquer
+					currentCase = posBlock[0] * 3 + posBlock[1] + 1 # Converti la position en case
+					grid[posBlock[0]][posBlock[1]] = '×' # Ajoute le symbole du joueur actuel
 					displayGrid(grid, currentCase, currentPlayer, player1, player2)
-					# sleep(1)
-				else:
-					currentCase = randint(1, 9)
-					while grid[(currentCase - 1) // 3][(currentCase - 1) % 3] != ' ':
+					sleep(1)
+				else: # Si le joueur ne peut pas gagner ou bloquer
+					currentCase = randint(1, 9) # Choisi une case aléatoire
+					while grid[(currentCase - 1) // 3][(currentCase - 1) % 3] != ' ': # Vérifie si la case est vide
 						currentCase = randint(1, 9)
 					grid[(currentCase - 1) // 3][(currentCase - 1) % 3] = '×' # Ajoute le symbole du joueur actuel
 					displayGrid(grid, currentCase, currentPlayer, player1, player2)
-					# sleep(1)
-			currentPlayer = player2
-		elif currentPlayer == player2 and player2[0] == '\t' and player2[1] == '3':
-			posWin = checkPreWin(grid, '○')
-			if posWin[0] != 4 and grid[posWin[0]][posWin[1]] == ' ':
-				currentCase = posWin[0] * 3 + posWin[1] + 1
-				grid[posWin[0]][posWin[1]] = '○'
+					sleep(1)
+			currentPlayer = player2 # Change le joueur actuel
+		elif currentPlayer == player2 and player2[0] == '\t' and player2[1] == '3': # Si le joueur actuel est un bot et qu'il est le joueur 2 et qu'il est de difficulté 3
+			posWin = checkPreWin(grid, '○') # Vérifie si le joueur peut gagner
+			if posWin[0] != 4 and grid[posWin[0]][posWin[1]] == ' ': # Vérifie si la case est vide et si le joueur peut gagner
+				currentCase = posWin[0] * 3 + posWin[1] + 1 # Converti la position en case
+				grid[posWin[0]][posWin[1]] = '○' # Ajoute le symbole du joueur actuel
 				displayGrid(grid, currentCase, currentPlayer, player1, player2)
-				# sleep(1)
-			else:
-				posBlock = checkPreWin(grid, '×')
-				if posBlock[0] != 4 and grid[posBlock[0]][posBlock[1]] == ' ':
-					currentCase = posBlock[0] * 3 + posBlock[1] + 1
-					grid[posBlock[0]][posBlock[1]] = '○'
+				sleep(1)
+			else: # Si le joueur ne peut pas gagner
+				posBlock = checkPreWin(grid, '×') # Vérifie si le joueur peut bloquer
+				if posBlock[0] != 4 and grid[posBlock[0]][posBlock[1]] == ' ': # Vérifie si la case est vide et si le joueur peut bloquer
+					currentCase = posBlock[0] * 3 + posBlock[1] + 1 # Converti la position en case
+					grid[posBlock[0]][posBlock[1]] = '○' # Ajoute le symbole du joueur actuel
 					displayGrid(grid, currentCase, currentPlayer, player1, player2)
-					# sleep(1)
-				else:
-					currentCase = randint(1, 9)
-					while grid[(currentCase - 1) // 3][(currentCase - 1) % 3] != ' ':
+					sleep(1)
+				else: # Si le joueur ne peut pas gagner ou bloquer
+					currentCase = randint(1, 9) # Choisi une case aléatoire
+					while grid[(currentCase - 1) // 3][(currentCase - 1) % 3] != ' ': # Vérifie si la case est vide
 						currentCase = randint(1, 9)
 					grid[(currentCase - 1) // 3][(currentCase - 1) % 3] = '○' # Ajoute le symbole du joueur actuel
 					displayGrid(grid, currentCase, currentPlayer, player1, player2)
-					# sleep(1)
-			currentPlayer = player1
+					sleep(1)
+			currentPlayer = player1 # Change le joueur actuel
 
 		else:
 			while True:
@@ -432,48 +424,23 @@ def start(player1 : str, player2: str):
 				displayGrid(grid, currentCase, currentPlayer, player1, player2)
 		if checkWin(grid) is True: # Vérifie si un joueur a gagné
 			displayEmptySquare() # Affiche le gagnant
-			if currentPlayer == player2 and player1[0] != '\t':
+			if currentPlayer == player2 and player1[0] != '\t': # Ajoute les points au gagnant
 				centerText(f"{player1} a gagné")
 				addPoint(player1, 3)
 				sleep(1)
-			elif currentPlayer == player1 and player2[0] != '\t':
+			elif currentPlayer == player1 and player2[0] != '\t': # Ajoute les points au gagnant
 				centerText(f"{player2} a gagné")
 				addPoint(player2, 3)
 				sleep(1)
 			else:
-				if player1[0] == '\t' and currentPlayer == player2:
+				if player1[0] == '\t' and currentPlayer == player2: # Affiche le gagnant
 					centerText(f"Le bot 1 a gagné")
-					# 
-					bot1 += 1
-					partie += 1
-					grid = [[' ', ' ', ' '], [' ', ' ', ' '], [' ', ' ', ' ']] # Initialise la grille
-					currentPlayer = ehh
-					with open("output.txt", "w") as file:
-						file.write(f"Bot 1 : {bot1} Bot 2 : {bot2} Egalité : {ega}")
-					#
-				elif player2[0] == '\t' and currentPlayer == player1:
+				elif player2[0] == '\t' and currentPlayer == player1: # Affiche le gagnant
 					centerText(f"Le bot 2 a gagné")
-					#
-					bot2 += 1
-					partie += 1
-					grid = [[' ', ' ', ' '], [' ', ' ', ' '], [' ', ' ', ' ']] # Initialise la grille
-					currentPlayer = ehh
-					with open("output.txt", "w") as file:
-						file.write(f"Bot 1 : {bot1} Bot 2 : {bot2} Egalité : {ega}")
-					#
-			# sleep(1)
-			# return
+			sleep(1)
+			return
 		elif grid[0][0] != ' ' and grid[0][1] != ' ' and grid[0][2] != ' ' and grid[1][0] != ' ' and grid[1][1] != ' ' and grid[1][2] != ' ' and grid[2][0] != ' ' and grid[2][1] != ' ' and grid[2][2] != ' ': # Vérifie si il y a égalité
 			displayEmptySquare() # Affiche l'égalité
 			centerText("Égalité")
-			# 
-			ega += 1
-			partie += 1
-			grid = [[' ', ' ', ' '], [' ', ' ', ' '], [' ', ' ', ' ']] # Initialise la grille
-			currentPlayer = ehh
-			with open("output.txt", "w") as file:
-				file.write(f"Bot 1 : {bot1} Bot 2 : {bot2} Egalité : {ega}")
-			# 
-			# sleep(1)
-			# return
-		
+			sleep(1)
+			return
