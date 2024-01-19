@@ -159,8 +159,11 @@ def displayMenuPlayer(player : int) -> None:
 	centerTextAtLine(6, "┌──────────────────────────────────┐")
 	centerTextAtLine(7, "│              BONJOUR             │")
 	centerTextAtLine(8, f"│   Entrez votre pseudo joueur {player}   │")
-	centerTextAtLine(9, "└──────────────────────────────────┘")
-	centerTextAtLine(11, "Votre pseudo :")
+	centerTextAtLine(9, "│   ou appuyez sur entrée si       │")
+	centerTextAtLine(10, f"│   vous voulez que le joueur {player}    │")
+	centerTextAtLine(11, "│   soit un bot.                   │")
+	centerTextAtLine(12, "└──────────────────────────────────┘")
+	centerTextAtLine(14, "Votre pseudo :")
 
 def main() -> None:
 	player1 : str
@@ -190,19 +193,19 @@ def main() -> None:
 	pseudo = "> "
 
 	displayMenuPlayer(1)
-	centerTextAtLine(13, pseudo)
+	centerTextAtLine(16, pseudo)
 	while True:
-		setCursorPosition(12, maxWidth // 2 + 4) # Défini la position du curseur
+		setCursorPosition(16, maxWidth // 2 + 4) # Défini la position du curseur
 		currChar = getKey() # Récupère la touche pressée
 		if len(currChar) == 1 and currChar.isprintable(): # Vérifie si la touche pressée est un caractère imprimable
 			pseudo += currChar # Ajoute le caractère au pseudo
-			centerTextAtLine(13, pseudo) # Affiche le pseudo
+			centerTextAtLine(16, pseudo) # Affiche le pseudo
 		elif currChar == "ENTER":
 			break # Si la touche pressée est Entrée et que le pseudo est plus grand que 2 on sort de la boucle
 		elif currChar == "BACKSPACE" and len(pseudo) > 2: # Vérifie si la touche pressée est Backspace
-			centerTextAtLine(13, " " * len(pseudo)) # Affiche des espaces pour effacer le pseudo
+			centerTextAtLine(16, " " * len(pseudo)) # Affiche des espaces pour effacer le pseudo
 			pseudo = pseudo[:-1] # Enlève le dernier caractère du pseudo
-			centerTextAtLine(13, pseudo)
+			centerTextAtLine(16, pseudo)
 		elif currChar == "TAB": # Vérifie si la touche pressée est Tab
 			restoreTerm(original) # Restore le terminal de base
 		else:
@@ -233,19 +236,19 @@ def main() -> None:
 	player2 = player1 # Défini le joueur 2 comme le joueur 1 pour éviter les mêmes pseudos
 
 	displayMenuPlayer(2)
-	centerTextAtLine(13, pseudo)
+	centerTextAtLine(16, pseudo)
 	while player2 == player1:
-		setCursorPosition(12, maxWidth // 2 + 4)
+		setCursorPosition(16, maxWidth // 2 + 4)
 		currChar = getKey()
 		if len(currChar) == 1 and currChar.isprintable():
 			pseudo += currChar
-			centerTextAtLine(13, pseudo)
+			centerTextAtLine(16, pseudo)
 		elif currChar == "ENTER" and len(pseudo) > 0:
 			break
 		elif currChar == "BACKSPACE" and len(pseudo) > 2:
-			centerTextAtLine(13, " " * len(pseudo))
+			centerTextAtLine(16, " " * len(pseudo))
 			pseudo = pseudo[:-1]
-			centerTextAtLine(13, pseudo)
+			centerTextAtLine(16, pseudo)
 		elif currChar == "TAB":
 			restoreTerm(original)
 		elif len(currChar) > 1:
