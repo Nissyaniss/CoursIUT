@@ -229,10 +229,6 @@ def start(player1 : str, player2 : str):
 		return
 	displayEmptySquare()
 	
-	bot1 = 0
-	bot2 = 0
-	egacount = 0
-	
 	while True:
 		while True:			
 			if currentPlayer == 1 and player1[0] != '\t': # Affiche le joueur actuel
@@ -249,7 +245,7 @@ def start(player1 : str, player2 : str):
 				centerTextAtLine(13, "C'est actuellement au tour du bot")
 			displayGrid(grid, currentCase, currentPlayer)
 			if player1[0] == '\t' and currentPlayer == 1:
-				currentCase = randint(0, 6)
+				currentCase = randint(0, 6) # Choisi une case aléatoire
 				for e in grid: # Vérifie si il y a égalité
 					for e2 in e:
 						if e2 != " ":
@@ -259,7 +255,7 @@ def start(player1 : str, player2 : str):
 					centerText("Égalité")
 					sleep(1)
 					return
-				while grid[0][currentCase] != " ": 
+				while grid[0][currentCase] != " ": # Vérifie si la case est vide
 					currentCase = randint(0, 6)
 				i = 5
 				while i >= 0:
@@ -273,9 +269,9 @@ def start(player1 : str, player2 : str):
 					centerText(f"Le bot 1 a gagné !")
 					sleep(1)
 					return
-				currentPlayer = 2
+				currentPlayer = 2 # Change de joueur
 			elif player2[0] == '\t' and currentPlayer == 2:
-				currentCase = randint(0, 6)
+				currentCase = randint(0, 6) # Choisi une case aléatoire
 				for e in grid: # Vérifie si il y a égalité
 					for e2 in e:
 						if e2 != " ":
@@ -283,7 +279,6 @@ def start(player1 : str, player2 : str):
 				if i == 42:
 					displayEmptySquare()
 					centerText("Égalité")
-					egacount += 1
 					grid = [[" " for i in range(7)] for j in range(6)] # Initialise la grille
 					sleep(1)
 					return
@@ -301,7 +296,7 @@ def start(player1 : str, player2 : str):
 					centerText(f"Le bot 2 a gagné !")
 					sleep(1)
 					return
-				currentPlayer = 1
+				currentPlayer = 1 # Change de joueur
 			else:
 				currChar = getKey()
 				if currChar == "RIGHT" and currentCase < 6: # Change la case sélectionner
