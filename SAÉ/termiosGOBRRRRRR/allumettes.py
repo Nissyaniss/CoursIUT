@@ -1,5 +1,3 @@
-from calendar import c
-import random
 from time import sleep
 from os import get_terminal_size
 from random import randint
@@ -130,14 +128,7 @@ def start(player1 : str, player2 : str) -> None:
 	hasBotPlayed : bool
 
 	maxHeight = get_terminal_size().lines - 3 # Récupère la hauteur du terminal
-	if player1[0] == '\t' and player2[0] == '\t':
-		currentPlayer = selectPlayer(player1, player2)
-	elif player1[0] == '\t':
-		currentPlayer = selectPlayer(player1, player2)
-	elif player2[0] == '\t':
-		currentPlayer = selectPlayer(player1, player2)
-	else:
-		currentPlayer = selectPlayer(player1, player2)
+	currentPlayer = selectPlayer(player1, player2)
 	matchs = 20
 	currChar = ""
 	currentSelectedNb = 1
@@ -173,7 +164,7 @@ def start(player1 : str, player2 : str) -> None:
 				currentSelectedNb = randint(1, 3)
 			matchs = matchs - currentSelectedNb # Retire le nombre d'allumettes sélectionner
 		elif (player1[0] == '\t' and player1[1] == '2' and currentPlayer == player1) or (player2[0] == '\t' and player2[1] == '2' and currentPlayer == player2):
-			if random.randint(0, 1) == 1:
+			if randint(0, 1) == 1:
 				currentSelectedNb = randint(1, 3)
 				while matchs - currentSelectedNb < 0:
 					currentSelectedNb = randint(1, 3)
@@ -241,7 +232,6 @@ def start(player1 : str, player2 : str) -> None:
 				elif currChar == "ENTER": # Retourne le nombre d'allumettes sélectionner
 					matchs = matchs - currentSelectedNb # Retire le nombre d'allumettes sélectionner
 					break
-
 		if matchs == 0: # Vérifie si le joueur a gagné
 			displayEmptySquare()
 			if currentPlayer == player1 and player2[0] != '\t': # Affiche le gagnant

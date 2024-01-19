@@ -123,7 +123,9 @@ def start(player1 : str, player2 : str) -> None:
 	start : int
 	end : int
 	result : int
-	previousNumber : int
+	maxPrev : int
+	minPrev : int
+	isFirstPlay : bool
 
 	maxWidth = get_terminal_size().columns - 3 # Récupère la taille du terminal
 	maxHeight = get_terminal_size().lines - 3
@@ -140,7 +142,9 @@ def start(player1 : str, player2 : str) -> None:
 	start = 1
 	end = 999
 	result = 0
-	previousNumber = 1
+	maxPrev = 999
+	minPrev = 1
+	isFirstPlay = True
 
 	displayEmptySquare()
 	displayMenuPlayer()
@@ -189,13 +193,19 @@ def start(player1 : str, player2 : str) -> None:
 		displayEmptySquare()
 		if guesser[0] == '\t':
 			if guesser[1] == "1":
-				if currentSelectedOption == 1:
-					result = random.randint(previousNumber + 1 , 999)
-				elif currentSelectedOption == 2:
-					result = random.randint(1, previousNumber - 1)
+				if isFirstPlay:
+					result = random.randint(minPrev, maxPrev)
+				if currentSelectedOption == 1 and minPrev != maxPrev and not isFirstPlay:
+					minPrev = result + 1
+				elif currentSelectedOption == 2 and maxPrev != minPrev and not isFirstPlay:
+					maxPrev = result - 1
+				if minPrev != maxPrev and not isFirstPlay:
+					result = random.randint(minPrev, maxPrev)
 				if currentSelectedOption != 3:
-					previousNumber = result
 					tries += 1
+					isFirstPlay = False
+					if maxPrev == minPrev:
+						result = maxPrev
 					centerText("Devinez : " + str(result)) # Demande le nombre à deviner
 					sleep(1)
 					displayEmptySquare()
@@ -211,7 +221,6 @@ def start(player1 : str, player2 : str) -> None:
 					elif result == int(solution):
 						centerTextAtLine(13, displaySelectedOption(3))
 						currentSelectedOption = 3
-						break
 					sleep(1)
 					print("\x1b[?25h", end='', flush=True)
 				else:
@@ -230,18 +239,14 @@ def start(player1 : str, player2 : str) -> None:
 			elif guesser[1] == "2":
 				if random.randint(0, 1):
 					result = (start + end) // 2
-					previousNumber = result
+					isFirstPlay = False
 					if result == int(solution):
+						tries += 1
 						centerText("Devinez : " + str(result)) # Demande le nombre à deviner
 						sleep(1)
 						displayEmptySquare()
 						print("\x1b[?25l", end='', flush=True)
-						if master[0] == '\t':
-							displayMenuMaster(str(result))
-							centerTextAtLine(13, displaySelectedOption(3))
-							sleep(1)
-							print("\x1b[?25h", end='', flush=True)
-							break
+						displayMenuMaster(f"{str(result)}")
 					elif result < int(solution):
 						start = result + 1
 						tries += 1
@@ -249,12 +254,7 @@ def start(player1 : str, player2 : str) -> None:
 						sleep(1)
 						displayEmptySquare()
 						print("\x1b[?25l", end='', flush=True)
-						if master[0] == '\t':
-							displayMenuMaster(str(result))
-							centerTextAtLine(11, displaySelectedOption(1))
-							sleep(1)
-							print("\x1b[?25h", end='', flush=True)
-						displayEmptySquare()
+						displayMenuMaster(f"{str(result)}")
 					else:
 						end = result - 1
 						tries += 1
@@ -262,25 +262,26 @@ def start(player1 : str, player2 : str) -> None:
 						sleep(1)
 						displayEmptySquare()
 						print("\x1b[?25l", end='', flush=True)
-						if master[0] == '\t':
-							displayMenuMaster(str(result))
-							centerTextAtLine(12, displaySelectedOption(2))
-							sleep(1)
-							print("\x1b[?25h", end='', flush=True)
-						displayEmptySquare()
+						displayMenuMaster(f"{str(result)}")
 				else:
-					if currentSelectedOption == 1:
-						result = random.randint(previousNumber + 1 , 999)
-					elif currentSelectedOption == 2:
-						result = random.randint(1, previousNumber - 1)
+					if isFirstPlay:
+						result = random.randint(start, end)
+					elif currentSelectedOption == 1 and start != end:
+						start = result + 1
+						result = random.randint(start, end)
+					elif currentSelectedOption == 2 and start != end:
+						end = result - 1
+						result = random.randint(start, end)
 					if currentSelectedOption != 3:
 						tries += 1
-						previousNumber = result
+						isFirstPlay = False
+						if start == end:
+							result = end
 						centerText("Devinez : " + str(result)) # Demande le nombre à deviner
 						sleep(1)
 						displayEmptySquare()
-					print("\x1b[?25l", end='', flush=True)
-				displayMenuMaster(str(result))
+						print("\x1b[?25l", end='', flush=True)
+						displayMenuMaster(f"{str(result)}")
 				if master[0] == '\t':
 					if result < int(solution):
 						centerTextAtLine(11, displaySelectedOption(1))
@@ -291,7 +292,6 @@ def start(player1 : str, player2 : str) -> None:
 					elif result == int(solution):
 						centerTextAtLine(13, displaySelectedOption(3))
 						currentSelectedOption = 3
-						break
 					sleep(1)
 					print("\x1b[?25h", end='', flush=True)
 				else:
@@ -359,7 +359,6 @@ def start(player1 : str, player2 : str) -> None:
 						elif result == int(solution):
 							centerTextAtLine(13, displaySelectedOption(3))
 							currentSelectedOption = 3
-							break
 						sleep(1)
 						print("\x1b[?25h", end='', flush=True)
 					else:
@@ -445,14 +444,16 @@ def start(player1 : str, player2 : str) -> None:
 				currChar = getKey()
 				if currChar == "TAB":
 					return
-		elif tries == maxTries and guesser[0] != '\t': # Vérifie si le joueur a pas dépassé le nombre d'essais
+		elif tries == maxTries: # Vérifie si le joueur a pas dépassé le nombre d'essais
 			print("\x1b[?25l", end='', flush=True)
 			displayEmptySquare()
 			if master[0] != '\t':
 				centerText(f"{master} a gagné car {guesser} n'a pas trouvé en {maxTries} essais. La réponse était {solution}.")
 				addPoint(master, 1)
-			else:
+			elif guesser[0] != '\t':
 				centerText(f"Le bot a gagné car {guesser} n'a pas trouvé en {maxTries} essais. La réponse était {solution}.")
+			else:
+				centerText(f"Le bot a gagné car l'autre bot n'a pas trouvé en {maxTries} essais. La réponse était {solution}.")
 			while True:
 				currChar = getKey()
 				if currChar == "TAB":
@@ -469,4 +470,3 @@ def start(player1 : str, player2 : str) -> None:
 				currChar = getKey()
 				if currChar == "TAB":
 					return
-	
