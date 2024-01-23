@@ -9,6 +9,9 @@ from termUtils import setCursorPosition, displayEmptySquare, printAt, centerText
 def displayMenuMaster(guess : str) -> None:
 	"""
 	Affiche le menu du maître du jeu
+
+	Entrée : guess : str
+	guess symbolise le nombre à deviner
 	"""
 	displayEmptySquare()
 	centerTextAtLine(6, "┌───"+ "─" * len(guess) + "───┐")
@@ -27,7 +30,7 @@ def displaySelectedOption(currentSelectedOption : int) -> str:
 	"""
 	optionStr: str
 
-	if currentSelectedOption == 1:
+	if currentSelectedOption == 1: # Affiche l'option sélectionnée
 		optionStr = "Plus Grand"
 		centerTextAtLine(12, "  Plus Petit ")
 		centerTextAtLine(13, "  C'est Bon !")
@@ -123,7 +126,9 @@ def start(player1 : str, player2 : str) -> None:
 	start : int
 	end : int
 	result : int
-	previousNumber : int
+	maxPrev : int
+	minPrev : int
+	isFirstPlay : bool
 
 	maxWidth = get_terminal_size().columns - 3 # Récupère la taille du terminal
 	maxHeight = get_terminal_size().lines - 3
@@ -140,12 +145,14 @@ def start(player1 : str, player2 : str) -> None:
 	start = 1
 	end = 999
 	result = 0
-	previousNumber = 1
+	maxPrev = 999
+	minPrev = 1
+	isFirstPlay = True
 
 	displayEmptySquare()
 	displayMenuPlayer()
 	while True:
-		if player1[0] == '\t' and player2[0] == '\t':
+		if player1[0] == '\t' and player2[0] == '\t': # Affiche le joueur sélectionné
 			break
 		elif player1[0] == '\t':
 			printAt(10 + currentSelectedPlayer, maxWidth // 2 - len("Bot") + 2, DisplaySelectedPlayer(currentSelectedPlayer, "Bot", player2))
@@ -170,7 +177,7 @@ def start(player1 : str, player2 : str) -> None:
 		guesser = player1
 	print("\x1b[?25h", end='')
 	displayEmptySquare()
-	if master[0] != '\t':
+	if master[0] != '\t': # Demande le nombre à faire deviner
 		centerText("Nombre : ") # Demande le nombre à faire deviner
 		while True:
 			currChar = getKey()
@@ -183,105 +190,92 @@ def start(player1 : str, player2 : str) -> None:
 			elif currChar == "BACKSPACE":
 				if len(solution) != 0:
 					solution = solution[:-1]
-	else:
+	else: # Génère un nombre aléatoire
 		solution = str(random.randint(1, 999))
 	while True:
 		displayEmptySquare()
-		if guesser[0] == '\t':
-			if guesser[1] == "1":
-				if currentSelectedOption == 1:
-					result = random.randint(previousNumber + 1 , 999)
-				elif currentSelectedOption == 2:
-					result = random.randint(1, previousNumber - 1)
+		if guesser[0] == '\t': # Si le joueur est un bot
+			if guesser[1] == "1": # Si le bot est un bot de difficulté 1
+				if isFirstPlay: # Si c'est le premier tour
+					result = random.randint(minPrev, maxPrev) # Génère un nombre aléatoire
+				if currentSelectedOption == 1 and minPrev != maxPrev and not isFirstPlay:
+					minPrev = result + 1 # Si le bot a déjà joué et que le nombre est plus petit que le précédent
+				elif currentSelectedOption == 2 and maxPrev != minPrev and not isFirstPlay:
+					maxPrev = result - 1 # Si le bot a déjà joué et que le nombre est plus grand que le précédent
+				if minPrev != maxPrev and not isFirstPlay:
+					result = random.randint(minPrev, maxPrev) # Génère un nombre aléatoire
 				if currentSelectedOption != 3:
-					previousNumber = result
-					tries += 1
+					tries += 1 # Incrémente le nombre d'essais
+					isFirstPlay = False # Ce n'est plus le premier tour
+					if maxPrev == minPrev: # Si le nombre est le même que le précédent
+						result = maxPrev
+					centerText("Devinez : " + str(result)) # Demande le nombre à deviner
+					sleep(1)
+					displayEmptySquare()
+					print("\x1b[?25l", end='', flush=True)
+					displayMenuMaster(f"{str(result)}") # Affiche le menu du maître du jeu
+				if master[0] == '\t': # Si le maître est un bot, il affiche la réponse du master
+					if result < int(solution):
+						centerTextAtLine(11, displaySelectedOption(1))
+						currentSelectedOption = 1
+					elif result > int(solution):
+						centerTextAtLine(12, displaySelectedOption(2))
+						currentSelectedOption = 2
+					elif result == int(solution):
+						centerTextAtLine(13, displaySelectedOption(3))
+						currentSelectedOption = 3
+					sleep(1)
+					print("\x1b[?25h", end='', flush=True)
+				else: # Si le maître est un joueur, il affiche le menu du maître du jeu
+					while True:
+						centerTextAtLine(10 + currentSelectedOption, displaySelectedOption(currentSelectedOption))
+						currChar = getKey()
+						if currChar == "UP" and currentSelectedOption != 1: # Déplace le curseur
+							currentSelectedOption -= 1
+						elif currChar == "DOWN" and currentSelectedOption != 3:
+							currentSelectedOption += 1
+						elif currChar == "TAB":
+							return
+						elif currChar == "ENTER":
+							print("\x1b[?25h", end='', flush=True)
+							break
+			elif guesser[1] == "2": # Si le bot est un bot de difficulté 2
+				if random.randint(0, 1): # Génère un nombre aléatoire entre 0 et 1
+					result = (start + end) // 2 # Calcule la moyenne entre le max et le min
+					isFirstPlay = False # Ce n'est plus le premier tour
+					if result == int(solution): # Si le nombre est le même que la solution
+						tries += 1 # Incrémente le nombre d'essais
+					elif result < int(solution):
+						start = result + 1 # Change le min
+						tries += 1
+					else:
+						end = result - 1 # Change le max
+						tries += 1
 					centerText("Devinez : " + str(result)) # Demande le nombre à deviner
 					sleep(1)
 					displayEmptySquare()
 					print("\x1b[?25l", end='', flush=True)
 					displayMenuMaster(f"{str(result)}")
-				if master[0] == '\t':
-					if result < int(solution):
-						centerTextAtLine(11, displaySelectedOption(1))
-						currentSelectedOption = 1
-					elif result > int(solution):
-						centerTextAtLine(12, displaySelectedOption(2))
-						currentSelectedOption = 2
-					elif result == int(solution):
-						centerTextAtLine(13, displaySelectedOption(3))
-						currentSelectedOption = 3
-						break
-					sleep(1)
-					print("\x1b[?25h", end='', flush=True)
 				else:
-					while True:
-						centerTextAtLine(10 + currentSelectedOption, displaySelectedOption(currentSelectedOption))
-						currChar = getKey()
-						if currChar == "UP" and currentSelectedOption != 1: # Déplace le curseur
-							currentSelectedOption -= 1
-						elif currChar == "DOWN" and currentSelectedOption != 3:
-							currentSelectedOption += 1
-						elif currChar == "TAB":
-							return
-						elif currChar == "ENTER":
-							print("\x1b[?25h", end='', flush=True)
-							break
-			elif guesser[1] == "2":
-				if random.randint(0, 1):
-					result = (start + end) // 2
-					previousNumber = result
-					if result == int(solution):
-						centerText("Devinez : " + str(result)) # Demande le nombre à deviner
-						sleep(1)
-						displayEmptySquare()
-						print("\x1b[?25l", end='', flush=True)
-						if master[0] == '\t':
-							displayMenuMaster(str(result))
-							centerTextAtLine(13, displaySelectedOption(3))
-							sleep(1)
-							print("\x1b[?25h", end='', flush=True)
-							break
-					elif result < int(solution):
-						start = result + 1
-						tries += 1
-						centerText("Devinez : " + str(result)) # Demande le nombre à deviner
-						sleep(1)
-						displayEmptySquare()
-						print("\x1b[?25l", end='', flush=True)
-						if master[0] == '\t':
-							displayMenuMaster(str(result))
-							centerTextAtLine(11, displaySelectedOption(1))
-							sleep(1)
-							print("\x1b[?25h", end='', flush=True)
-						displayEmptySquare()
-					else:
-						end = result - 1
-						tries += 1
-						centerText("Devinez : " + str(result)) # Demande le nombre à deviner
-						sleep(1)
-						displayEmptySquare()
-						print("\x1b[?25l", end='', flush=True)
-						if master[0] == '\t':
-							displayMenuMaster(str(result))
-							centerTextAtLine(12, displaySelectedOption(2))
-							sleep(1)
-							print("\x1b[?25h", end='', flush=True)
-						displayEmptySquare()
-				else:
-					if currentSelectedOption == 1:
-						result = random.randint(previousNumber + 1 , 999)
-					elif currentSelectedOption == 2:
-						result = random.randint(1, previousNumber - 1)
+					if isFirstPlay: # Si c'est le premier tour
+						result = random.randint(start, end) # Génère un nombre aléatoire
+					if currentSelectedOption == 1 and start != end and not isFirstPlay:
+						start = result + 1 # Si le bot a déjà joué et que le nombre est plus petit que le précédent
+					elif currentSelectedOption == 2 and end != start and not isFirstPlay:
+						end = result - 1 # Si le bot a déjà joué et que le nombre est plus grand que le précédent
+					if start != end and not isFirstPlay:
+						result = random.randint(start, end) # Génère un nombre aléatoire
 					if currentSelectedOption != 3:
-						tries += 1
-						previousNumber = result
+						tries += 1 # Incrémente le nombre d'essais
+						isFirstPlay = False # Ce n'est plus le premier tour
+						if start == end:
+							result = end
 						centerText("Devinez : " + str(result)) # Demande le nombre à deviner
 						sleep(1)
 						displayEmptySquare()
-					print("\x1b[?25l", end='', flush=True)
-				displayMenuMaster(str(result))
-				if master[0] == '\t':
+						print("\x1b[?25l", end='', flush=True)
+						displayMenuMaster(f"{str(result)}")
+				if master[0] == '\t': # Si le maître est un bot, il affiche la réponse du master
 					if result < int(solution):
 						centerTextAtLine(11, displaySelectedOption(1))
 						currentSelectedOption = 1
@@ -291,10 +285,9 @@ def start(player1 : str, player2 : str) -> None:
 					elif result == int(solution):
 						centerTextAtLine(13, displaySelectedOption(3))
 						currentSelectedOption = 3
-						break
 					sleep(1)
 					print("\x1b[?25h", end='', flush=True)
-				else:
+				else: # Si le maître est un joueur, il affiche le menu du maître du jeu
 					while True:
 						centerTextAtLine(10 + currentSelectedOption, displaySelectedOption(currentSelectedOption))
 						currChar = getKey()
@@ -307,24 +300,23 @@ def start(player1 : str, player2 : str) -> None:
 						elif currChar == "ENTER":
 							print("\x1b[?25h", end='', flush=True)
 							break
-			if guesser[1] == "3":
-				while start <= end:
+			if guesser[1] == "3": # Si le bot est un bot de difficulté 3
+				while start <= end: # Tant que le min est plus petit que le max
 					displayEmptySquare()
-					result = (start + end) // 2
-					if result == int(solution):
+					result = (start + end) // 2 # Calcule la moyenne entre le max et le min
+					if result == int(solution): # Si le nombre est le même que la solution
 						centerText("Devinez : " + str(result)) # Demande le nombre à deviner
 						sleep(1)
 						displayEmptySquare()
 						print("\x1b[?25l", end='', flush=True)
-						if master[0] == '\t':
+						if master[0] == '\t': # Si le maître est un bot, il affiche la réponse du master
 							displayMenuMaster(str(result))
 							centerTextAtLine(13, displaySelectedOption(3))
 							sleep(1)
 							print("\x1b[?25h", end='', flush=True)
-							break
-					elif result < int(solution):
-						start = result + 1
-						tries += 1
+					elif result < int(solution): # Si le nombre est plus petit que la solution
+						start = result + 1 # Change le min
+						tries += 1 # Incrémente le nombre d'essais
 						centerText("Devinez : " + str(result)) # Demande le nombre à deviner
 						sleep(1)
 						displayEmptySquare()
@@ -335,9 +327,9 @@ def start(player1 : str, player2 : str) -> None:
 							sleep(1)
 							print("\x1b[?25h", end='', flush=True)
 						displayEmptySquare()
-					else:
-						end = result - 1
-						tries += 1
+					else: # Si le nombre est plus grand que la solution
+						end = result - 1 # Change le max
+						tries += 1 # Incrémente le nombre d'essais
 						centerText("Devinez : " + str(result)) # Demande le nombre à deviner
 						sleep(1)
 						displayEmptySquare()
@@ -349,7 +341,7 @@ def start(player1 : str, player2 : str) -> None:
 							print("\x1b[?25h", end='', flush=True)
 						displayEmptySquare()
 					displayMenuMaster(str(result))
-					if master[0] == '\t':
+					if master[0] == '\t': # Si le maître est un bot, il affiche la réponse du master
 						if result < int(solution):
 							centerTextAtLine(11, displaySelectedOption(1))
 							currentSelectedOption = 1
@@ -359,10 +351,9 @@ def start(player1 : str, player2 : str) -> None:
 						elif result == int(solution):
 							centerTextAtLine(13, displaySelectedOption(3))
 							currentSelectedOption = 3
-							break
 						sleep(1)
 						print("\x1b[?25h", end='', flush=True)
-					else:
+					else: # Si le maître est un joueur, il affiche le menu du maître du jeu
 						while True:
 							centerTextAtLine(10 + currentSelectedOption, displaySelectedOption(currentSelectedOption))
 							currChar = getKey()
@@ -377,25 +368,25 @@ def start(player1 : str, player2 : str) -> None:
 								break
 						if currentSelectedOption == 3:
 							break
-		else:
+		else: # Si le joueur est un joueur
 			centerText("Devinez : ") # Demande le nombre à deviner
 			while True:
 				setCursorPosition(maxHeight // 2, (maxWidth // 2 + 4) + 1 + len(guess))
 				currChar = getKey()
-				if currChar.isdigit() and len(guess) < 3:
+				if currChar.isdigit() and len(guess) < 3: # Si le caractère est un chiffre et que le nombre n'est pas trop grand
 					printAt(maxHeight // 2, (maxWidth // 2 + 5) + len(guess), currChar)
 					guess += currChar
 				elif currChar == "ENTER" and len(guess) > 0:
 					break
 				elif currChar == "TAB":
 					return
-				elif currChar == "BACKSPACE":
+				elif currChar == "BACKSPACE": # Si le caractère est un backspace et que le nombre n'est pas vide
 					if len(guess) != 0:
 						printAt(maxHeight // 2, (maxWidth // 2 + 4) + len(guess), " ")
 						guess = guess[:-1]
 			displayMenuMaster(guess)
 			print("\x1b[?25l", end='', flush=True)
-			if master[0] == '\t':
+			if master[0] == '\t': # Si le maître est un bot, il affiche la réponse du master
 				displayEmptySquare()
 				print("\x1b[?25l", end='', flush=True)
 				displayMenuMaster(guess)
@@ -414,7 +405,7 @@ def start(player1 : str, player2 : str) -> None:
 				sleep(1)
 				print("\x1b[?25h", end='', flush=True)
 				displayEmptySquare()
-			else:
+			else: # Si le maître est un joueur, il affiche le menu du maître du jeu
 				while True:
 					centerTextAtLine(10 + currentSelectedOption, displaySelectedOption(currentSelectedOption))
 					currChar = getKey()
@@ -427,7 +418,7 @@ def start(player1 : str, player2 : str) -> None:
 					elif currChar == "ENTER":
 						print("\x1b[?25h", end='', flush=True)
 						break
-			tries = tries + 1
+			tries = tries + 1 # Incrémente le nombre d'essais
 			if master[0] != '\t':
 				if currentSelectedOption == 1 and int(guess) < int(solution): # Vérifie si la réponse est bonne
 					strikes += 1
@@ -445,14 +436,16 @@ def start(player1 : str, player2 : str) -> None:
 				currChar = getKey()
 				if currChar == "TAB":
 					return
-		elif tries == maxTries and guesser[0] != '\t': # Vérifie si le joueur a pas dépassé le nombre d'essais
+		elif tries == maxTries: # Vérifie si le joueur a pas dépassé le nombre d'essais
 			print("\x1b[?25l", end='', flush=True)
 			displayEmptySquare()
 			if master[0] != '\t':
 				centerText(f"{master} a gagné car {guesser} n'a pas trouvé en {maxTries} essais. La réponse était {solution}.")
 				addPoint(master, 1)
-			else:
+			elif guesser[0] != '\t':
 				centerText(f"Le bot a gagné car {guesser} n'a pas trouvé en {maxTries} essais. La réponse était {solution}.")
+			else:
+				centerText(f"Le bot a gagné car l'autre bot n'a pas trouvé en {maxTries} essais. La réponse était {solution}.")
 			while True:
 				currChar = getKey()
 				if currChar == "TAB":
@@ -469,4 +462,3 @@ def start(player1 : str, player2 : str) -> None:
 				currChar = getKey()
 				if currChar == "TAB":
 					return
-	
