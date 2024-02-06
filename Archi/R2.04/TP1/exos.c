@@ -77,14 +77,13 @@ void exo5part1(void) {
 }
 
 void exo5part2(void) {
-	int i;
 	char str[1000];
-
+	char *p;
+	
+	p = str;
 	fgets(str, 1000, stdin);
-	i = 0;
-	while (*(str + i))
-		i++;
-	printf("Len = %d\n", i - 1);
+	while (*p++);
+	printf("Len = %ld\n", p - str);
 }
 
 int main(void) {
