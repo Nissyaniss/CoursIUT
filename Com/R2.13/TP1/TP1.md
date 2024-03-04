@@ -1,6 +1,6 @@
 # Introduction
 
-## L'affiche publicitaire au coeur de la signification :
+## L'affiche publicitaire au cœur de la signification :
 
 > Une représentation graphique de quelque chose sera toujours plus impactant qu'un texte et donc plus attrayant a l'oeil.
 
@@ -28,10 +28,11 @@
 
 ## C. Les parcours de lecture :
 
->- **La construction séquentielle** : Un "chemin" pré-fait pour guider l'oeil du consommateur.
+>- **La construction séquentielle** : Un "chemin" pré-fait pour guider l'œil du consommateur.
 >- **La construction focalisée** : Tout les élément "pointe" vers le produits.
 >- **La construction axiale** : Les points d'importance sont placé verticalement.
->- **La construction profondeur** : L'oeil est attiré par le premier plan mais la scene est complétée par l'arrière plan.
+>- **La construction profondeur** : L'œil est attiré par le premier plan mais la scene est complétée par l'arrière plan.
+
 ## D. Les fonctions sémiotiques : 
 
 >- **Conatif** : C'est le texte ou logo qui permet d'inciter l'achat.
