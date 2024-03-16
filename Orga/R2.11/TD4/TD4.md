@@ -22,9 +22,9 @@
 > 1. Un contrat de travail existe dès lors qu'une personne (le salarié) s'engage à travailler, moyennant rémunération, pour le compte et sous les ordres et le contrôle d'une autre personne (l'employeur). Son exécution entraîne un certain nombre d'obligations, tant pour le salarié que pour l'employeur.\
 > Le lien de subordination se manifeste par l’exécution du travail sous l’autorité de l’employeur qui peut donner des directives et des ordres, contrôler l’exécution du travail et sanctionner les manquements du subordonné.\
 
->2. Le droit au salaire et aux congés payés ; La rémunération des heures supplémentaires ; Le droit au respect de la vie privée ; Le droit aux indemnités de licenciement, le cas échéant etc\
+> 2. Le droit au salaire et aux congés payés ; La rémunération des heures supplémentaires ; Le droit au respect de la vie privée ; Le droit aux indemnités de licenciement, le cas échéant etc\
 
->3. Les clauses sont:
+> 3. Les clauses sont:
 >- La clause de période d'essai.
 >- La clause de non-concurrence.
 >- La clause d'exclusivité.
@@ -33,10 +33,10 @@
 >- La clause de mobilité.
 >- La clause d'indivisibilité.
 >- La clause de garantie d'emploi.
->4. Une clause de mobilité est une disposition prévue dans le contrat de travail ou la convention collective. La clause prévoit que le salarié accepte, à l'avance, que son lieu de travail peut être modifié. Cette mutation s'impose alors au salarié. \
+> 4. Une clause de mobilité est une disposition prévue dans le contrat de travail ou la convention collective. La clause prévoit que le salarié accepte, à l'avance, que son lieu de travail peut être modifié. Cette mutation s'impose alors au salarié. \
 > **Limitation dans le temps** : En règle générale, une clause de mobilité doit être raisonnable en termes de durée. Une clause qui oblige un employé à être mobile pour toute la durée de son emploi sans limite de temps pourrait être considérée comme abusive. \
 > **Limitation dans l'espace** : La clause de mobilité doit déterminer un périmètre précis, que l'employeur ne pourra pas modifier sans l'accord du salarié. Une clause de mobilité peut être valable, même si elle couvre toute la France \
->5. L'employeur ne peut pas, après signature du contrat de travail, modifier sans l'accord du salarié l'étendue de la zone géographique. \
+> 5. L'employeur ne peut pas, après signature du contrat de travail, modifier sans l'accord du salarié l'étendue de la zone géographique. \
 
 # Exercice 5
 
