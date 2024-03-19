@@ -1,10 +1,10 @@
 package farWest;
 
-public class Bandit extends PersonnageFarWest {
+public class Bandit extends PersonnageFarWest implements EtreCapableDeTirerAvecUneArmeAFeu {
 	private Integer taille;
 	private Boolean estEnPrison;
 
-	public Bandit(Integer taille, String prenom, String nom) {
+	public Bandit(String prenom, String nom, Integer taille) {
 		super(prenom, nom);
 		this.taille = taille;
 		this.estEnPrison = false;
@@ -23,7 +23,13 @@ public class Bandit extends PersonnageFarWest {
 	}
 	
 	@Override
+	public void tirerAuPistolet() {
+		System.out.println("Je tire au pistolet : .......Pan......Pan......Pan");
+		
+	}
+	
+	@Override
 	public String decrire() {
-		return super.decrire() + "mesure " + this.taille + " cm et je suis " + (this.estEnPrison ? "en Prison" : "Libre");
+		return super.decrire() + "Je mesure " + this.taille + " cm et je suis " + (this.estEnPrison ? "en Prison" : "Libre");
 	}
 }
