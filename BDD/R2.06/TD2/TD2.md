@@ -101,7 +101,7 @@ CREATE TABLE works_on (
 
 ```sql
 CREATE TABLE Étudiant (
-    num_etu SERIAL PRIMARY KEY,
+    num_etu TEXT PRIMARY KEY,
     prénom TEXT NOT NULL,
     nom TEXT NOT NULL
 );
@@ -112,8 +112,10 @@ CREATE TABLE module (
 );
 
 CREATE TABLE evalué (
-    num_etu SERIAL REFERENCES Étudiant(num_etu),
+    num_etu TEXT REFERENCES Étudiant(num_etu) NOT NULL,
+        ON UPDATE CASCADE ON DELETE CASCADE
     code_alpha TEXT REFERENCES module(func_id),
+        ON UPDATE CASCADE ON DELETE CASCADE
     note INT,
     
     PRIMARY KEY(num_etu, code_alpha)
@@ -124,20 +126,88 @@ CREATE TABLE evalué (
 
 ```sql
 CREATE TABLE Pays (
-    id_pays SERIAL PRIMARY KEY,
-    nom TEXT NOT NULL,
+    nom TEXT PRIMARY KEY NOT NULL,
     monnaie TEXT NOT NULL
 );
 
 CREATE TABLE Régions (
-    id_régions SERIAL PRIMARY KEY,
     nom TEXT NOT NULL,
     langue TEXT NOT NULL,
-    id_pays SERIAL REFERENCES Pays(id_pays)
+    nom TEXT REFERENCES Pays(nom)
+        ON UPDATE CASCADE ON DELETE CASCADE
 );
 ```
 
 # Exercice 8
 
 ```sql
+CREATE SCHEMA ville;
+
+CREATE TABLE ville.Immeuble (
+    id_immeuble SERIAL PRIMARY KEY,
+    nom TEXT NOT NULL,
+    adresse TEXT NOT NULL,
+);
+
+CREATE TABLE ville.Propriétaire (
+    id_propriétaire SERIAL PRIMARY KEY
+);
+
+CREATE TABLE ville.Appartement (
+    numéro INT NOT NULL,
+    propriétaire INT REFERENCES ville.Propriétaire (id_proprio)
+        ON DELETE SET NULL,
+    id_immeuble INT REFERENCES ville.Immeuble (id_immeuble) NOT NULL
+        ON DELETE CASCADE
+
+    PRIMARY KEY(id_immeuble, numéro)
+);
+```
+
+# Exercice 9
+
+```sql
+CREATE TABLE Véhicule (
+    idVéhicule SERIAL NOT NULL,
+    modèle TEXT NOT NULL,
+    prix DECIMAL NOT NULL
+);
+
+CREATE TABLE Véhicule_a_moteur (
+    idVéhicule INT REFRENCES Véhicule(idVéhicule)
+        ON DELETE CASCADE PRIMARY KEY,
+    puissance INT NOT NULL
+);
+
+CREATE TABLE Vélo (
+    idVéhicule INT REFERENCES Véhicule(idVéhicule)
+        ON DELETE CASCADE PRIMARY KEY
+);
+```
+
+# Exercice 10
+
+```sql
+CREATE SCHEMA Forum;
+
+CREATE TABLE Utilisateur (
+    id_utilisateur SERIAL PRIMARY KEY,
+    nom TEXT NOT NULL,
+    prénom TEXT NOT NULL
+);
+
+CREATE TABLE Message (
+    id_mess SERIAL PRIMARY KEY,
+    contenu TEXT NOT NULL
+)
+
+CREATE TABLE Réponse (
+    id_mess INT REFERENCE Message(id_mess) PRIMARY KEY,
+    message INT REFERENCE Message(id_mess),
+)
+
+CREATE TABLE OuvreFil (
+    id_mess INT REFENCES Message(id_mess) PRIMARY KEY,
+    Titre TEXT NOT NULL
+)
 ```
