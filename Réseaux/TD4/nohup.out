@@ -1,0 +1,25 @@
+2024-03-25 10:31:42 Loading main app package /usr/lib/obsidian/obsidian.asar
+2024-03-25 10:31:42 Checking for update using Github
+libva error: /usr/lib/dri/nvidia_drv_video.so init failed
+2024-03-25 10:31:43 Success.
+2024-03-25 10:31:43 Latest version is 1.5.11
+2024-03-25 10:31:43 App is up to date.
+[14858:0325/113147.910859:ERROR:network_service_instance_impl.cc(601)] Network service crashed, restarting service.
+[14858:0325/113147.929089:ERROR:zygote_communication_linux.cc(290)] Failed to send GetTerminationStatus message to zygote
+Error sending from webFrameMain:  Error: Render frame was disposed before WebFrameMain could be accessed
+    at s._sendInternal (node:electron/js2c/browser_init:2:83221)
+    at _._sendInternal (node:electron/js2c/browser_init:2:69245)
+    at node:electron/js2c/browser_init:2:95589
+    at new Promise (<anonymous>)
+    at Object.invokeInWebContents (node:electron/js2c/browser_init:2:95336)
+    at _.executeJavaScript (node:electron/js2c/browser_init:2:70207)
+[14858:0325/113147.937952:ERROR:gpu_process_host.cc(987)] GPU process launch failed: error_code=1002
+[14858:0325/113147.939071:ERROR:gpu_process_host.cc(987)] GPU process launch failed: error_code=1002
+[14858:0325/113147.939484:ERROR:gpu_process_host.cc(987)] GPU process launch failed: error_code=1002
+[14858:0325/113147.940132:ERROR:gpu_process_host.cc(987)] GPU process launch failed: error_code=1002
+[14858:0325/113147.940485:ERROR:gpu_process_host.cc(987)] GPU process launch failed: error_code=1002
+[14858:0325/113147.941171:ERROR:gpu_process_host.cc(987)] GPU process launch failed: error_code=1002
+[14858:0325/113147.941986:ERROR:gpu_process_host.cc(987)] GPU process launch failed: error_code=1002
+[14858:0325/113147.942284:ERROR:gpu_process_host.cc(987)] GPU process launch failed: error_code=1002
+[14858:0325/113147.942672:ERROR:gpu_process_host.cc(987)] GPU process launch failed: error_code=1002
+[14858:0325/113147.942681:FATAL:gpu_data_manager_impl_private.cc(448)] GPU process isn't usable. Goodbye.
