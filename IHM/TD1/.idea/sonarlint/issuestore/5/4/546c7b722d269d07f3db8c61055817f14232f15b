@@ -1,0 +1,25 @@
+
+k
+java:S1604?"(Make this anonymous inner class a lambda(èÿó 8Í¦¢ê1J$4cfa98bd-ff94-49de-a6ea-4a1cce2d5d7a
+Ä
+java:S1598"€This file "LoginAppFX.java" should be located in "org/example/td1" directory, not in "/home/nissya/Cours/IHM/TD1/src/main/java".(è²ì8íÀ‰¢ê1J$b0ab1ee2-4bfe-4090-b590-da9729fd0456
+š
+java:S1450"RRemove the "app" field and declare it as a local variable in the relevant methods.(ÎÉ—“üÿÿÿÿ8Š§¢ê1J$eeec88b4-92c7-44cb-b4f8-e0183b8f8779
+Ÿ
+java:S1450"WRemove the "appLabel" field and declare it as a local variable in the relevant methods.(ŠÎ¡Ùşÿÿÿÿ8‹§¢ê1J$58105ba1-f7f6-4fbc-a3bb-91db7d4d3244
+—
+java:S1450"URemove the "footer" field and declare it as a local variable in the relevant methods.(«Ÿš8Œ§¢ê1J$3fa76783-754a-4028-ae6b-de557075a7a9
+š
+java:S1450"WRemove the "password" field and declare it as a local variable in the relevant methods.(†£ª´8§¢ê1J$bb3cca3a-61c1-4c9f-aaad-b1e80b4dfa42
+¤
+java:S1450"\Remove the "passwordLabel" field and declare it as a local variable in the relevant methods.(ÁÃ¢ÿÿÿÿÿ8§¢ê1J$1a28d4b0-e377-4d49-9b2f-3b953599abf7
+—
+java:S1450"TRemove the "title" field and declare it as a local variable in the relevant methods.(ƒíƒÌ8§¢ê1J$17e53ad0-682b-4703-95a2-dba1e1cc2221
+Ÿ
+java:S1450"WRemove the "username" field and declare it as a local variable in the relevant methods.(³ÓÉ øÿÿÿÿ8‘§¢ê1J$35f393f9-aaa7-4bea-be56-795166cf3de6
+Ÿ
+java:S1450"\Remove the "usernameLabel" field and declare it as a local variable in the relevant methods.(Ë¡ë¹8’§¢ê1J$6d89f7eb-a3ac-4c59-b03a-54553f92ace5
+š
+java:S1450"WRemove the "validate" field and declare it as a local variable in the relevant methods.(ƒ•Ô’8“§¢ê1J$84b150cb-95e4-4a2e-ac40-09666cd1f8cc
+ˆ
+java:S3252""EUse static access with "javafx.application.Application" for "launch".(©Â¤8§¢ê1J$76bd5f33-3aa9-426b-bb27-00462f1781bf

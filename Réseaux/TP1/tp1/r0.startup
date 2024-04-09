@@ -1,0 +1,2 @@
+ip a a 192.168.2.62/26 dev eth0
+ip a a 10.0.0.253/24 dev eth1

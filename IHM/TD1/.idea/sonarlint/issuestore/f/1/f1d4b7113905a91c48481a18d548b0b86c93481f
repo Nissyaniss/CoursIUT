@@ -1,0 +1,23 @@
+
+Ê
+java:S1598"†This file "HelloApplication.java" should be located in "org/example/td1" directory, not in "/home/nissya/Cours/IHM/TD1/src/main/java".(è²ì8íÀ‰¢ê1J$4dcf7fdc-1e80-41de-8878-3b6c17747b35
+š
+java:S1450"RRemove the "app" field and declare it as a local variable in the relevant methods.(ÎÉ—“üÿÿÿÿ8øÁ‰¢ê1J$6a5c5139-2d7f-4f24-b642-515a430db284
+Ÿ
+java:S1450"WRemove the "appLabel" field and declare it as a local variable in the relevant methods.(ŠÎ¡Ùşÿÿÿÿ8ùÁ‰¢ê1J$b61b160e-d06d-4487-b85b-b6196b57314e
+—
+java:S1450"URemove the "footer" field and declare it as a local variable in the relevant methods.(«Ÿš8úÁ‰¢ê1J$3553f0aa-cd1b-484f-8fef-924a7fb374b6
+š
+java:S1450"WRemove the "password" field and declare it as a local variable in the relevant methods.(†£ª´8úÁ‰¢ê1J$4fe8dbac-dba2-4218-adf6-745f4b55439a
+¤
+java:S1450"\Remove the "passwordLabel" field and declare it as a local variable in the relevant methods.(ÁÃ¢ÿÿÿÿÿ8ûÁ‰¢ê1J$ae17d794-f3d1-438f-8099-aa25e8ff9b49
+—
+java:S1450"TRemove the "title" field and declare it as a local variable in the relevant methods.(ƒíƒÌ8ûÁ‰¢ê1J$f067c3c5-b081-47c4-9577-53ba9746f8a1
+Ÿ
+java:S1450"WRemove the "username" field and declare it as a local variable in the relevant methods.(³ÓÉ øÿÿÿÿ8üÁ‰¢ê1J$6691d289-904b-47ee-abec-c949f4207b23
+Ÿ
+java:S1450"\Remove the "usernameLabel" field and declare it as a local variable in the relevant methods.(Ë¡ë¹8ıÁ‰¢ê1J$ce9983ad-a234-4df2-b104-bea1279fe2fd
+š
+java:S1450"WRemove the "validate" field and declare it as a local variable in the relevant methods.(ƒ•Ô’8şÁ‰¢ê1J$7d5f9aac-d0b8-48d4-9c2d-4456a3771b4f
+ˆ
+java:S3252"EUse static access with "javafx.application.Application" for "launch".(©Â¤8‰Â‰¢ê1J$43765966-9e8f-4886-a287-5d2f181cacb2

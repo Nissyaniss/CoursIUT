@@ -84,6 +84,15 @@ subnet 192.168.10.0 netmask 255.255.255.0
 	option routers 192.168.10.254 192.168.10.254;
 	option demiane-name-servers 192.168.10.200
 }
+
+host r2 {
+	hardware ethernet f6:84:e8:d1:3f:b5;
+	fixed-address 192.168.10.254;
+}
+host dns {
+	hardware ethernet f2:36:67:5a:12:11;
+	fixed-address 192.168.10.200;
+}
 ```
 ## Question 3
 

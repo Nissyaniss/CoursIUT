@@ -4,19 +4,15 @@
     "type": "split",
     "children": [
       {
-        "id": "3fd180124b58017b",
+        "id": "0a7fdd2acee2a213",
         "type": "tabs",
         "children": [
           {
-            "id": "03390a4a639ddbce",
+            "id": "ba2c63896bbc6b1c",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Java/TD8/TD8.md",
-                "mode": "source",
-                "source": false
-              }
+              "type": "empty",
+              "state": {}
             }
           }
         ]
@@ -85,7 +81,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Java/TD8/TD8.md",
+                "file": "BDD/R2.06/TD2/TD2.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +98,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Java/TD8/TD8.md",
+                "file": "BDD/R2.06/TD2/TD2.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +121,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Java/TD8/TD8.md"
+                "file": "BDD/R2.06/TD2/TD2.md"
               }
             }
           }
@@ -143,15 +139,41 @@
       "canvas:Create new canvas": false,
       "daily-notes:Open today's daily note": false,
       "templates:Insert template": false,
-      "command-palette:Open command palette": false
+      "command-palette:Open command palette": false,
+      "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "03390a4a639ddbce",
+  "active": "83763ae685b3fb09",
   "lastOpenFiles": [
-    "Exercice.md",
-    "Java/TD8/TD8.md",
-    "Java/TD8/TD8.mdj",
+    "BDD/R1.05/27.09.23/R1.05.md",
+    "BDD/R2.06/TD1/TD1.md",
+    "Compta/TD2/TD2.md",
+    "Compta/TD3/TD 3.md",
+    "Compta/TD3/TD_3_comptabilite.pdf",
+    "Compta/TD3/Sujet.pdf",
+    "Compta/TD3/SUjet.pdf",
+    "Compta/TD3/TD 3 comptabilité.pdf",
+    "Compta/TD3",
+    "Compta/TD2/TD_2.pdf",
+    "Pasted image 20240408103434.png",
+    "Pasted image 20240408102100.png",
+    "Compta/TD2/Sujet.pdf",
+    "Orga/R2.11/29.01.24/Hierarchie_des_textes_nationaux.png",
+    "Orga/R2.11/TD4/TD4.md",
+    "Orga/R2.11/TD3/TD3.md",
+    "Orga/R2.11/TD1/TD1.md",
+    "Réseaux/TP1/TP1.md",
+    "Réseaux/TP1/tp1/lab.conf~",
+    "Réseaux/TP1/tp1/r0.startup",
+    "Réseaux/TP1/tp1/r0.startup~",
+    "Pasted image 20240405183036.png",
+    "Réseaux/TD3/TD3.md",
+    "Réseaux/TD5/TD5.md",
     "Réseaux/TD4/TD4.md",
-    "TPxx_NOM_PRENOM_Gyy.pdf"
+    "Compta/TD1/Réponses.md",
+    "Compta/TD1/Screenshots/exo2-2.png",
+    "Compta/TD1/Screenshots/exo2-1.png",
+    "Java/TD8/TD8.md",
+    "Exercice.md"
   ]
 }

@@ -1,0 +1,17 @@
+
+š
+java:S1192I"RDefine a constant instead of duplicating this literal "Aucun login saisi" 3 times.(Ä°òÕûÿÿÿÿ8ò¼ê¢ê1J$d6a6b093-d7da-4ed3-aaf3-f74b76a689ad
+k
+java:S1604D"(Make this anonymous inner class a lambda(èÿó 8ó¼ê¢ê1J$962ade08-af7a-414d-86ce-788f67852cca
+Ÿ
+java:S1450"WRemove the "appLabel" field and declare it as a local variable in the relevant methods.(ŠÎ¡Ùşÿÿÿÿ8’½ê¢ê1J$ff0f99e3-5903-4439-b90e-3a0634d09c69
+¤
+java:S1450"\Remove the "passwordLabel" field and declare it as a local variable in the relevant methods.(ÁÃ¢ÿÿÿÿÿ8’½ê¢ê1J$910152ed-a391-4f0f-ae5b-e6f43598055c
+—
+java:S1450"TRemove the "title" field and declare it as a local variable in the relevant methods.(ƒíƒÌ8’½ê¢ê1J$10e3efa2-38a6-4942-b84e-c8489584f300
+Ÿ
+java:S1450"\Remove the "usernameLabel" field and declare it as a local variable in the relevant methods.(Ë¡ë¹8“½ê¢ê1J$ee82fadf-f4bb-40e8-9db0-63fde523ec25
+š
+java:S1450""WRemove the "validate" field and declare it as a local variable in the relevant methods.(ƒ•Ô’8“½ê¢ê1J$8f3e2757-7f24-45c5-822d-bc2d3d5c2d8f
+ˆ
+java:S3252&"EUse static access with "javafx.application.Application" for "launch".(©Â¤8•½ê¢ê1J$7b53e302-4983-485c-a190-a39631303e40
