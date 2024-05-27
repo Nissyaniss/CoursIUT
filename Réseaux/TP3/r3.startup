@@ -1,0 +1,10 @@
+ip a a 10.0.5.1/28 dev eth0
+ip a a 10.0.0.2/28 dev eth1
+ip a a 172.16.15.254/24 dev eth2
+
+ip r a 172.16.12.0/24 via 10.0.0.1
+ip r a 172.16.17.0/24 via 10.0.5.2
+
+iptables -t nat -A POSTROUTING -o eth3 -j MASQUERADE
+
+cp /shared/resolv.conf /etc/resolv.conf

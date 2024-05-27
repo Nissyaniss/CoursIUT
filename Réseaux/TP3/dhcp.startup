@@ -1,0 +1,13 @@
+ip a a 172.16.15.5/24 dev eth0
+
+ip r a default via 172.16.15.254
+
+cp /shared/resolv.conf /etc/resolv.conf
+
+apt update
+apt upgrade
+apt install -y isc-dhcp-server
+
+cp /shared/dhcp.conf /etc/dhcp/dhcpd.conf
+
+/etc/init.d/isc-dhcp-server start

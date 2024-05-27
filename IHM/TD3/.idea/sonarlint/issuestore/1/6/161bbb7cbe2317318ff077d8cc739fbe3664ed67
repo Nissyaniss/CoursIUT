@@ -1,0 +1,15 @@
+
+h
+java:S3655¡"JCall "choix.isPresent()" or "!choix.isEmpty()" before accessing the value.(Óë¬¯8®ıòÄì1
+¦
+java:S4165B"cRemove this useless assignment; "stage" already holds the assigned value along all execution paths.(©µ£Ê8ÙÉòÄì1J$2c6c9a5b-0181-43e6-825d-c7b802fcbda4
+š
+java:S1450"WRemove the "lblTitre" field and declare it as a local variable in the relevant methods.(˜ä£ÿ8àÉòÄì1J$dcbb48eb-dab1-4ad6-927f-1755afdc6a66
+|
+java:S1450*"ZRemove the "txtCivilite" field and declare it as a local variable in the relevant methods.(¾Éä…ÿÿÿÿÿ8ÖŠŞì1
+š
+java:S1450+"WRemove the "txtEmail" field and declare it as a local variable in the relevant methods.(Ÿ­ò¯8àÉòÄì1J$5754fc2d-543a-4e71-a52f-896b597f0c92
+‰
+java:S1075~"ARefactor your code to get this URI from a customizable parameter.(ãŸŠßøÿÿÿÿ8øÉòÄì1J$437e5f46-063a-46bb-8a1e-00ef44814a10
+r
+java:S1656B"/Remove or correct this useless self-assignment.(©µ£Ê8€ÊòÄì1J$b44712d9-c8a8-4714-bb39-42ff0182931e

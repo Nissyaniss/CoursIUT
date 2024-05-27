@@ -1,0 +1,10 @@
+ip r a default via 172.16.5.254
+
+cp /shared/interfaces /etc/network/interfaces
+
+/etc/init.d/networking restart
+
+apt update
+apt upgrade
+apt install -y lynx
+apt install -y gftp

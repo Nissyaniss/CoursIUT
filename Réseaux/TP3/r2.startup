@@ -1,0 +1,4 @@
+ip a a 10.0.5.2/28 dev eth1
+ip a a 172.16.17.254/24 dev eth0
+
+ip r a default via 10.0.5.1

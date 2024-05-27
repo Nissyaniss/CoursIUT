@@ -1,0 +1,15 @@
+ip a a 172.16.17.100/24 dev eth0
+
+ip r a default via 172.16.17.254
+
+cp /shared/resolv.conf /etc/resolv.conf
+
+apt update
+apt upgrade
+apt install -y apache2
+
+cp /shared/MaPage.html /var/www/html
+
+service apache2 start
+
+ps -ef | grep -i "httpd\|apache"

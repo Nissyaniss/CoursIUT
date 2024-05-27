@@ -1,0 +1,5 @@
+ip a a 172.16.17.2/24 dev eth0
+
+ip r a default via 172.16.17.254
+
+cp /shared/resolv.conf /etc/resolv.conf

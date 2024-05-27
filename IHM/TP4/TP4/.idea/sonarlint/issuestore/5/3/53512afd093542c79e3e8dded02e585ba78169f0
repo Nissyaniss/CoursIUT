@@ -1,0 +1,10 @@
+
+“	java:S116"QRename this field "COMPTA" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(äÆÔè8Ø¢÷’õ1J$bc65c20f-9f93-4975-a47b-cf662ef03e5a
+	java:S116"ORename this field "PAYE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(’šS8Ø¢÷’õ1J$82dc0b34-5609-4452-9dfb-aca4d66da967
+“	java:S116"RRename this field "GESTION" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(›Ûñ58Ø¢÷’õ1J$e19ed501-b7e2-4afc-9044-58ab4fe69bda
+d
+java:S1170"!Make this final field static too.(äÆÔè8Ø¢÷’õ1J$bfe3182c-840c-465f-b3c8-dc4e4d51d777
+c
+java:S1170"!Make this final field static too.(’šS8Ø¢÷’õ1J$95f36ef1-dcec-4e34-abac-ee3524cbef1c
+c
+java:S1170"!Make this final field static too.(›Ûñ58Ø¢÷’õ1J$36d017f0-9c28-4694-8a00-d710ed38c1a4

@@ -1,6 +1,6 @@
 # Questions
 
-1) Qu'est ce aui vous intéresse dans votre métier ?
+1) Qu'est ce qui vous intéresse dans votre métier ?
 2) Qu'est-ce que vous faites exactement ?
 3) Quelles sont vos languages principaux
 4) Que pensez vous de python en language d'apprentissage

@@ -1,0 +1,23 @@
+
+x
+java:S1450/"[Remove the "btnSouscrire" field and declare it as a local variable in the relevant methods.(Ω¥Ό΄8Ήκ—αμ1
+
+java:S1450"[Remove the "lblBienvenue" field and declare it as a local variable in the relevant methods.(’ΊΚ£8Νΐ„αμ1J$30e826ef-35e5-4b0d-bcef-aec3b128f108
+|
+java:S1450"ZRemove the "lblCivilite" field and declare it as a local variable in the relevant methods.(ΔÒ·ϋÿÿÿÿ8Όκ—αμ1
+
+java:S1450*"_Remove the "lblConfirmeEmail" field and declare it as a local variable in the relevant methods.(‰μ•Γόÿÿÿÿ8½κ—αμ1
+y
+java:S1450'"WRemove the "lblEmail" field and declare it as a local variable in the relevant methods.(΅Όζ†ϊÿÿÿÿ8Ύκ—αμ1
+r
+java:S1450!"URemove the "lblNom" field and declare it as a local variable in the relevant methods.(Τ•±»8ΐκ—αμ1
+z
+java:S1450$"XRemove the "lblPrenom" field and declare it as a local variable in the relevant methods.(‰Ωƒχόÿÿÿÿ8Ακ—αμ1
+£
+java:S1450"[Remove the "lblSouscrire" field and declare it as a local variable in the relevant methods.(‡ ­ζώÿÿÿÿ8Ξΐ„αμ1J$7822cc22-538e-42a2-bb34-d246b757c8be
+R
+java:S1128"0Remove this unused import 'java.time.LocalDate'.(›‘¬θύÿÿÿÿ8©λ—αμ1
+c
+java:S1128"FRemove this unused import 'java.time.format.DateTimeFormatterBuilder'.(ζλλΈ8©λ—αμ1
+Q
+java:S1128"4Remove this unused import 'java.util.regex.Matcher'.(λΕ›γ8ªλ—αμ1
